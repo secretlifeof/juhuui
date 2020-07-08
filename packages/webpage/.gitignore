@@ -1,0 +1,6 @@
+/.next
+/build
+node_modules
+
+.now
+.vercel
