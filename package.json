@@ -1,6 +1,6 @@
 {
   "name": "juhuui",
-  "private": false,
+  "private": true,
   "version": "0.0.3",
   "description": "Lightweight and flexible UI library",
   "license": "MIT",
@@ -32,6 +32,7 @@
     "eslint-plugin-json": "^2.1.1",
     "eslint-plugin-jsx-a11y": "^6.3.1",
     "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-react": "^7.20.3",
     "eslint-plugin-simple-import-sort": "^5.0.3",
     "husky": "^4.2.5",
     "jest": "^25.3.0",

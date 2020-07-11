@@ -1,4 +1,5 @@
 import base, { Base } from './system/base';
+import withHelper from './system/withHelper';
 
 interface ListItemProps {
   spacing: string | number;
@@ -12,45 +13,45 @@ interface ListProps {
   rest: any;
 }
 
-export function ListItem(
-  { spacing = 0, ...rest }: ListItemProps,
-  ref: object
-) : Base {
+export function ListItem({ spacing = 0, ...rest }: ListItemProps): Base {
   const style = {
-    marginBottom: spacing,
+    marginBottom: spacing
   };
 
-  return base({ ...style, as: 'li', ...rest }, ref, 'li');
+  return base({ ...style, as: 'li', ...rest }, 'li');
 }
 
-function List(
-  {
-    pseudo: pseudoIn = {},
-    styleType = 'space-counter',
-    spacing = 0,
-    ...rest
-  }: ListProps,
-  ref: object
-) : Base {
+ListItem.with = withHelper(ListItem);
+
+ListItem.displayName = 'ListItem';
+
+function List({
+  pseudo: pseudoIn = {},
+  styleType = 'space-counter',
+  spacing = 0,
+  ...rest
+}: ListProps): Base {
   const style = {
     listStyleType: styleType,
-    listStylePosition: 'inside',
+    listStylePosition: 'inside'
   };
 
   const pseudo = {
     '& li': {
-      marginBottom: spacing,
+      marginBottom: spacing
     },
     '& li > span > svg': {
       size: '0.7em',
-      marginRight: '0.4em',
+      marginRight: '0.4em'
     },
-    ...pseudoIn,
+    ...pseudoIn
   };
 
-  return base({ ...style, ...pseudo, fun: true, as: 'ul', ...rest }, ref, 'ul');
+  return base({ ...style, ...pseudo, fun: true, as: 'ul', ...rest }, 'ul');
 }
 
-List.displayName = 'List'
+List.with = withHelper(List);
+
+List.displayName = 'List';
 
 export default List;

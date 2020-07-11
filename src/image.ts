@@ -1,10 +1,12 @@
 import base, { Base } from './system/base';
+import withHelper from './system/withHelper';
 
-
-function Image(props: any, ref: object) : Base {
-  return base({ as: 'img', ...props }, ref);
+function Image(props: any): Base {
+  return base({ as: 'img', ...props });
 }
 
-Image.displayName = 'Image'
+Image.with = withHelper(Image);
+
+Image.displayName = 'Image';
 
 export default Image;

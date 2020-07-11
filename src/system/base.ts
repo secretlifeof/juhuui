@@ -8,14 +8,13 @@ type Render = ReturnType<typeof render>;
  */
 
 function base(
-	props: Props,
-	ref: object,
-	extraRaw: string | undefined = '',
-	child?: Array<object>
+  props: Props,
+  extraRaw: string | undefined = '',
+  child?: Array<object>
 ): Render {
-	const root = processProps(props);
-	const css: CSS = { classNames: root.classNames, extraRaw };
-	return render(root.returnProps, ref, child, css);
+  const root = processProps(props);
+  const css: CSS = { classNames: root.classNames, extraRaw };
+  return render(root.returnProps, child, css);
 }
 
 export type Base = ReturnType<typeof base>;

@@ -1,6 +1,6 @@
 import { Box, Flex } from 'juhuui';
 import { useRouter } from 'next/router';
-import React, { useEffect,useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import Menu from '../../containers/documentationMenu';
 import Markdown from '../../containers/markdown';
@@ -24,7 +24,7 @@ function Recipes() {
         linkBase="recipes"
         changeMd={(title) => setMd(title)}
       />
-      <Flex justify="center" pl={[0, null, '56']}>
+      <Flex justify="center" w="full">
         <Box
           fun
           w="100%"

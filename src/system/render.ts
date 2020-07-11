@@ -1,12 +1,12 @@
 import { h } from './setup';
 
 interface Props {
-	[key: string]: any;
+  [key: string]: any;
 }
 
 export interface CSS {
-	classNames: string[];
-	extraRaw?: string;
+  classNames: string[];
+  extraRaw?: string;
 }
 
 type CreateElement = ReturnType<typeof h>;
@@ -16,23 +16,22 @@ type CreateElement = ReturnType<typeof h>;
  */
 
 const render = (
-	{ as: propAs, children, className = '', ...props }: Props,
-	ref: object,
-	child: Array<object> | undefined,
-	css: CSS
+  { as: propAs, children, className = '', ...props }: Props,
+  child: Array<object> | undefined,
+  css: CSS
 ): CreateElement => {
-	const { classNames } = css;
-	const tag: string = propAs || 'div';
+  const { classNames } = css;
+  const tag: string = propAs || 'div';
 
-	return h(
-		tag,
-		{
-			...props,
-			ref,
-			className: `${classNames.join(' ')} ${className}`.trim()
-		},
-		child ? [...child, ...children] : children
-	);
+  return h(
+    tag,
+    {
+      ...props,
+      // ...(forwardRef && ref),
+      className: `${classNames.join(' ')} ${className}`.trim()
+    },
+    child ? [...child, ...children] : children
+  );
 };
 
 export default render;

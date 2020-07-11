@@ -4,7 +4,7 @@
 const path = require('path');
 const fs = require('fs');
 
-const DIR = path.join(process.cwd(), '../../documentation/');
+const DIR = path.join(process.cwd(), './documentation/');
 const componentsDIR = `${DIR}components/`;
 const recipesDIR = `${DIR}recipes/`;
 
@@ -42,5 +42,5 @@ const filesRecipes = fileNamesRecipes.reduce((obj, file) => {
 module.exports = {
   filesRoot,
   filesComponents,
-  filesRecipes,
+  filesRecipes
 };

@@ -1,6 +1,6 @@
-import { Box, Heading } from 'juhuui';
+import { Box, Heading, Link } from 'juhuui';
 import MDtoJSX from 'markdown-to-jsx';
-import React, { createElement} from 'react';
+import React, { createElement } from 'react';
 
 import CodeDisplay from './codeDisplay';
 import LiveCode from './liveCode';
@@ -47,6 +47,10 @@ const Blockquote = (props) => {
   );
 };
 
+// const A = (props) => <Link color="red" {...props} />;
+
+const A = Link.with({ color: 'orange.400' });
+
 const Markdown = ({ contents }) => (
   <MDtoJSX
     options={{
@@ -57,25 +61,23 @@ const Markdown = ({ contents }) => (
         h4: H4,
         TableBox: Table,
         blockquote: Blockquote,
+        a: A
       },
       createElement(type, props, children) {
-        const {className} = props
+        const { className } = props;
         if (className && className === 'lang-js-live') {
           return <LiveCode content={children} />;
         }
 
         if (type === 'code')
           return (
-            <CodeDisplay
-              lang={className && className.slice(5)}
-            >
+            <CodeDisplay lang={className && className.slice(5)}>
               {children}
-
             </CodeDisplay>
           );
 
         return createElement(type, props, children);
-      },
+      }
     }}
   >
     {contents}

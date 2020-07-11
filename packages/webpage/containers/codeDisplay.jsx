@@ -1,4 +1,4 @@
-import { Box } from 'juhuui';
+import { Fun } from 'juhuui';
 import React from 'react';
 
 import SyntaxHighlighter from '../components/syntaxHighlighter';
@@ -14,13 +14,12 @@ export const jsTheme = {
   '.comment': { color: 'gray.400' },
   '.class-name': { color: 'orange.300' },
   '.attr-name': { color: 'gray.800' },
-  '.attr-value': { color: 'green.500' },
+  '.attr-value': { color: 'green.500' }
 };
 
 const CodeDisplay = ({ children, lang = 'js', ...props }) => {
   return (
-    <Box
-      fun
+    <Fun
       py="2"
       pl="4"
       bg="gray.200"
@@ -32,7 +31,7 @@ const CodeDisplay = ({ children, lang = 'js', ...props }) => {
       {...props}
     >
       <SyntaxHighlighter code={children} language={lang} />
-    </Box>
+    </Fun>
   );
 };
 

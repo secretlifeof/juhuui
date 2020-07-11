@@ -1,7 +1,7 @@
-import { Box, Flex,Fun } from 'juhuui';
+import { Box, Flex, Fun } from 'juhuui';
 import NLink from 'next/link';
 import { useRouter } from 'next/router';
-import React, { useEffect,useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import Menu from '../../containers/documentationMenu';
 import Markdown from '../../containers/markdown';
@@ -27,7 +27,7 @@ function Documentation() {
         linkBase="documentation"
         changeMd={(title) => setMd(title)}
       />
-      <Flex justify="center" pl={[0, null, '56']}>
+      <Flex justify="center">
         <Box
           fun
           pl={['3vw', null, '8']}

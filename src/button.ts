@@ -1,4 +1,5 @@
-import base, {Base} from './system/base';
+import base, { Base } from './system/base';
+import withHelper from './system/withHelper';
 
 interface Props {
   activeColor: string;
@@ -34,7 +35,7 @@ export const baseStyle: BaseStyle = {
   userSelect: 'none',
   transition: 'all 250ms',
   verticalAlign: 'middle',
-  whiteSpace: 'nowrap',
+  whiteSpace: 'nowrap'
 };
 
 export const sizes: Sizes = {
@@ -42,57 +43,62 @@ export const sizes: Sizes = {
     height: 6,
     minWidth: 6,
     fontSize: 'xs',
-    px: 2,
+    px: 2
   },
   sm: {
     height: 8,
     minWidth: 8,
     fontSize: 'sm',
-    px: 3,
+    px: 3
   },
   md: {
     height: 10,
     minWidth: 10,
     fontSize: 'md',
-    px: 4,
+    px: 4
   },
   lg: {
     height: 12,
     minWidth: 12,
     fontSize: 'lg',
-    px: 6,
-  },
+    px: 6
+  }
 };
 
-function Button(
-  { activeColor = '', buttonSize = 'md', fun = true, hoverColor = '', ...rest }: Props,
-  ref: object
-) : Base {
+function Button({
+  activeColor = '',
+  buttonSize = 'md',
+  fun = true,
+  hoverColor = '',
+  ...rest
+}: Props): Base {
   const style = {
     ...baseStyle,
     ...sizes[buttonSize],
     borderRadius: 'md',
     _hover: {
-      background: hoverColor,
+      background: hoverColor
     },
     _active: {
-      background: activeColor,
-    },
+      background: activeColor
+    }
   };
 
   const pseudo = {
     '&:focus': {
-      boxShadow: 'outline',
+      boxShadow: 'outline'
     },
     '&:disabled': {
       opacity: '40%',
       cursor: 'not-allowed',
-      boxShadow: 'none',
-    },
+      boxShadow: 'none'
+    }
   };
 
-  return base({ ...style, pseudo, as: 'button', fun, ...rest }, ref);
+  return base({ ...style, pseudo, as: 'button', fun, ...rest });
 }
+
+Button.with = withHelper(Button);
 
 Button.displayName = 'Button';
 

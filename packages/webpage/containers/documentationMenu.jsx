@@ -1,6 +1,6 @@
 import { Flex, Fun } from 'juhuui';
 import Link from 'next/link';
-import React from 'react'
+import React from 'react';
 
 const DocumentationMenu = ({ items, linkBase }) => (
   <Flex
@@ -15,10 +15,8 @@ const DocumentationMenu = ({ items, linkBase }) => (
     minWidth="56"
     bg="gray.50"
     d={['none', null, 'flex']}
-    position="fixed"
     top="16"
     h="100%"
-    zIndex="1"
   >
     {items.map((item, index) => (
       <Link href={`/${linkBase}/[mdx]`} as={`/${linkBase}/${item}`}>

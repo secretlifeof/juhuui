@@ -1,15 +1,17 @@
-import base, { Base} from './system/base';
+import base, { Base } from './system/base';
+import withHelper from './system/withHelper';
 
-interface Props {
+export interface Props {
   fun?: boolean;
   pseudo?: any;
-  css?: string | undefined;
 }
 
-const Box = ({ css, ...props }: Props, ref: object) : Base => {
-  return base(props, ref, css);
+const Box = (props: Props): Base => {
+  return base(props);
 };
 
-Box.displayName = 'Box'
+Box.with = withHelper(Box);
+
+Box.displayName = 'Box';
 
 export default Box;

@@ -62,6 +62,32 @@ const SayWhat = () => (
 );
 ```
 
+## Styled-Components way
+
+All components can be written in a style similar to Styled-Components. Styles can be extended by writing them inline. At the moment you cannot extend styles by nesting components. Use the 'fw' prop to forward arguments because it will be removed from the DOM.
+
+```javascript
+import { Text } from 'juhuui';
+
+const UpperCase = Text.with({
+  textTransform: 'uppercase',
+  color: 'orange.600'
+})
+
+<UpperCase>Hello there!</UpperCase>;
+
+// or
+
+const Colorful = Text.with({(fw}) => ({
+  bg: fw.background,
+  color: 'orange.600'
+}))
+
+<Colorful fw={{ background: 'yellow.200' }}>Orange</Colorful>;
+// or overwrite styles by adding a css property to the component
+<Colorful color="red.300" fw={{ background: 'yellow.200' }}>Red</Colorful>;
+```
+
 ## Vanilla taste
 
 If you like vanilla or svelte you can use the exported css function. This can be used without setup.

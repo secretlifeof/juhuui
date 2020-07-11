@@ -1,4 +1,4 @@
-import { Box, Flex,Fun } from 'juhuui';
+import { Box, Flex, Fun } from 'juhuui';
 import NLink from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
@@ -12,7 +12,7 @@ export const menuItems = [
   'concepts',
   'theme',
   'shortcuts',
-  'darkmode',
+  'darkmode'
 ];
 
 function Documentation() {
@@ -31,7 +31,7 @@ function Documentation() {
         linkBase="documentation"
         changeMd={(title) => setMd(title)}
       />
-      <Flex pl={[0, null, '56']} w="full" justify="center">
+      <Flex w="full" justify="center">
         <Box
           fun
           pl={['3vw', null, '8']}
@@ -56,9 +56,7 @@ function Documentation() {
               textDecoration="underline"
               _hover={{ color: 'blue.600', textDecoration: 'none' }}
             >
-              continue with 
-              {' '}
-              {nextMdName.toUpperCase()}
+              continue with {nextMdName.toUpperCase()}
             </Fun>
           </NLink>
         </Box>

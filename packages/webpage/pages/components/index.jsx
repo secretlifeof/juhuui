@@ -24,7 +24,7 @@ function Components() {
         linkBase="components"
         // changeMd={(title) => setMd(title)}
       />
-      <Flex justify="center" pl={[0, null, '56']}>
+      <Flex justify="center" w="full">
         <Box
           fun
           w="100%"

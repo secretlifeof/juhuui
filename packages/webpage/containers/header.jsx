@@ -1,6 +1,6 @@
-import { Flex, Fun, Icon, Link,Text, css } from 'juhuui';
+import { Flex, Fun, Icon, Link, Text, css } from 'juhuui';
 import NextLink from 'next/link';
-import React, { useEffect,useState } from 'react'
+import React, { useEffect, useState } from 'react';
 
 import FrameMain from '../components/frameMain';
 
@@ -11,7 +11,7 @@ const theme = {
     '--c200': '#e9f8e8',
     '--c300': '#37b311',
     '--c800': '#07130f',
-    '--c900': '#07130f',
+    '--c900': '#07130f'
   },
   dark: {
     '--c50': 'black',
@@ -19,8 +19,8 @@ const theme = {
     '--c200': 'black',
     '--c300': 'yellow',
     '--c800': '#07130f',
-    '--c900': '#fff7eb',
-  },
+    '--c900': '#fff7eb'
+  }
 };
 
 function Header() {
@@ -47,7 +47,7 @@ function Header() {
       d="flex"
       justify="space-between"
       align="center"
-      h={["20", "16"]}
+      h={['20', '16']}
       color="white"
       pos="relative"
       w="100%"
@@ -58,7 +58,7 @@ function Header() {
       fontSize="md"
     >
       <NextLink href="/">
-        <Text fontSize={["3xl", "xl"]} cursor="pointer" letterSpacing="0.050em">
+        <Text fontSize={['3xl', 'xl']} cursor="pointer" letterSpacing="0.050em">
           JUHUUI
         </Text>
       </NextLink>
@@ -67,7 +67,7 @@ function Header() {
         pseudo={{
           '& > div': { pl: ['4', '8', '4'] },
           '& > a': { ml: ['4', '4', '6'] },
-          '& > svg': { ml: ['8', '4', '6'] },
+          '& > svg': { ml: ['8', '4', '6'] }
         }}
         align="center"
         letterSpacing="0.037em"
@@ -102,7 +102,11 @@ function Header() {
             Recipes
           </Fun>
         </NextLink>
-        <Link href="https://github.com/secretlifeof" target="_blank" size={['8', "6"]}>
+        <Link
+          href="https://github.com/secretlifeof/juhuui"
+          target="_blank"
+          size={['8', '6']}
+        >
           <Icon
             name="github"
             cursor="pointer"
@@ -110,15 +114,16 @@ function Header() {
             hoverColor="black"
           />
         </Link>
-        <Icon
+        {/* <Icon
           name="moon"
           cursor="pointer"
           color="white"
           hoverColor="black"
-          size={['8', "6"]}
+          size={['8', '6']}
           onClick={() =>
-            setDarkMode((state) => (state === 'light' ? 'dark' : 'light'))}
-        />
+            setDarkMode((state) => (state === 'light' ? 'dark' : 'light'))
+          }
+        /> */}
       </Flex>
     </FrameMain>
   );

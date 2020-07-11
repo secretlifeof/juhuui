@@ -19,11 +19,11 @@ import {
   Stack,
   Tag,
   Text,
-  Textarea,
+  Textarea
 } from 'juhuui';
 import React, { useEffect, useRef, useState } from 'react';
-import { LiveEditor, LiveError, LivePreview,LiveProvider } from 'react-live';
-import { animated,useSpring } from 'react-spring';
+import { LiveEditor, LiveError, LivePreview, LiveProvider } from 'react-live';
+import { animated, useSpring } from 'react-spring';
 
 import { allTheme } from '../pages/_app';
 
@@ -32,65 +32,65 @@ const { colors } = allTheme;
 const theme = {
   plain: {
     backgroundColor: colors.gray[200],
-    color: colors.gray[700],
+    color: colors.gray[700]
     // fontFamily: 'Cairo',
   },
   styles: [
     {
       types: ['comment', 'punctuation'],
       style: {
-        color: colors.gray[400],
-      },
+        color: colors.gray[400]
+      }
     },
     {
       types: ['tag'],
       style: {
-        color: colors.red[500],
-      },
+        color: colors.red[500]
+      }
     },
     {
       types: ['keyword'],
       style: {
-        color: colors.blue[600],
-      },
+        color: colors.blue[600]
+      }
     },
     {
       types: ['operator'],
       style: {
-        color: colors.pink[300],
-      },
+        color: colors.pink[300]
+      }
     },
     {
       types: ['string'],
       style: {
-        color: colors.green[500],
-      },
+        color: colors.green[500]
+      }
     },
     {
       types: ['function function-variable'],
       style: {
-        color: colors.orange[500],
-      },
+        color: colors.orange[500]
+      }
     },
     {
       types: ['class-name'],
       style: {
-        color: colors.orange[300],
-      },
+        color: colors.orange[300]
+      }
     },
     {
       types: ['attr-name'],
       style: {
-        color: colors.gray[800],
-      },
+        color: colors.gray[800]
+      }
     },
     {
       types: ['attr-value'],
       style: {
-        color: colors.green[500],
-      },
-    },
-  ],
+        color: colors.green[500]
+      }
+    }
+  ]
 };
 
 const scope = {
@@ -120,7 +120,7 @@ const scope = {
   Text,
   Textarea,
   useSpring,
-  animated,
+  animated
 };
 
 const LiveCode = ({ content }) => {
@@ -137,6 +137,7 @@ const LiveCode = ({ content }) => {
         pseudo={{
           '& > div': { borderRadius: 'md', border: '2px solid transparent' },
           '&:hover > div': { border: '2px solid black' },
+          '& *': { fontFamily: '"Courier New", Courier, monospace' }
         }}
       >
         <LiveEditor />

@@ -1,13 +1,15 @@
 import base, { Base } from './system/base';
+import withHelper from './system/withHelper';
 
-
-function Grid(props: any, ref: object) : Base {
+function Grid(props: any): Base {
   const style = {
-    display: 'grid',
+    display: 'grid'
   };
 
-  return base({ ...style, ...props }, ref);
+  return base({ ...style, ...props });
 }
+
+Grid.with = withHelper(Grid);
 
 Grid.displayName = 'Grid';
 

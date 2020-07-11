@@ -1,8 +1,11 @@
 import base, { Base } from './system/base';
+import withHelper from './system/withHelper';
 
-function Text(props: any, ref: object) : Base {
-  return base({ as: 'span', ...props }, ref, 'span');
+function Text(props: any): Base {
+  return base({ as: 'span', ...props }, 'span');
 }
+
+Text.with = withHelper(Text);
 
 Text.displayName = 'Text';
 

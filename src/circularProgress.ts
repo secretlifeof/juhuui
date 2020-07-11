@@ -1,4 +1,5 @@
-import base, {Base} from './system/base';
+import base, { Base } from './system/base';
+import withHelper from './system/withHelper';
 
 interface Props {
   angle: number;
@@ -46,20 +47,27 @@ interface CircleReturn {
   };
 }
 
-export const CircularProgressLabel = (props: any, ref: object) : Base => {
+export const CircularProgressLabel = (props: any): Base => {
   const style = {
     position: 'absolute',
     left: '50%',
     top: '50%',
     lineHeight: '1',
     transform: 'translate(-50%, -50%)',
-    fontSize: '0.25em',
+    fontSize: '0.25em'
   };
 
-  return base({ ...style, ...props }, ref);
+  return base({ ...style, ...props });
 };
 
-function getCircleProps({ color, thickness, offset, radius, strokeDasharray, viewBox }: GetCircleProps) {
+function getCircleProps({
+  color,
+  thickness,
+  offset,
+  radius,
+  strokeDasharray,
+  viewBox
+}: GetCircleProps) {
   const circle: Circle = {
     as: 'circle',
     color,
@@ -70,7 +78,7 @@ function getCircleProps({ color, thickness, offset, radius, strokeDasharray, vie
     'stroke-dashoffset': offset,
     cx: viewBox,
     cy: viewBox,
-    r: radius,
+    r: radius
   };
   return circle;
 }
@@ -84,7 +92,7 @@ function getComputedProps({
   thickness,
   trackColor,
   color,
-  capIsRound,
+  capIsRound
 }: GetComputedProps) {
   const radius = 50;
   const diameter = radius * 2;
@@ -97,7 +105,6 @@ function getComputedProps({
   const progress = 1 - (value - min) / (max - min);
   const strokeDashoffset = progress * circumference;
 
-
   const circleReturn: CircleReturn = {
     root: {
       size,
@@ -108,7 +115,7 @@ function getComputedProps({
       role: 'progressbar',
       'aria-valuemin': min,
       'aria-valuemax': max,
-      'aria-valuenow': value,
+      'aria-valuenow': value
     },
 
     svg: {
@@ -116,7 +123,7 @@ function getComputedProps({
       viewBox: viewBoxAttr,
       verticalAlign: 'top',
       transform: `rotate3d(0, 0, 1, ${angle - 90}deg)`,
-      size: '100%',
+      size: '100%'
     },
 
     label: {
@@ -127,9 +134,9 @@ function getComputedProps({
         width: '100%',
         height: '100%',
         position: 'absolute',
-        top: 0,
+        top: 0
       },
-      text: `${Math.floor((1 - progress) * 100)}%`,
+      text: `${Math.floor((1 - progress) * 100)}%`
     },
 
     track: getCircleProps({
@@ -151,29 +158,26 @@ function getComputedProps({
         viewBox
       }),
       ...(capIsRound && { strokeLinecap: 'round' }),
-      stroke: 'currentColor',
-    },
+      stroke: 'currentColor'
+    }
   };
   return circleReturn;
 }
 
-function CircularProgress(
-  {
-    angle = 0,
-    capIsRound = true,
-    children,
-    color = 'green.500',
-    label,
-    max = 100,
-    min = 0,
-    size = '12',
-    thickness = 0.2,
-    trackColor = 'gray.400',
-    value = 80,
-    ...rest
-  }: Props,
-  ref: object
-) : Base {
+function CircularProgress({
+  angle = 0,
+  capIsRound = true,
+  children,
+  color = 'green.500',
+  label,
+  max = 100,
+  min = 0,
+  size = '12',
+  thickness = 0.2,
+  trackColor = 'gray.400',
+  value = 80,
+  ...rest
+}: Props): Base {
   const { root, indicator, label: labelObj, svg, track } = getComputedProps({
     min,
     max,
@@ -183,21 +187,23 @@ function CircularProgress(
     thickness,
     capIsRound,
     color,
-    trackColor,
+    trackColor
   });
 
-  const i = base(indicator, ref);
-  const t = base(track, ref);
-  const s = base(svg, ref, undefined, [t, i]);
+  const i = base(indicator);
+  const t = base(track);
+  const s = base(svg, undefined, [t, i]);
 
-  const labelChild = base(labelObj.style, ref, undefined, labelObj.text);
+  const labelChild = base(labelObj.style, undefined, labelObj.text);
 
-  return base({ ...root, ...rest }, ref, undefined, [
+  return base({ ...root, ...rest }, undefined, [
     s,
     label && labelChild,
-    children,
+    children
   ]);
 }
+
+CircularProgress.with = withHelper(CircularProgress);
 
 CircularProgress.displayName = 'CircularProgress';
 

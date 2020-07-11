@@ -23,7 +23,7 @@ export interface Props {
 function processProps() {
   const CACHE = new Map();
 
-  return ({ children, as, fun = defaultFun, ...props }: Props) => {
+  return ({ children, as, fun: inFun = defaultFun, ...props }: Props) => {
     const returnProps: any = { children, as };
 
     const classNamesByProperty = new Map();
@@ -34,13 +34,12 @@ function processProps() {
         Pseudo | NestedPseudo | string | number
       ] = entries[i];
 
-      const valid = isValidProp(propName, fun);
-      const { property } = valid;
+      const { property, fun } = isValidProp(propName, inFun);
 
       if (!property) {
-        returnProps[propName] = propVal;
+        if (propName !== 'fw') returnProps[propName] = propVal;
       } else {
-        const isCacheCompatible = !valid.fun;
+        const isCacheCompatible = !fun;
         const cacheKey = isCacheCompatible && `${propName}${propVal}`;
         const cachedClassNames = isCacheCompatible && CACHE.get(cacheKey);
 
@@ -52,7 +51,7 @@ function processProps() {
               classNamesByProperty.set(property[j], cachedClassNames);
             }
           }
-        } else if (valid.fun) {
+        } else if (fun) {
           if (propName === 'pseudo') {
             for (let j = 0, e = Object.entries(propVal); j < e.length; j++) {
               const [selector, pseudoValues]: [string, Pseudo] = e[j];

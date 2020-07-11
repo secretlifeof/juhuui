@@ -1,17 +1,19 @@
 import base, { Base } from './system/base';
+import withHelper from './system/withHelper';
 
-
-function Heading(props: any, ref: object) : Base {
+function Heading(props: any): Base {
   const style = {
     as: 'h2',
     lineHeight: 'shorter',
     // fontWeight: 'bold',
-    fontFamily: 'heading',
+    fontFamily: 'heading'
   };
 
-  return base({ ...style, ...props }, ref);
+  return base({ ...style, ...props });
 }
 
-Heading.displayName = 'Heading'
+Heading.with = withHelper(Heading);
+
+Heading.displayName = 'Heading';
 
 export default Heading;
