@@ -2,9 +2,7 @@
 
 ### A relatively small and performant UI-library
 
-> Hello creature. How are you? Do you also feel average? 😽
-
-Juhuui is similar to other UI-libraries (there are sooo many...). The only thing that can be said, **try it and see if your brain feels comfortable using it**. [HTM](https://github.com/developit/htm) is the only dependency and is used for loading SVGs. It is flexible (not dependant on React/Preact), small (<9kb) and themeable.
+Juhuui might be just another UI library that creates atomic CSS. [HTM](https://github.com/developit/htm) is the only dependency and that is needed for loading SVGs. It is flexible (not dependant on React/Preact), small (<9kb) and themeable.
 
 ---
 
@@ -14,12 +12,12 @@ Juhuui is similar to other UI-libraries (there are sooo many...). The only thing
 
 #### Features
 
-- Same shortcuts as Styled-System
 - Theme (default/customizable)
 - Small (<9kb)
-- SSR rendering possible / extract critical CSS
+- Same shortcuts as Styled-System
+- Extract critical CSS for server side rendering
 - Easy to implement darkmode
-- Mediaqueries are written as arrays (_['green', 'orange', 'pink']_)
+- @media queries are written as arrays (_['green', 'orange', 'pink']_)
 
 ## Installation
 
@@ -40,7 +38,7 @@ import { createElement } from 'react'; // or h from Preact
 setup(createElement);
 ```
 
-Juhu, now you can start building components
+Juhu you can start building components.
 
 ```js
 import { Box, Flex, Fun, Icon, Text } from 'juhuui';
@@ -62,9 +60,9 @@ const SayWhat = () => (
 );
 ```
 
-## Styled-Components way
+## Styled component
 
-All components can be written in a style similar to Styled-Components. Styles can be extended by writing them inline. At the moment you cannot extend styles by nesting components. Use the 'fw' prop to forward arguments because it will be removed from the DOM.
+All components can be created externally. This is useful for separating styles and components. Styles can be overwritten by writing them inline. Please use the 'fw' prop to forward arguments because 'fw' will be removed from the DOM.
 
 ```javascript
 import { Text } from 'juhuui';
@@ -90,7 +88,7 @@ const Colorful = Text.with({(fw}) => ({
 
 ## Vanilla taste
 
-If you like vanilla or svelte you can use the exported css function. This can be used without setup.
+If you like vanilla or svelte you can use the exported css function. This can be used without setup. CSS rules are added to a style tag.
 
 ```js
 import { css } from 'juhuui';
@@ -144,11 +142,11 @@ export default class MyDocument extends Document {
 
 ## Options
 
-The setup function takes a second object with options (more might be added), but at this moment there are only two.
+The setup function takes a second object with options.
 
 ```js
 import { setup, theme } from 'juhuui';
-import { h } from 'preact';
+import { h, forwardRef } from 'preact';
 
 const newTheme = {
   ...theme,
@@ -167,7 +165,8 @@ const newTheme = {
 
 setup(h, {
   theme: newTheme,
-  defaultFun: true // activate fun=true on all components
+  defaultFun: true, // activate fun=true on all components
+  forwardRef // necessary if you need refs
 });
 ```
 

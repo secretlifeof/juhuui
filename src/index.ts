@@ -4,7 +4,7 @@ export { default as Box } from './box';
 export { default as Button } from './button';
 export {
   default as CircularProgress,
-  CircularProgressLabel,
+  CircularProgressLabel
 } from './circularProgress';
 export { default as css } from './system/css';
 export { default as Divider } from './divider';

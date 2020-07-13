@@ -1,6 +1,6 @@
 ## Introduction
 
-Juhuui is a UI library that is inspired by Material-ui and Chakra-ui. Behind the scenes it creates atomic CSS. UI libraries in general can be recommended. This is just another one. Our principles are stolen (or borrowed) from other great thinkers. We have a copy & paste [recipes](/recipes) section for all components that can be composed from smaller ones like menu, spinner or an accordion. Juhuui is themeable and you can write media queries in a simple but opinionated way. We value bodily contact, so feel free to give us a kiss or a github star.
+Juhuui is a UI library that is inspired by Material-ui and Chakra-ui. Behind the scenes it creates atomic CSS. This might be just another UI library. Our principles are stolen (or borrowed) from other great thinkers. We have a copy & paste [recipes](/recipes) section for all components that can be composed from smaller ones like menu, spinner or an accordion. Juhuui is themeable and you can write media queries in a simple but opinionated way.
 
 > If you wish to know more about atomic CSS we recommend this [article by Sébastien Lorber](https://sebastienlorber.com/atomic-css-in-js).
 
@@ -41,9 +41,9 @@ import { Box } from 'juhuui';
 </Box>;
 ```
 
-#### Styled-Components way
+#### Styled component
 
-All components can be written in a style similar to Styled-Components. Styles can be extended by writing them inline. At the moment you cannot extend styles by nesting components. Use the 'fw' prop to forward arguments because it will be removed from the DOM.
+All components can be created externally. This is useful for separating styles and components. Styles can be overwritten by writing them inline. Please use the 'fw' prop to forward arguments because 'fw' will be removed from the DOM.
 
 ```javascript
 import { Text } from 'juhuui';
@@ -57,7 +57,7 @@ const UpperCase = Text.with({
 
 // or
 
-const Colorful = Text.with({(fw}) => ({
+const Colorful = Text.with(({fw}) => ({
   bg: fw.background,
   color: 'orange.600'
 }))
@@ -83,4 +83,4 @@ const classNames = css({
 <div className={classNames}>Hello world</div>;
 ```
 
-Hey, if you feel that something is missing please give some feedback :-)
+Honesty is valuable. Feedback is also valuable.

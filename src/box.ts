@@ -4,6 +4,7 @@ import withHelper from './system/withHelper';
 export interface Props {
   fun?: boolean;
   pseudo?: any;
+  ref?: any;
 }
 
 const Box = (props: Props): Base => {

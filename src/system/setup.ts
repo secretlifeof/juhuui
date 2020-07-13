@@ -2,7 +2,7 @@ import defaultTheme, { Theme } from '../theme';
 
 interface Config {
   theme?: Theme;
-  // forwardRef?: Function;
+  forwardRef?: Function;
   defaultFun: boolean;
 }
 
@@ -10,7 +10,7 @@ interface Config {
 export let h: (nodeName: string, attributes: any, children: any[]) => any;
 export let themeInternal: Theme = defaultTheme;
 export let defaultFun = false;
-// export let forwardRef: Function | undefined;
+export let forwardRef: Function | undefined;
 /* eslint-enable import/no-mutable-exports */
 
 const setup = (
@@ -19,31 +19,13 @@ const setup = (
 ): void => {
   const {
     theme: inTheme,
-    defaultFun: inDefaultFun
-    // forwardRef: forwardRefInput
+    defaultFun: inDefaultFun,
+    forwardRef: forwardRefInput
   } = options || {};
   themeInternal = { ...defaultTheme, ...inTheme };
   h = createElement;
   defaultFun = inDefaultFun;
-  // forwardRef = forwardRefInput;
+  forwardRef = forwardRefInput;
 };
-
-// Can not make this work. Thankful for help.
-// export const options : { h: any, theme: Theme, defaultFun: boolean } = {
-//   h: {},
-//   theme: defaultTheme,
-//   defaultFun: false
-// }
-
-// const setup = (
-//   createElement: (nodeName: string, attributes: any, children: any[]) => any,
-//   o: Options
-// ) : void => {
-//   const { theme, defaultFun } = o || {};
-//   options.theme = { ...defaultTheme, ...theme };
-//   options.h = createElement;
-//   options.defaultFun = defaultFun;
-//   // forwardRef = forwardRefInput;
-// }
 
 export default setup;

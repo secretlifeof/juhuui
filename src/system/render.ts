@@ -1,3 +1,6 @@
+// @ts-nocheck
+// import { createElement } from 'react';
+
 import { h } from './setup';
 
 interface Props {
@@ -27,7 +30,6 @@ const render = (
     tag,
     {
       ...props,
-      // ...(forwardRef && ref),
       className: `${classNames.join(' ')} ${className}`.trim()
     },
     child ? [...child, ...children] : children

@@ -1,6 +1,6 @@
-import { Box, Flex, Fun, Heading,} from 'juhuui';
+import { Box, Flex, Fun, Heading } from 'juhuui';
 import NLINK from 'next/link';
-import React from 'react'
+import React from 'react';
 
 import SyntaxHighlighter from '../components/syntaxHighlighter';
 
@@ -12,7 +12,7 @@ export const jsTheme = {
   '.string': { color: 'green.500' },
   '.punctuation': { color: 'gray.400' },
   '.function-variable function': { color: 'orange.500' },
-  '.comment': { color: 'gray.400' },
+  '.comment': { color: 'gray.400' }
 };
 
 const start = `import { Box } from "juhuui"
@@ -107,7 +107,7 @@ function GettingStarted() {
           '.tag': { color: 'red.500' },
           '.string': { color: 'green.500' },
           '.parenthesis': { color: 'gray.400' },
-          '.codeWord': { color: 'orange.500' },
+          '.codeWord': { color: 'orange.500' }
         }}
       >
         <Code>
@@ -121,8 +121,8 @@ function GettingStarted() {
         Because JUHUUI is not very smart (just like its creator), you need to
         feed it before you can start playing or working. Feed it a createElement
         function and it will be HAPPY. This is also where more options can be
-        set, but more on that later on. Add this somewhere in the root of your
-        app. In Next.js you can add this to _app.js.
+        set. Add this somewhere in the root of your app. In Next.js you can add
+        this to _app.js.
       </Heading>
       <Fun pseudo={jsTheme}>
         <Code>
@@ -175,19 +175,23 @@ function GettingStarted() {
         textAlign={['center', 'initial']}
         pseudo={{
           '& div': { cursor: 'pointer', textDecoration: 'underline' },
-          '& div:hover': { color: 'blue.600', textDecoration: 'initial' },
+          '& div:hover': { color: 'blue.600', textDecoration: 'initial' }
         }}
       >
         <NLINK href="/components/[mdx]" as="/components/box">
           <Fun>
-            <span role="img" aria-label="robot">🤖</span>
-show me more COMPONENTS
+            <span role="img" aria-label="robot">
+              🤖
+            </span>
+            show me more COMPONENTS
           </Fun>
         </NLINK>
         <NLINK href="/documentation" as="/documentation">
           <Fun py={['4', '0']}>
             deep dive into more DOCS
-            <span role="img" aria-label="exploding head">🤯</span>
+            <span role="img" aria-label="exploding head">
+              🤯
+            </span>
           </Fun>
         </NLINK>
       </Flex>
