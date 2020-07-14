@@ -1,7 +1,7 @@
 {
   "name": "juhuui",
-  "private": true,
-  "version": "0.0.3",
+  "private": false,
+  "version": "0.0.4",
   "description": "Lightweight and flexible UI library",
   "license": "MIT",
   "main": "dist/juhuui.js",
