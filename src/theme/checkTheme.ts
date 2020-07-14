@@ -38,6 +38,7 @@ const themeProperty: AssociatedThemeProperty = {
   'grid-row-gap': 'sizes',
   'grid-column-gap': 'sizes',
   height: 'sizes',
+  fill: 'colors',
   left: 'sizes',
   'letter-spacing': 'letterSpacings',
   'line-height': 'lineHeights',
@@ -58,10 +59,11 @@ const themeProperty: AssociatedThemeProperty = {
   'padding-bottom': 'sizes',
   'padding-left': 'sizes',
   right: 'sizes',
+  stroke: 'colors',
   space: 'sizes',
   top: 'sizes',
   width: 'sizes',
-  'z-index': 'zIndices',
+  'z-index': 'zIndices'
 };
 
 const colorProperty = new Set([
@@ -78,15 +80,18 @@ const colorProperty = new Set([
   'border-right',
   'border-top',
   'border-bottom',
+  'fill',
+  'stroke'
 ]);
 
 const longColorProperty = new Set([
   'border',
   'background',
+  'border-color',
   'border-left',
   'border-right',
   'border-top',
-  'border-bottom',
+  'border-bottom'
 ]);
 
 const checkTheme = () => {

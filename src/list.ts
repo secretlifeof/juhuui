@@ -18,7 +18,7 @@ export function ListItem({ spacing = 0, ...rest }: ListItemProps): Base {
     marginBottom: spacing
   };
 
-  return base({ ...style, as: 'li', ...rest }, 'li');
+  return base({ ...style, as: 'li', ...rest });
 }
 
 ListItem.with = withHelper(ListItem);
@@ -47,7 +47,7 @@ function List({
     ...pseudoIn
   };
 
-  return base({ ...style, ...pseudo, fun: true, as: 'ul', ...rest }, 'ul');
+  return base({ ...style, pseudo, fun: true, as: 'ul', ...rest });
 }
 
 List.with = withHelper(List);

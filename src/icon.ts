@@ -17,7 +17,7 @@ interface Props {
 
 function Icon({
   hoverColor,
-  color = 'inherit',
+  color,
   name = 'moon',
   // isInline = false,
   pseudo: pseudoIn = {},

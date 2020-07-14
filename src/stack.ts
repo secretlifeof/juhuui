@@ -78,22 +78,23 @@ function Stack({
 
   const style = {
     display: 'flex',
-    flexDirection,
-    pseudo: {
-      '& > *:not(:first-child)': {
-        ...(isReversed ? { marginBottom: my } : { marginTop: my }),
-        ...(isReversed ? { marginRight: mx } : { marginLeft: mx })
-      },
-      ...(divideEqual && {
-        '& > *': {
-          flex: 1
-        }
-      }),
-      ...pseudoIn
-    }
+    flexDirection
   };
 
-  return base({ ...style, fun: true, ...rest });
+  const pseudo = {
+    '& > *:not(:first-child)': {
+      ...(isReversed ? { marginBottom: my } : { marginTop: my }),
+      ...(isReversed ? { marginRight: mx } : { marginLeft: mx })
+    },
+    ...(divideEqual && {
+      '& > *': {
+        flex: 1
+      }
+    }),
+    ...pseudoIn
+  };
+
+  return base({ ...style, pseudo, fun: true, ...rest });
 }
 
 Stack.with = withHelper(Stack);
