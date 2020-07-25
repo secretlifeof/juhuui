@@ -1,7 +1,7 @@
 import '../global.css';
 
 import { Button, Box, setup, theme as juhuuiTheme } from 'juhuui';
-import React, { useRef } from 'react';
+import React, { useRef, forwardRef } from 'react';
 
 import Footer from '../containers/footer';
 import Header from '../containers/header';
@@ -36,17 +36,19 @@ const theme = {
 export const allTheme = { ...juhuuiTheme, ...theme };
 
 // setPragma(React.createElement);
-setup(React.createElement, { theme });
+setup(React.createElement, { theme, forwardRef });
+
+const B = Box.with({
+  color: 'green'
+});
+
+console.log('B With', B.with);
+console.log('B', Object.getPrototypeOf(Box));
 
 export default function MyApp({ Component, pageProps }) {
-  const box = useRef(null);
-  console.log('box: ', box);
-  const div = useRef(null);
-  console.log('div: ', div);
-
   return (
-    <Box d="flex" direction="column" minHeight="100vh" ref={box}>
-      <div ref={div}></div>
+    <Box d="flex" direction="column" minHeight="100vh">
+      <B pt="20">Helo</B>
       <Header />
       <Box
         flex="1 0 auto"

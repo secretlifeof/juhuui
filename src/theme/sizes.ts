@@ -1,4 +1,5 @@
 export default {
+  '0': '0px',
   '1': '0.25rem',
   '2': '0.5rem',
   '3': '0.75rem',
@@ -30,5 +31,5 @@ export default {
   '5xl': '64rem',
   '6xl': '72rem',
   full: '100%',
-  half: '50%',
+  half: '50%'
 };

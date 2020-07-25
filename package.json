@@ -1,6 +1,6 @@
 {
   "name": "juhuui",
-  "private": false,
+  "private": true,
   "version": "0.0.4",
   "description": "Lightweight and flexible UI library",
   "license": "MIT",

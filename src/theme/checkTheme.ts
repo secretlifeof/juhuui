@@ -111,9 +111,7 @@ const checkTheme = () => {
               .split(' ')
               .map((c) => {
                 const receivedColor = get(theme.colors, c, c);
-                return typeof receivedColor === 'string'
-                  ? receivedColor
-                  : color;
+                return typeof receivedColor === 'string' ? receivedColor : c;
               })
               .join(' ')
           : get(theme.colors, value as string, value);

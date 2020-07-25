@@ -11,7 +11,7 @@
   "dependencies": {
     "@philpl/buble": "^0.19.7",
     "htm": "^3.0.4",
-    "juhuui": "^0.0.3",
+    "juhuui": "^0.0.4",
     "markdown-to-jsx": "^6.11.1",
     "next": "^9.3.2",
     "preact": "^10.4.4",

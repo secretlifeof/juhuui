@@ -26,3 +26,5 @@ export { default as Tag } from './tag';
 export { default as Text } from './text';
 export { default as Textarea } from './textarea';
 export { default as theme, Theme } from './theme';
+
+export { sizes } from './theme';

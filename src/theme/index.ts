@@ -73,4 +73,6 @@ const theme: Theme = {
   zIndices
 };
 
+export { sizes };
+
 export default theme;
