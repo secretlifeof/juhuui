@@ -45,6 +45,8 @@ function Icon({
   const style = {
     height: 'auto',
     width: 'auto',
+    // p to avoid bug with safari
+    p: '1px',
     ...rest
   };
 

@@ -42,13 +42,9 @@ const B = Box.with({
   color: 'green'
 });
 
-console.log('B With', B.with);
-console.log('B', Object.getPrototypeOf(Box));
-
 export default function MyApp({ Component, pageProps }) {
   return (
     <Box d="flex" direction="column" minHeight="100vh">
-      <B pt="20">Helo</B>
       <Header />
       <Box
         flex="1 0 auto"
