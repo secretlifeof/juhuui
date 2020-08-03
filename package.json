@@ -1,7 +1,7 @@
 {
   "name": "juhuui",
-  "private": true,
-  "version": "0.0.4",
+  "private": false,
+  "version": "0.0.5-beta.1",
   "description": "Lightweight and flexible UI library",
   "license": "MIT",
   "main": "dist/juhuui.js",
@@ -22,7 +22,7 @@
     "@changesets/changelog-github": "^0.2.6",
     "@changesets/cli": "^2.8.0",
     "@types/jest": "^25.2.1",
-    "@typescript-eslint/eslint-plugin": "^3.5.0",
+    "@typescript-eslint/eslint-plugin": "^3.7.1",
     "@typescript-eslint/parser": "^3.5.0",
     "eslint": "^7.3.1",
     "eslint-config-airbnb-typescript": "^8.0.2",
@@ -36,7 +36,7 @@
     "eslint-plugin-simple-import-sort": "^5.0.3",
     "husky": "^4.2.5",
     "jest": "^25.3.0",
-    "lerna": "^3.20.2",
+    "lerna": "^3.22.1",
     "lint-staged": "^10.2.11",
     "microbundle": "^0.12.2",
     "prettier": "^2.0.5",
@@ -55,7 +55,7 @@
   "bugs": {
     "url": "https://github.com/secretlifeof/juhuui/issues"
   },
-  "homepage": "https://juhuui-pre.now.sh",
+  "homepage": "https://juhuui.com",
   "keywords": [
     "juhuui",
     "ui",
