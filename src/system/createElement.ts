@@ -1,5 +1,3 @@
-// @ts-nocheck
-// import { createElement } from 'react';
 import { h } from './setup';
 
 interface Props {
