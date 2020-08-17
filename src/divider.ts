@@ -1,41 +1,37 @@
-import base, { Base } from './system/base';
-import withHelper from './system/withHelper';
+import Base from './base';
+import attachMethodsToInstance from './base/attachMethodsToInstance';
+import { Render } from './system/render';
 
 interface Props {
   fun: boolean;
   orientation: string;
-  rest: object;
 }
 
-function Divider({ orientation = 'horizontal', ...rest }: Props): Base {
-  const style = {
+const dividerInstance = new Base(
+  ({ fun, orientation }: Props) => ({
     'aria-orientation': orientation,
     border: '0',
+    borderColor: 'inherit',
+    fun,
     opacity: '0.6',
-    height: 0
-  };
-
-  const orientationStyle =
-    orientation === 'vertical'
+    height: 0,
+    ...(orientation === 'vertical'
       ? {
           borderLeft: '0.0625rem solid',
           height: 'auto',
           mx: 2
         }
-      : { borderTop: '1px solid', width: '100%', my: 2 };
+      : { borderTop: '1px solid', width: '100%', my: 2 }),
+    as: orientation === 'vertical' ? 'div' : 'hr'
+  }),
+  ['orientation']
+);
 
-  const tag = orientation === 'vertical' ? 'div' : 'hr';
-
-  return base({
-    ...style,
-    ...orientationStyle,
-    borderColor: 'inherit',
-    as: tag,
-    ...rest
-  });
+function Divider(props: any): Render {
+  return dividerInstance.render(props);
 }
 
-Divider.with = withHelper(Divider);
+attachMethodsToInstance(Divider, dividerInstance);
 
 Divider.displayName = 'Divider';
 

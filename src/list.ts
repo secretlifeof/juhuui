@@ -1,57 +1,53 @@
-import base, { Base } from './system/base';
-import withHelper from './system/withHelper';
+import Base from './base';
+import attachMethodsToInstance from './base/attachMethodsToInstance';
+import { Render } from './system/render';
 
 interface ListItemProps {
   spacing: string | number;
-  rest: any;
 }
 
 interface ListProps {
   spacing: string | number;
   styleType: string;
   pseudo: any;
-  rest: any;
 }
 
-export function ListItem({ spacing = 0, ...rest }: ListItemProps): Base {
-  const style = {
-    marginBottom: spacing
-  };
+const listItemInstance = new Base(
+  ({ spacing = 0 }: ListItemProps) => ({ as: 'li', marginBottom: spacing }),
+  ['spacing']
+);
 
-  return base({ ...style, as: 'li', ...rest });
+export function ListItem(props: any): Base {
+  return listItemInstance.render(props);
 }
 
-ListItem.with = withHelper(ListItem);
-
+attachMethodsToInstance(ListItem, listItemInstance);
 ListItem.displayName = 'ListItem';
 
-function List({
-  pseudo: pseudoIn = {},
-  styleType = 'space-counter',
-  spacing = 0,
-  ...rest
-}: ListProps): Base {
-  const style = {
+const listInstance = new Base(
+  ({ spacing = 0, styleType = 'disc', pseudo = {} }: ListProps) => ({
+    as: 'ul',
     listStyleType: styleType,
-    listStylePosition: 'inside'
-  };
+    listStylePosition: 'inside',
+    pseudo: {
+      '& li': {
+        marginBottom: spacing
+      },
+      '& li > span > svg': {
+        size: '0.7em',
+        marginRight: '0.4em'
+      },
+      ...pseudo
+    }
+  }),
+  ['spacing']
+);
 
-  const pseudo = {
-    '& li': {
-      marginBottom: spacing
-    },
-    '& li > span > svg': {
-      size: '0.7em',
-      marginRight: '0.4em'
-    },
-    ...pseudoIn
-  };
-
-  return base({ ...style, pseudo, fun: true, as: 'ul', ...rest });
+function List(props: any): Render {
+  return listInstance.render(props);
 }
 
-List.with = withHelper(List);
-
+attachMethodsToInstance(List, listInstance);
 List.displayName = 'List';
 
 export default List;

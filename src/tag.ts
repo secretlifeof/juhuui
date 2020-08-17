@@ -1,6 +1,7 @@
+import Base from './base';
+import attachMethodsToInstance from './base/attachMethodsToInstance';
 import { NestedPseudo } from './css/processProps';
-import base, { Base } from './system/base';
-import withHelper from './system/withHelper';
+import { Render } from './system/render';
 
 interface Props {
   fun: boolean;
@@ -9,42 +10,21 @@ interface Props {
   rest: any;
 }
 
-interface Sizes {
-  [key: string]: {
-    [key: string]: string | number;
-  };
-}
-
-const sizes: Sizes = {
-  sm: {
-    minHeight: 6,
-    minWidth: 6,
-    fontSize: 'sm',
-    px: 2
-  },
-  md: {
-    minHeight: 7,
-    minWidth: 7,
-    fontSize: 'md',
-    px: 2
-  },
-  lg: {
-    minHeight: 8,
-    minWidth: 8,
-    px: 3
-  }
+const sizeStyles = {
+  minHeight: 7,
+  minWidth: 7,
+  fontSize: 'md',
+  px: 2
 };
 
-function Tag({ tagSize = 'lg', pseudo: pseudoIn = {}, ...rest }: Props): Base {
-  const style = {
-    bg: 'gray.200',
-    display: 'inline-flex',
-    alignItems: 'center',
-    rounded: 'md',
-    fontWeight: 'medium'
-  };
-
-  const pseudo = {
+const tagInstance = new Base(({ pseudo }: Props) => ({
+  ...sizeStyles,
+  bg: 'gray.200',
+  display: 'inline-flex',
+  alignItems: 'center',
+  rounded: 'md',
+  fontWeight: 'medium',
+  pseudo: {
     '& > svg': {
       width: '0.7em',
       height: '0.7em',
@@ -79,13 +59,15 @@ function Tag({ tagSize = 'lg', pseudo: pseudoIn = {}, ...rest }: Props): Base {
       padding: '0.1em',
       minWidth: '1em'
     },
-    ...pseudoIn
-  };
+    ...pseudo
+  }
+}));
 
-  return base({ ...sizes[tagSize], ...style, pseudo, ...rest });
+function Tag(props: any): Render {
+  return tagInstance.render(props);
 }
 
-Tag.with = withHelper(Tag);
+attachMethodsToInstance(Tag, tagInstance);
 
 Tag.displayName = 'Tag';
 

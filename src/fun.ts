@@ -1,10 +1,15 @@
-import base, { Base } from './system/base';
-import withHelper from './system/withHelper';
+import Base from './base';
+import attachMethodsToInstance from './base/attachMethodsToInstance';
+import { Render } from './system/render';
 
-function Fun(props: any): Base {
-  return base({ fun: true, ...props });
+const funInstance = new Base({ fun: true });
+
+function Fun(props: any): Render {
+  return funInstance.render(props);
 }
 
-Fun.with = withHelper(Fun);
+attachMethodsToInstance(Fun, funInstance);
+
+Fun.displayName = 'Fun';
 
 export default Fun;

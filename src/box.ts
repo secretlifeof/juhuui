@@ -1,17 +1,14 @@
-import base, { Base } from './system/base';
-import withHelper from './system/withHelper';
+// @ts-nocheck
+import Base from './base';
+import attachMethodsToInstance from './base/attachMethodsToInstance';
 
-export interface Props {
-  fun?: boolean;
-  pseudo?: any;
-  ref?: any;
+const box = new Base(({ farge }) => ({ bg: farge }), ['farge']);
+
+function Box(props: any) {
+  return box.render(props);
 }
 
-const Box = (props: Props): Base => {
-  return base(props);
-};
-
-Box.with = withHelper(Box);
+attachMethodsToInstance(Box, box);
 
 Box.displayName = 'Box';
 

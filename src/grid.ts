@@ -1,15 +1,14 @@
-import base, { Base } from './system/base';
-import withHelper from './system/withHelper';
+import Base from './base';
+import attachMethodsToInstance from './base/attachMethodsToInstance';
+import { Render } from './system/render';
 
-function Grid(props: any): Base {
-  const style = {
-    display: 'grid'
-  };
+const gridInstance = new Base({ display: 'grid' });
 
-  return base({ ...style, ...props });
+function Grid(props: any): Render {
+  return gridInstance.render(props);
 }
 
-Grid.with = withHelper(Grid);
+attachMethodsToInstance(Grid, gridInstance);
 
 Grid.displayName = 'Grid';
 

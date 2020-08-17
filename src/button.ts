@@ -1,24 +1,15 @@
-import base, { Base } from './system/base';
-import withHelper from './system/withHelper';
+import Base from './base';
+import attachMethodsToInstance from './base/attachMethodsToInstance';
 
 interface Props {
   activeColor: string;
   fun: boolean;
   hoverColor: string;
-  variant: string;
-  variantColor: string;
-  buttonSize: string;
-  rest: any;
+  pseudo: any;
 }
 
 interface BaseStyle {
   [key: string]: string;
-}
-
-interface Sizes {
-  [key: string]: {
-    [key: string]: string | number;
-  };
 }
 
 export const baseStyle: BaseStyle = {
@@ -38,67 +29,38 @@ export const baseStyle: BaseStyle = {
   whiteSpace: 'nowrap'
 };
 
-export const sizes: Sizes = {
-  xs: {
-    height: 6,
-    minWidth: 6,
-    fontSize: 'xs',
-    px: 2
-  },
-  sm: {
-    height: 8,
-    minWidth: 8,
-    fontSize: 'sm',
-    px: 3
-  },
-  md: {
-    height: 10,
-    minWidth: 10,
-    fontSize: 'md',
-    px: 4
-  },
-  lg: {
-    height: 12,
-    minWidth: 12,
-    fontSize: 'lg',
-    px: 6
-  }
-};
-
-function Button({
-  activeColor = '',
-  buttonSize = 'md',
-  fun = true,
-  hoverColor = '',
-  ...rest
-}: Props): Base {
-  const style = {
+const button = new Base(
+  ({ activeColor, fun, hoverColor, pseudo }: Props) => ({
     ...baseStyle,
-    ...sizes[buttonSize],
+    as: 'button',
     borderRadius: 'md',
     _hover: {
       background: hoverColor
     },
+    fun,
     _active: {
       background: activeColor
-    }
-  };
-
-  const pseudo = {
-    '&:focus': {
-      boxShadow: 'outline'
     },
-    '&:disabled': {
-      opacity: '40%',
-      cursor: 'not-allowed',
-      boxShadow: 'none'
+    pseudo: {
+      '&:focus': {
+        boxShadow: 'outline'
+      },
+      '&:disabled': {
+        opacity: '40%',
+        cursor: 'not-allowed',
+        boxShadow: 'none'
+      },
+      ...pseudo
     }
-  };
+  }),
+  ['activeColor', 'hoverColor']
+);
 
-  return base({ ...style, pseudo, as: 'button', fun, ...rest });
+function Button(props: any) {
+  return button.render(props);
 }
 
-Button.with = withHelper(Button);
+attachMethodsToInstance(Button, button);
 
 Button.displayName = 'Button';
 

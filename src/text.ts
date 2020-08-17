@@ -1,11 +1,16 @@
-import base, { Base } from './system/base';
-import withHelper from './system/withHelper';
+import Base from './base';
+import attachMethodsToInstance from './base/attachMethodsToInstance';
+import { Render } from './system/render';
 
-function Text(props: any): Base {
-  return base({ as: 'span', ...props });
+const textInstance = new Base({
+  as: 'span'
+});
+
+function Text(props: any): Render {
+  return textInstance.render(props);
 }
 
-Text.with = withHelper(Text);
+attachMethodsToInstance(Text, textInstance);
 
 Text.displayName = 'Text';
 

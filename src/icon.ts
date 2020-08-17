@@ -1,59 +1,54 @@
-import base, { Base } from './system/base';
+import Base from './base';
+import attachMethodsToInstance from './base/attachMethodsToInstance';
+import { Render } from './system/render';
 import { themeInternal as theme } from './system/setup';
-import withHelper from './system/withHelper';
 import createElement from './utilities/createElementFromString';
 
 interface Props {
   color: string;
-  // isInline: boolean;
   hoverColor?: string;
   size: string;
   name: string;
-  // fun: boolean;
   pseudo: object;
   svg: string;
-  rest: any;
 }
 
-function Icon({
-  hoverColor,
-  color,
-  name = 'moon',
-  // isInline = false,
-  pseudo: pseudoIn = {},
-  svg,
-  ...rest
-}: Props): Base {
-  const themeSvg = theme.icons[name];
-  // @ts-ignore
-  const child = createElement(svg || themeSvg);
+const iconInstance = new Base(
+  ({ color, hoverColor, name, pseudo, svg }: Props) => {
+    const themeSvg = theme.icons[name];
+    // @ts-ignore
+    const child = createElement(svg || themeSvg);
 
-  const pseudo = {
-    '& *': {
-      fill: color,
-      stroke: color
-    },
-    ...(hoverColor && {
-      '&:hover *': {
-        fill: hoverColor,
-        stroke: hoverColor
+    return {
+      as: 'svg',
+      fun: true,
+      ...child.props,
+      height: 'auto',
+      width: 'auto',
+      // p to avoid bug with safari
+      p: '1px',
+      pseudo: {
+        '& *': {
+          fill: color,
+          stroke: color
+        },
+        ...(hoverColor && {
+          '&:hover *': {
+            fill: hoverColor,
+            stroke: hoverColor
+          }
+        }),
+        ...pseudo
       }
-    }),
-    ...pseudoIn
-  };
+    };
+  }
+);
 
-  const style = {
-    height: 'auto',
-    width: 'auto',
-    // p to avoid bug with safari
-    p: '1px',
-    ...rest
-  };
-
-  return base({ ...child.props, pseudo, fun: true, as: 'svg', ...style });
+function Icon(props: any): Render {
+  iconInstance.render(props);
 }
 
-Icon.with = withHelper(Icon);
+attachMethodsToInstance(Icon, iconInstance);
 
 Icon.displayName = 'Icon';
 

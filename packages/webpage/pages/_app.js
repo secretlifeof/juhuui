@@ -6,6 +6,8 @@ import React, { useRef, forwardRef } from 'react';
 import Footer from '../containers/footer';
 import Header from '../containers/header';
 
+import test from '../components/init';
+
 const theme = {
   fonts: { heading: 'Cairo' },
   icons: {
@@ -42,7 +44,23 @@ const B = Box.with({
   color: 'green'
 });
 
+function Init() {
+  this.forwardRef = null;
+  this.forward = () => {
+    return this.forwardRef;
+  };
+}
+Init.prototype.setup = function (forwardRef) {
+  this.forwardRef = forwardRef;
+};
+
+export const init = new Init();
+init.setup('yo');
+
+const huhu = new test();
+
 export default function MyApp({ Component, pageProps }) {
+  console.log('TESt', huhu);
   return (
     <Box d="flex" direction="column" minHeight="100vh">
       <Header />

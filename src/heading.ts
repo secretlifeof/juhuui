@@ -1,18 +1,19 @@
-import base, { Base } from './system/base';
-import withHelper from './system/withHelper';
+import Base from './base';
+import attachMethodsToInstance from './base/attachMethodsToInstance';
+import { Render } from './system/render';
 
-function Heading(props: any): Base {
-  const style = {
-    as: 'h2',
-    lineHeight: 'shorter',
-    // fontWeight: 'bold',
-    fontFamily: 'heading'
-  };
+const headingInstance = new Base({
+  as: 'h2',
+  lineHeight: 'shorter',
+  // fontWeight: 'bold',
+  fontFamily: 'heading'
+});
 
-  return base({ ...style, ...props });
+function Heading(props: any): Render {
+  return headingInstance.render(props);
 }
 
-Heading.with = withHelper(Heading);
+attachMethodsToInstance(Heading, headingInstance);
 
 Heading.displayName = 'Heading';
 

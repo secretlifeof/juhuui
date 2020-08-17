@@ -1,5 +1,6 @@
-import base, { Base } from './system/base';
-import withHelper from './system/withHelper';
+import Base from './base';
+import attachMethodsToInstance from './base/attachMethodsToInstance';
+import render, { Render } from './system/render';
 
 interface IndicatorProps {
   color: string;
@@ -21,7 +22,7 @@ interface ProgressProps {
   rest: any;
 }
 
-function Indicator({ color, max, min, value }: IndicatorProps): Base {
+function Indicator({ color, max, min, value }: IndicatorProps): Render {
   const percent = (value / (max - min)) * 100;
 
   const style = {
@@ -37,31 +38,36 @@ function Indicator({ color, max, min, value }: IndicatorProps): Base {
     role: 'progressbar'
   };
 
-  return base({ ...style, ...props });
+  return render({ ...style, ...props });
 }
 
-function Progress({
-  bg = 'gray.500',
-  color = 'orange',
-  height = '3',
-  max = 100,
-  min = 0,
-  value = 69,
-  ...rest
-}: ProgressProps): Base {
-  const style = {
-    position: 'relative',
-    height,
-    overflow: 'hidden',
-    bg
-  };
+const progressInstance = new Base(
+  ({
+    bg = 'gray.500',
+    color = 'orange',
+    height = '3',
+    max = 100,
+    min = 0,
+    value = 69
+  }: ProgressProps) => {
+    const indicator = Indicator({ max, min, value, color });
 
-  const indicator = Indicator({ max, min, value, color });
+    return {
+      children: indicator,
+      position: 'relative',
+      height,
+      overflow: 'hidden',
+      bg
+    };
+  },
+  ['max', 'min', 'value']
+);
 
-  return base({ ...style, ...rest }, undefined, indicator);
+function Progress(props: any): Render {
+  return progressInstance.render(props);
 }
 
-Progress.with = withHelper(Progress);
+attachMethodsToInstance(Progress, progressInstance);
 
 Progress.displayName = 'Progress';
 

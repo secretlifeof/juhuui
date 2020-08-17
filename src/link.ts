@@ -1,11 +1,16 @@
-import base, { Base } from './system/base';
-import withHelper from './system/withHelper';
+import Base from './base';
+import attachMethodsToInstance from './base/attachMethodsToInstance';
+import { Render } from './system/render';
 
-function Link(props: any): Base {
-  return base({ as: 'a', ...props });
+const linkInstance = new Base({
+  as: 'a'
+});
+
+function Link(props: any): Render {
+  return linkInstance.render(props);
 }
 
-Link.with = withHelper(Link);
+attachMethodsToInstance(Link, linkInstance);
 
 Link.displayName = 'Link';
 

@@ -1,38 +1,8 @@
-import base, { Base } from './system/base';
-import withHelper from './system/withHelper';
+import Base from './base';
+import attachMethodsToInstance from './base/attachMethodsToInstance';
+import { Render } from './system/render';
 
-interface Props {
-  size: string | number;
-  variant: string;
-  rest: any;
-}
-
-interface InputSizes {
-  [key: string]: {
-    [key: string]: string | number;
-  };
-}
-
-export const inputSizes: InputSizes = {
-  lg: {
-    fontSize: 'lg',
-    px: 4,
-    height: 12,
-    rounded: 'md'
-  },
-  md: {
-    fontSize: 'md',
-    px: 4,
-    height: 10,
-    rounded: 'md'
-  },
-  sm: {
-    fontSize: 'sm',
-    px: 3,
-    height: 8,
-    rounded: 'sm'
-  }
-};
+interface Props {}
 
 const baseStyle = {
   display: 'flex',
@@ -44,15 +14,25 @@ const baseStyle = {
   width: '100%'
 };
 
-function Input({ size = 'md', ...rest }: Props): Base {
-  const style = {
-    ...baseStyle,
-    ...inputSizes[size]
-  };
-  return base({ ...style, fun: true, as: 'input', ...rest });
+const sizeStyle = {
+  fontSize: 'md',
+  px: 4,
+  height: 10,
+  rounded: 'md'
+};
+
+const inputInstance = new Base({
+  ...baseStyle,
+  ...sizeStyle,
+  fun: true,
+  as: 'input'
+});
+
+function Input(props: Props): Render {
+  return inputInstance.render(props);
 }
 
-Input.with = withHelper(Input);
+attachMethodsToInstance(Input, inputInstance);
 
 Input.displayName = 'Input';
 

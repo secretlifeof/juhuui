@@ -1,11 +1,16 @@
-import base, { Base } from './system/base';
-import withHelper from './system/withHelper';
+import Base from './base';
+import attachMethodsToInstance from './base/attachMethodsToInstance';
+import { Render } from './system/render';
 
-function Image(props: any): Base {
-  return base({ as: 'img', ...props });
+const imageInstance = new Base({
+  as: 'img'
+});
+
+function Image(props: any): Render {
+  return imageInstance.render(props);
 }
 
-Image.with = withHelper(Image);
+attachMethodsToInstance(Image, imageInstance);
 
 Image.displayName = 'Image';
 

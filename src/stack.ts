@@ -1,5 +1,6 @@
-import base, { Base } from './system/base';
-import withHelper from './system/withHelper';
+import Base from './base';
+import attachMethodsToInstance from './base/attachMethodsToInstance';
+import { Render } from './system/render';
 import checkTheme from './theme/checkTheme';
 
 interface Props {
@@ -12,92 +13,94 @@ interface Props {
   rest: any;
 }
 
-function Stack({
-  divideEqual = true,
-  isInline = false,
-  isReversed = false,
-  pseudo: pseudoIn = {},
-  spacing,
-  gap: gapIn = 2,
-  ...rest
-}: Props): Base {
-  const isInlineArr = Array.isArray(isInline);
-  const gap = spacing || gapIn;
-  const isGapArr = Array.isArray(gap);
-  const INITIAL = 'initial';
+const stackInstance = new Base(
+  ({
+    divideEqual = true,
+    isInline = false,
+    isReversed = false,
+    pseudo = {},
+    spacing,
+    gap: gapIn = 2
+  }: Props) => {
+    const isInlineArr = Array.isArray(isInline);
+    const gap = spacing || gapIn;
+    const isGapArr = Array.isArray(gap);
+    const INITIAL = 'initial';
 
-  const rowReversed = isReversed ? 'row-reverse' : 'row';
-  const columnReversed = isReversed ? 'column-reverse' : 'column';
-  const flexDirectionArr =
-    isInlineArr &&
-    (isInline as boolean[]).map((bol: boolean) =>
-      bol ? rowReversed : columnReversed
-    );
-  const flexDirectionStr = isInline ? rowReversed : columnReversed;
-  const flexDirection = isInlineArr ? flexDirectionArr : flexDirectionStr;
+    const rowReversed = isReversed ? 'row-reverse' : 'row';
+    const columnReversed = isReversed ? 'column-reverse' : 'column';
+    const flexDirectionArr =
+      isInlineArr &&
+      (isInline as boolean[]).map((bol: boolean) =>
+        bol ? rowReversed : columnReversed
+      );
+    const flexDirectionStr = isInline ? rowReversed : columnReversed;
+    const flexDirection = isInlineArr ? flexDirectionArr : flexDirectionStr;
 
-  const spacingValue = !Array.isArray(gap)
-    ? checkTheme('mx', gap.toString())
-    : gap.map((value) => checkTheme('mx', value));
+    const spacingValue = !Array.isArray(gap)
+      ? checkTheme('mx', gap.toString())
+      : gap.map((value) => checkTheme('mx', value));
 
-  /* eslint no-nested-ternary: "off"  */
-  const mx = isGapArr
-    ? spacingValue.map((value: string, index: number) =>
-        isInlineArr
-          ? (isInline as boolean[])[index]
+    /* eslint no-nested-ternary: "off"  */
+    const mx = isGapArr
+      ? spacingValue.map((value: string, index: number) =>
+          isInlineArr
+            ? (isInline as boolean[])[index]
+              ? value
+              : INITIAL
+            : isInline
             ? value
             : INITIAL
-          : isInline
-          ? value
-          : INITIAL
-      )
-    : isInlineArr
-    ? (isInline as boolean[]).map((value: boolean) =>
-        value ? spacingValue : INITIAL
-      )
-    : isInline
-    ? spacingValue
-    : INITIAL;
-  const my = isGapArr
-    ? spacingValue.map((value: string, index: number) =>
-        isInlineArr
-          ? (isInline as boolean[])[index]
+        )
+      : isInlineArr
+      ? (isInline as boolean[]).map((value: boolean) =>
+          value ? spacingValue : INITIAL
+        )
+      : isInline
+      ? spacingValue
+      : INITIAL;
+    const my = isGapArr
+      ? spacingValue.map((value: string, index: number) =>
+          isInlineArr
+            ? (isInline as boolean[])[index]
+              ? INITIAL
+              : value
+            : isInline
             ? INITIAL
             : value
-          : isInline
-          ? INITIAL
-          : value
-      )
-    : isInlineArr
-    ? (isInline as boolean[]).map((value: boolean) =>
-        !value ? spacingValue : INITIAL
-      )
-    : isInline
-    ? INITIAL
-    : spacingValue;
+        )
+      : isInlineArr
+      ? (isInline as boolean[]).map((value: boolean) =>
+          !value ? spacingValue : INITIAL
+        )
+      : isInline
+      ? INITIAL
+      : spacingValue;
 
-  const style = {
-    display: 'flex',
-    flexDirection
-  };
-
-  const pseudo = {
-    '& > *:not(:first-child)': {
-      ...(isReversed ? { marginBottom: my } : { marginTop: my }),
-      ...(isReversed ? { marginRight: mx } : { marginLeft: mx })
-    },
-    ...(divideEqual && {
-      '& > *': {
-        flex: 1
+    return {
+      display: 'flex',
+      flexDirection,
+      pseudo: {
+        '& > *:not(:first-child)': {
+          ...(isReversed ? { marginBottom: my } : { marginTop: my }),
+          ...(isReversed ? { marginRight: mx } : { marginLeft: mx })
+        },
+        ...(divideEqual && {
+          '& > *': {
+            flex: 1
+          }
+        }),
+        ...pseudo
       }
-    }),
-    ...pseudoIn
-  };
+    };
+  }
+);
 
-  return base({ ...style, pseudo, fun: true, ...rest });
+function Stack(props: any): Render {
+  return stackInstance.render(props);
 }
 
-Stack.with = withHelper(Stack);
+attachMethodsToInstance(Stack, stackInstance);
 
 Stack.displayName = 'Stack';
 

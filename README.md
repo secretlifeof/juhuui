@@ -1,19 +1,20 @@
 # JUHUUI
 
-### A relatively small and performant UI-library
+### UI tool intended for design systems
 
-Juhuui might be just another UI library that creates atomic CSS. [HTM](https://github.com/developit/htm) is the only dependency and that is needed for loading SVGs. It is flexible (not dependant on React/Preact), small (<9kb) and themeable.
+Juhuui is a a UI library and a tool made for building design systems. It has a flexible API so that styled components can be nested and merged.
 
 ---
 
-#### 🔔 Find more information on our **[website](https://juhuui.com)**
+#### 🔔 This is a work in progress and the API is still being finalized. You can of course test it and provide some feedback :-)
 
 ---
 
 #### Features
 
+- Nesting components
 - Theme (default/customizable)
-- Small (<9kb)
+- Small (<10kb)
 - Same shortcuts as Styled-System
 - Extract critical CSS for server side rendering
 - Easy to implement darkmode
@@ -37,6 +38,8 @@ import { createElement } from 'react'; // or h from Preact
 
 setup(createElement);
 ```
+
+## Inline components
 
 Juhu you can start building components.
 
@@ -65,7 +68,7 @@ const SayWhat = () => (
 All components can be created externally. This is useful for separating styles and components. Styles can be overwritten by writing them inline. Please use the 'fw' prop to forward arguments because 'fw' will be removed from the DOM.
 
 ```javascript
-import { Text } from 'juhuui';
+import { Text, Box } from 'juhuui';
 
 const UpperCase = Text.with({
   textTransform: 'uppercase',
@@ -84,11 +87,19 @@ const Colorful = Text.with({(fw}) => ({
 <Colorful fw={{ background: 'yellow.200' }}>Orange</Colorful>;
 // or overwrite styles by adding a css property to the component
 <Colorful color="red.300" fw={{ background: 'yellow.200' }}>Red</Colorful>;
+
+// or merge
+
+const GreenBox = Box.with({ bg: 'green' })
+const Red = Text.with({ color: 'red' })
+const SpaceCase = Red.merge([GreenBox]).with({ textTransform: 'uppercase' })
+
+<SpaceCase>Invisible green</SpaceCase>
 ```
 
-## Vanilla taste
+## Create class names
 
-If you like vanilla or svelte you can use the exported css function. This can be used without setup. CSS rules are added to a style tag.
+This is for creating class names. To give you the freedom of designing like you feel comfortable. If you only wish to use this solution we recommend a smaller tool called [otion](https://github.com/kripod/otion).
 
 ```js
 import { css } from 'juhuui';
@@ -98,8 +109,7 @@ const classNames = css({
   bg: ['blue.300', 'green400', 'brown.500']
 });
 
-const div = document.createElement('div');
-div.classList.add(...classNames.split(' '));
+<div classNames={classNames}></div>;
 ```
 
 ## Server side rendering
@@ -172,13 +182,13 @@ setup(h, {
 
 ## Motivation
 
-The goal was to build a relatively small UI library without dependencies (not completely met). Using atomic CSS was an idea that came along afterwards. This is my first open source project and also my first using typescript. Calling it type safe would be an exaggeration.
+Creating a design system tool with a clean API. One that creates atomic CSS classes. Merging and creating variants should feel simple (hopefully that is the case).
 
 Any feedback is met with love and curiosity. Have fun! 💚
 
 ## Future stuff
 
-- [ ] ForwardRef 🤯 (need help implementing this)
+- [x] ForwardRef works for styled components not inline
 - [ ] Add vendor prefix to options
 - [ ] Minimal version without a default theme
 - [ ] Default React/Preact versions without a need for calling setup
@@ -199,4 +209,4 @@ Thanks to all for being here and beforehand for anybody who wants to contribute 
 - [HTM](https://github.com/developit/htm) by [@developit](https://twitter.com/_developit)
 - [Goober](https://github.com/cristianbote/goober) by [@cristianbote](https://twitter.com/cristianbote_)
 - [Chakra-UI](https://github.com/chakra-ui/chakra-ui) by [@segunadebayo](https://twitter.com/thesegunadebayo)
-- [@JoviDeCroock](https://twitter.com/jovidec) for being compassionate
+- [@JoviDeCroock](https://twitter.com/jovidec) for being an inspiration on how to behave online

@@ -1,5 +1,6 @@
-import base, { Base } from './system/base';
-import withHelper from './system/withHelper';
+import Base from './base';
+import attachMethodsToInstance from './base/attachMethodsToInstance';
+import render, { Render } from './system/render';
 
 interface Props {
   angle: number;
@@ -47,19 +48,23 @@ interface CircleReturn {
   };
 }
 
-export const CircularProgressLabel = (props: any): Base => {
-  const style = {
-    position: 'absolute',
-    left: '50%',
-    top: '50%',
-    lineHeight: '1',
-    transform: 'translate(-50%, -50%)',
-    fontSize: '0.25em'
-  };
+const circularProgressLabelInstance = new Base({
+  position: 'absolute',
+  left: '50%',
+  top: '50%',
+  lineHeight: '1',
+  transform: 'translate(-50%, -50%)',
+  fontSize: '0.25em'
+});
 
-  return base({ ...style, ...props });
+export const CircularProgressLabel = (props: any): Render => {
+  return circularProgressLabelInstance.render(props);
 };
 
+/**
+ * Functions from Chakra-UI
+ *
+ */
 function getCircleProps({
   color,
   thickness,
@@ -164,46 +169,50 @@ function getComputedProps({
   return circleReturn;
 }
 
-function CircularProgress({
-  angle = 0,
-  capIsRound = true,
-  children,
-  color = 'green.500',
-  label,
-  max = 100,
-  min = 0,
-  size = '12',
-  thickness = 0.2,
-  trackColor = 'gray.400',
-  value = 80,
-  ...rest
-}: Props): Base {
-  const { root, indicator, label: labelObj, svg, track } = getComputedProps({
-    min,
-    max,
-    value,
-    size,
-    angle,
-    thickness,
-    capIsRound,
-    color,
-    trackColor
-  });
+const circularProgressInstance = new Base(
+  ({
+    angle = 0,
+    capIsRound = true,
+    children,
+    color = 'green.500',
+    label,
+    max = 100,
+    min = 0,
+    size = '12',
+    thickness = 0.2,
+    trackColor = 'gray.400',
+    value = 80
+  }: Props) => {
+    const { root, indicator, label: labelObj, svg, track } = getComputedProps({
+      min,
+      max,
+      value,
+      size,
+      angle,
+      thickness,
+      capIsRound,
+      color,
+      trackColor
+    });
 
-  const i = base(indicator);
-  const t = base(track);
-  const s = base(svg, undefined, [t, i]);
+    const i = render(indicator);
+    const t = render(track);
+    const s = render(svg, undefined, [t, i]);
 
-  const labelChild = base(labelObj.style, undefined, labelObj.text);
+    const labelChild = render(labelObj.style, undefined, labelObj.text);
 
-  return base({ ...root, ...rest }, undefined, [
-    s,
-    label && labelChild,
-    children
-  ]);
+    return {
+      children: [s, label && labelChild, children],
+      ...root
+    };
+  }
+);
+
+function CircularProgress(props: any): Render {
+  return circularProgressInstance.render(props);
 }
 
-CircularProgress.with = withHelper(CircularProgress);
+attachMethodsToInstance(CircularProgress, circularProgressInstance);
 
 CircularProgress.displayName = 'CircularProgress';
 

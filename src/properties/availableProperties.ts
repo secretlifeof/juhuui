@@ -200,6 +200,7 @@ export default new Set([
   'textDecorationStyle',
   'textIndent',
   'textJustify',
+  'textOverflow',
   'textShadow',
   'textTransform',
   // 'textUnderlinePosition',

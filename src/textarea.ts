@@ -1,21 +1,23 @@
+import Base from './base';
+import attachMethodsToInstance from './base/attachMethodsToInstance';
 import input from './input';
-import withHelper from './system/withHelper';
+// import { Render } from './system/render';
 
 type Input = ReturnType<typeof input>;
 
-function Textarea(props: any): Input {
-  const style = {
-    as: 'textarea',
-    lineHeight: 'short',
-    minHeight: '80px',
-    py: '8px',
-    resize: 'none'
-  };
+const textareaInstance = new Base({
+  as: 'textarea',
+  lineHeight: 'short',
+  minHeight: '80px',
+  py: '8px',
+  resize: 'none'
+});
 
-  return input({ ...style, ...props });
+function Textarea(props: any): Input {
+  return textareaInstance.render(props);
 }
 
-Textarea.with = withHelper(Textarea);
+attachMethodsToInstance(Textarea, textareaInstance);
 
 Textarea.displayName = 'Textarea';
 

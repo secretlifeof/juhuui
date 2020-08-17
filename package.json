@@ -1,6 +1,6 @@
 {
   "name": "juhuui",
-  "private": false,
+  "private": true,
   "version": "0.0.5-beta.1",
   "description": "Lightweight and flexible UI library",
   "license": "MIT",
@@ -38,7 +38,7 @@
     "jest": "^25.3.0",
     "lerna": "^3.22.1",
     "lint-staged": "^10.2.11",
-    "microbundle": "^0.12.2",
+    "microbundle": "^0.12.3",
     "prettier": "^2.0.5",
     "rimraf": "^3.0.2",
     "ts-jest": "^25.3.1",

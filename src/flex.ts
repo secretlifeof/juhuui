@@ -1,15 +1,14 @@
-import base, { Base } from './system/base';
-import withHelper from './system/withHelper';
+import Base from './base';
+import attachMethodsToInstance from './base/attachMethodsToInstance';
+import { Render } from './system/render';
 
-function Flex(props: any): Base {
-  const style = {
-    display: 'flex'
-  };
+const flexInstance = new Base({ display: 'flex' });
 
-  return base({ ...style, ...props });
+function Flex(props: any): Render {
+  return flexInstance.render(props);
 }
 
-Flex.with = withHelper(Flex);
+attachMethodsToInstance(Flex, flexInstance);
 
 Flex.displayName = 'Flex';
 
