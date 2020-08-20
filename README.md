@@ -2,11 +2,14 @@
 
 ### UI tool intended for design systems
 
-Juhuui is a a UI library and a tool made for building design systems. It has a flexible API so that styled components can be nested and merged.
+Juhuui is a a UI library and a tool made for building design systems. Merge and nest components in a simple manner. Variants can be created programmatically.
 
 ---
 
-#### 🔔 This is a work in progress and the API is still being finalized. You can of course test it and provide some feedback :-)
+#### 🔔 Work in progress
+
+This is a work in progress and the API is still being finalized. Please install juhuui@next for features described below.
+You can of course test it and provide some feedback :-)
 
 ---
 
@@ -25,7 +28,7 @@ Juhuui is a a UI library and a tool made for building design systems. It has a f
 **install from npm:**
 
 ```js
-npm install juhuui
+npm install juhuui@next
 ```
 
 ## Usage
@@ -99,7 +102,7 @@ const SpaceCase = Red.merge([GreenBox]).with({ textTransform: 'uppercase' })
 
 ## Create class names
 
-This is for creating class names. To give you the freedom of designing like you feel comfortable. If you only wish to use this solution we recommend a smaller tool called [otion](https://github.com/kripod/otion).
+Function for creating class names. To give you the freedom of designing like according to your needs. If you are looking for a tool that only creates class names we recommend a smaller tool called [otion](https://github.com/kripod/otion).
 
 ```js
 import { css } from 'juhuui';
@@ -182,7 +185,7 @@ setup(h, {
 
 ## Motivation
 
-Creating a design system tool with a clean API. One that creates atomic CSS classes. Merging and creating variants should feel simple (hopefully that is the case).
+Creating a design system tool with a clean API. One that behind the scenes generates atomic CSS classes. Merging components and setting up variants should feel simple (hopefully that is the case).
 
 Any feedback is met with love and curiosity. Have fun! 💚
 

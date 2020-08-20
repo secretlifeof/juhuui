@@ -3,11 +3,14 @@ function attachMethodsToInstance(Component: any, instance: any) {
   Component.as = function a(as: any) {
     return instance.as(as);
   };
-  Component.with = function w(props: any) {
-    return instance.with(props);
-  };
   Component.merge = function m(components: any) {
     return instance.merge(components);
+  };
+  Component.variants = function w(variantObj: any) {
+    return instance.variants(variantObj);
+  };
+  Component.with = function w(props: any) {
+    return instance.with(props);
   };
 }
 

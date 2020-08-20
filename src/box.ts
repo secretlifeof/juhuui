@@ -2,7 +2,7 @@
 import Base from './base';
 import attachMethodsToInstance from './base/attachMethodsToInstance';
 
-const box = new Base(({ farge }) => ({ bg: farge }), ['farge']);
+const box = new Base();
 
 function Box(props: any) {
   return box.render(props);

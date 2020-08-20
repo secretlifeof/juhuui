@@ -2,7 +2,7 @@ import Base from './base';
 import attachMethodsToInstance from './base/attachMethodsToInstance';
 import { Render } from './system/render';
 
-interface Props {
+export interface Props {
   fun: boolean;
   orientation: string;
 }

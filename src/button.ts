@@ -1,7 +1,7 @@
 import Base from './base';
 import attachMethodsToInstance from './base/attachMethodsToInstance';
 
-interface Props {
+export interface Props {
   activeColor: string;
   fun: boolean;
   hoverColor: string;

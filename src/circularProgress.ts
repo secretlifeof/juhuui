@@ -2,7 +2,7 @@ import Base from './base';
 import attachMethodsToInstance from './base/attachMethodsToInstance';
 import render, { Render } from './system/render';
 
-interface Props {
+export interface Props {
   angle: number;
   capIsRound: boolean;
   color: string;

@@ -1,7 +1,7 @@
 import Base from './base';
 import attachMethodsToInstance from './base/attachMethodsToInstance';
 
-interface Props {
+export interface Props {
   fun: boolean;
   ratio: number;
   pseudo: any;

@@ -1,6 +1,8 @@
+// @ts-nocheck
 import render from '../system/render';
 import { forwardRef } from '../system/setup';
 import attachAttrs from './attachAttrs';
+import getFilteredProps from './getFilteredProps';
 
 export interface BaseSignature {
   props?: any;
@@ -19,23 +21,56 @@ class Base {
 
   removeProps: any;
 
+  variant: any;
+
   constructor(p?: any, removeProps?: any[]) {
     this.props = p || {};
     this.removeProps = removeProps || [];
     this.ref = {};
     this.mergedProps = {};
-    // this.attrs = {};
+    this.variant = {};
   }
 
-  getFilteredProps(props: any) {
-    const filteredProps = { ...props };
-    this.removeProps.forEach((prop) => delete filteredProps[prop]);
-    return filteredProps;
+  as(a: string) {
+    this.mergedProps = { ...this.mergedProps, as: a };
+
+    return this;
   }
 
   getInitialValues(props: any) {
     const initValues = this.props;
     return typeof initValues === 'function' ? initValues(props) : initValues;
+  }
+
+  getVariantStyles(props: any) {
+    const variants = this.variant;
+    const variantNames = Object.keys(variants);
+    let variantStyles = {};
+    for (let i = 0; i < variantNames.length; i++) {
+      const variantName = variantNames[i];
+      const variantObj = variants[variantName];
+      const selectedVariant = props[variantName];
+      const variantStyle = variantObj[selectedVariant];
+
+      if (variantStyle) {
+        variantStyles = { ...variantStyles, ...variantStyle };
+      }
+    }
+    this.removeProps = [...this.removeProps, ...variantNames];
+
+    return variantStyles;
+  }
+
+  render(props: any = {}) {
+    const initValues = this.getInitialValues(props);
+    const filteredProps = getFilteredProps(props, this.removeProps);
+    return render({ ...initValues, ...filteredProps });
+  }
+
+  variants(types: any) {
+    this.variant = types;
+
+    return this;
   }
 
   with(val: any) {
@@ -46,11 +81,13 @@ class Base {
       const refOut = ref && ref.current ? { ref } : {};
       const styles = typeof val === 'function' ? val(props) : val;
       const initValues = this.getInitialValues(props);
-      const filteredProps = this.getFilteredProps(props);
+      const variantStyles = this.getVariantStyles(props);
+      const filteredProps = getFilteredProps(props, this.removeProps);
 
       return render({
         ...initValues,
         ...mergedProps,
+        ...variantStyles,
         ...styles,
         ...filteredProps,
         ...refOut
@@ -84,18 +121,6 @@ class Base {
     this.mergedProps = { ...this.mergedProps, ...mergedProps };
 
     return this;
-  }
-
-  as(a: string) {
-    this.mergedProps = { ...this.mergedProps, as: a };
-
-    return this;
-  }
-
-  render(props: any = {}) {
-    const initValues = this.getInitialValues(props);
-    const filteredProps = this.getFilteredProps(props);
-    return render({ ...initValues, ...filteredProps });
   }
 }
 
