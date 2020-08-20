@@ -45,7 +45,7 @@ const iconInstance = new Base(
 );
 
 function Icon(props: any): Render {
-  iconInstance.render(props);
+  return iconInstance.render(props);
 }
 
 attachMethodsToInstance(Icon, iconInstance);
