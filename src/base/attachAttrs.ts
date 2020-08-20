@@ -1,4 +1,5 @@
 import render from '../system/render';
+import { forwardRef } from '../system/setup';
 import getFilteredProps from './getFilteredProps';
 
 function as(this: any, a: any) {
@@ -14,7 +15,7 @@ function withComponent(this: any, attrsIn: any, val: any, filter: string[]) {
 
   const { mergedProps } = this;
   const WrappedComponent = (props?: any, ref = { current: null }) => {
-    const refOut = ref && ref.current ? { ref } : {};
+    const refOut = ref && forwardRef ? { ref } : {};
     const styles = typeof val === 'function' ? val(props) : val;
     const attrs = typeof attrsIn === 'function' ? attrsIn(props) : attrsIn;
     const initValues = this.getInitialValues(props);
@@ -35,10 +36,18 @@ function withComponent(this: any, attrsIn: any, val: any, filter: string[]) {
     });
   };
 
+  // if used without forwardRef
   attachAttrsBound(WrappedComponent, { ...attrsIn, ...mergedProps, ...val });
+
+  const Forwarded = forwardRef
+    ? forwardRef(WrappedComponent)
+    : WrappedComponent;
+  // if used with forwardRef
+  attachAttrsBound(Forwarded, { ...mergedProps, ...val });
+
   this.mergedProps = {};
 
-  return WrappedComponent;
+  return forwardRef ? Forwarded : WrappedComponent;
 }
 
 function merge(this: any, components: any) {

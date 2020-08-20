@@ -86,7 +86,7 @@ class Base {
 
     const { mergedProps } = this;
     const WrappedComponent = (props?: any, ref = { current: null }) => {
-      const refOut = ref && ref.current ? { ref } : {};
+      const refOut = ref && forwardRef ? { ref } : {};
       const styles = typeof val === 'function' ? val(props) : val;
       const initValues = this.getInitialValues(props);
       const variantStyles = this.getVariantStyles(props);
