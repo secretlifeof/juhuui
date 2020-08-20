@@ -102,7 +102,7 @@ const SpaceCase = Red.merge([GreenBox]).with({ textTransform: 'uppercase' })
 
 ## Create class names
 
-Function for creating class names. To give you the freedom of designing like according to your needs. If you are looking for a tool that only creates class names we recommend a smaller tool called [otion](https://github.com/kripod/otion).
+Function for creating class names. To give you the freedom of developing according to your needs. If you are looking for a tool that only creates class names we recommend a smaller tool called [otion](https://github.com/kripod/otion).
 
 ```js
 import { css } from 'juhuui';

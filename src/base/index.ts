@@ -43,7 +43,7 @@ class Base {
   }
 
   getVariantStyles(props: any) {
-    const variants = this.variant;
+    const variants = { ...this.variant };
     const variantNames = Object.keys(variants);
     let variantStyles = {};
     for (let i = 0; i < variantNames.length; i++) {
@@ -65,6 +65,14 @@ class Base {
     const initValues = this.getInitialValues(props);
     const filteredProps = getFilteredProps(props, this.removeProps);
     return render({ ...initValues, ...filteredProps });
+  }
+
+  /**
+   * Reset props after use so they will not be spilled to other components
+   */
+  reset() {
+    this.mergedProps = {};
+    this.variant = {};
   }
 
   variants(types: any) {
@@ -103,7 +111,7 @@ class Base {
     // if used with forwardRef
     attachAttrsBound(Forwarded, { ...mergedProps, ...val });
 
-    // reset mergedProps after use
+    // this.reset();
     this.mergedProps = {};
 
     // return WrappedComponent;

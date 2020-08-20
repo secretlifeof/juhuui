@@ -32,9 +32,9 @@ function withComponent(this: any, val: any, attrsIn: any) {
     });
   };
 
-  attachAttrsBound(WrappedComponent, { ...attrsIn, ...mergedProps, ...val });
-
   this.mergedProps = {};
+
+  attachAttrsBound(WrappedComponent, { ...attrsIn, ...mergedProps, ...val });
 
   return WrappedComponent;
 }
