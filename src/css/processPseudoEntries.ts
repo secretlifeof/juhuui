@@ -10,7 +10,7 @@ export interface Pair {
 }
 
 export interface Pseudo {
-  [key: string]: string | number | Array<string | number | null>;
+  [key: string]: any; // string | number | Array<string | number | null>;
 }
 
 function processPseudoEntries(entries: Pseudo, selector: string): any {

@@ -8,7 +8,7 @@ import { themeInternal as theme } from '../system/setup';
 
 const createCss = (
   property: string[] | string,
-  value: string | number | Array<string | number | null>,
+  value: string | number | null | undefined | Array<string | number | null>,
   selector?: string
 ): string | string[] => {
   if (value === null || value === undefined) return '';
