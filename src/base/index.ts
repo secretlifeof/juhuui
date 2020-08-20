@@ -81,7 +81,7 @@ class Base {
     return this;
   }
 
-  with(val: any) {
+  with(val: any, filter: string[]) {
     const attachAttrsBound = attachAttrs.bind(this);
 
     const { mergedProps } = this;
@@ -90,7 +90,10 @@ class Base {
       const styles = typeof val === 'function' ? val(props) : val;
       const initValues = this.getInitialValues(props);
       const variantStyles = this.getVariantStyles(props);
-      const filteredProps = getFilteredProps(props, this.removeProps);
+      const filteredProps = getFilteredProps(props, [
+        ...this.removeProps,
+        ...filter
+      ]);
 
       return render({
         ...initValues,

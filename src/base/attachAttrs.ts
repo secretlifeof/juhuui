@@ -7,7 +7,7 @@ function as(this: any, a: any) {
   return this;
 }
 
-function withComponent(this: any, val: any, attrsIn: any) {
+function withComponent(this: any, val: any, filter: string[], attrsIn: any) {
   /* eslint-disable @typescript-eslint/no-use-before-define */
   const attachAttrsBound = attachAttrs.bind(this);
   /* eslint-enable @typescript-eslint/no-use-before-define */
@@ -19,7 +19,10 @@ function withComponent(this: any, val: any, attrsIn: any) {
     const attrs = typeof attrsIn === 'function' ? attrsIn(props) : attrsIn;
     const initValues = this.getInitialValues(props);
     const variantStyles = this.getVariantStyles(props);
-    const filteredProps = getFilteredProps(props, this.removeProps);
+    const filteredProps = getFilteredProps(props, [
+      ...this.removeProps,
+      ...filter
+    ]);
 
     return render({
       ...initValues,
