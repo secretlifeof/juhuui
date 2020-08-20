@@ -7,7 +7,7 @@ function as(this: any, a: any) {
   return this;
 }
 
-function withComponent(this: any, val: any, filter: string[], attrsIn: any) {
+function withComponent(this: any, attrsIn: any, val: any, filter: string[]) {
   /* eslint-disable @typescript-eslint/no-use-before-define */
   const attachAttrsBound = attachAttrs.bind(this);
   /* eslint-enable @typescript-eslint/no-use-before-define */
@@ -35,9 +35,8 @@ function withComponent(this: any, val: any, filter: string[], attrsIn: any) {
     });
   };
 
-  this.mergedProps = {};
-
   attachAttrsBound(WrappedComponent, { ...attrsIn, ...mergedProps, ...val });
+  this.mergedProps = {};
 
   return WrappedComponent;
 }
