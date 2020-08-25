@@ -9,7 +9,7 @@ interface Config {
 /* eslint-disable import/no-mutable-exports */
 export let h: (nodeName: string, attributes: any, children: any[]) => any;
 export let themeInternal: Theme = defaultTheme;
-export let defaultFun = false;
+export let defaultFun = true;
 export let forwardRef: Function | undefined;
 /* eslint-enable import/no-mutable-exports */
 

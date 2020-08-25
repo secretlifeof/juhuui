@@ -1,4 +1,3 @@
-// @ts-nocheck
 import render from '../system/render';
 import { forwardRef } from '../system/setup';
 import attachAttrs from './attachAttrs';
@@ -42,8 +41,7 @@ class Base {
     return typeof initValues === 'function' ? initValues(props) : initValues;
   }
 
-  getVariantStyles(props: any) {
-    const variants = { ...this.variant };
+  getVariantStyles(props: any, variants: any = {}) {
     const variantNames = Object.keys(variants);
     let variantStyles = {};
     for (let i = 0; i < variantNames.length; i++) {
@@ -81,19 +79,17 @@ class Base {
     return this;
   }
 
-  with(val: any, filter: string[]) {
+  with(val: any, filter: string[] = []) {
     const attachAttrsBound = attachAttrs.bind(this);
 
-    const { mergedProps } = this;
+    const { mergedProps, variant } = this;
+    const filters = [...this.removeProps, ...Object.keys(variant), ...filter];
     const WrappedComponent = (props?: any, ref = { current: null }) => {
       const refOut = ref && forwardRef ? { ref } : {};
       const styles = typeof val === 'function' ? val(props) : val;
       const initValues = this.getInitialValues(props);
-      const variantStyles = this.getVariantStyles(props);
-      const filteredProps = getFilteredProps(props, [
-        ...this.removeProps,
-        ...filter
-      ]);
+      const variantStyles = this.getVariantStyles(props, variant);
+      const filteredProps = getFilteredProps(props, [...filters]);
 
       return render({
         ...initValues,
@@ -105,20 +101,27 @@ class Base {
       });
     };
 
-    // if used without forwardRef
-    attachAttrsBound(WrappedComponent, { ...mergedProps, ...val });
+    const attachedProps = {
+      forwardProps: { ...mergedProps, ...val },
+      forwardFunctions: [val],
+      forwardFilter: filters,
+      forwardVariant: variant
+      // forwardMerge: mergedProps
+    };
 
+    // if used without forwardRef
+    attachAttrsBound(WrappedComponent, attachedProps);
+
+    // if used with forwardRef
     const Forwarded = forwardRef
       ? forwardRef(WrappedComponent)
       : WrappedComponent;
-    // if used with forwardRef
-    attachAttrsBound(Forwarded, { ...mergedProps, ...val });
+    attachAttrsBound(Forwarded, attachedProps);
 
-    // this.reset();
-    this.mergedProps = {};
+    this.reset();
 
     // return WrappedComponent;
-    return forwardRef ? Forwarded : WrappedComponent;
+    return Forwarded;
   }
 
   merge(components: any) {

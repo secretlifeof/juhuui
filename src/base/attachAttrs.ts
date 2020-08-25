@@ -2,33 +2,54 @@ import render from '../system/render';
 import { forwardRef } from '../system/setup';
 import getFilteredProps from './getFilteredProps';
 
-function as(this: any, a: any) {
+function as(this: any, component: any, a: any) {
   this.mergedProps = { ...this.mergedProps, as: a };
 
-  return this;
+  return component;
 }
 
-function withComponent(this: any, attrsIn: any, val: any, filter: string[]) {
+function withComponent(
+  this: any,
+  {
+    forwardProps = {},
+    forwardFunctions = [],
+    forwardFilter = [],
+    forwardVariant = {}
+  },
+  val: any,
+  filter: string[] = []
+) {
   /* eslint-disable @typescript-eslint/no-use-before-define */
   const attachAttrsBound = attachAttrs.bind(this);
   /* eslint-enable @typescript-eslint/no-use-before-define */
 
-  const { mergedProps } = this;
+  const { mergedProps, variant } = this;
+  const filters = [
+    ...this.removeProps,
+    ...forwardFilter,
+    ...Object.keys(variant),
+    ...filter
+  ];
   const WrappedComponent = (props?: any, ref = { current: null }) => {
     const refOut = ref && forwardRef ? { ref } : {};
     const styles = typeof val === 'function' ? val(props) : val;
-    const attrs = typeof attrsIn === 'function' ? attrsIn(props) : attrsIn;
+    const attrs =
+      typeof forwardProps === 'function' ? forwardProps(props) : forwardProps;
+    const functionAttrs = forwardFunctions.reduce((acc, cur: any) => {
+      return { ...acc, ...(typeof cur === 'function' ? cur(props) : cur) };
+    }, {});
     const initValues = this.getInitialValues(props);
-    const variantStyles = this.getVariantStyles(props);
-    const filteredProps = getFilteredProps(props, [
-      ...this.removeProps,
-      ...filter
-    ]);
+    const variantStyles = this.getVariantStyles(props, {
+      ...forwardVariant,
+      ...variant
+    });
+    const filteredProps = getFilteredProps(props, filters);
 
     return render({
       ...initValues,
       ...attrs,
       ...mergedProps,
+      ...functionAttrs,
       ...variantStyles,
       ...styles,
       ...filteredProps,
@@ -36,44 +57,53 @@ function withComponent(this: any, attrsIn: any, val: any, filter: string[]) {
     });
   };
 
+  const parentProps = {
+    forwardProps: { ...forwardProps, ...mergedProps, ...val },
+    forwardFunctions: [...forwardFunctions, val],
+    forwardFilter: filters,
+    forwardVariant: variant
+  };
+
   // if used without forwardRef
-  attachAttrsBound(WrappedComponent, { ...attrsIn, ...mergedProps, ...val });
+  attachAttrsBound(WrappedComponent, parentProps);
 
   const Forwarded = forwardRef
     ? forwardRef(WrappedComponent)
     : WrappedComponent;
   // if used with forwardRef
-  attachAttrsBound(Forwarded, { ...mergedProps, ...val });
+  attachAttrsBound(Forwarded, parentProps);
 
-  this.mergedProps = {};
+  this.reset();
 
-  return forwardRef ? Forwarded : WrappedComponent;
+  return Forwarded;
 }
 
-function merge(this: any, components: any) {
-  const mergedProps = Array.isArray(components)
-    ? components.reduce((acc: any, cur: any) => ({ ...acc, ...cur.attrs }), {})
-    : components.attrs;
+function merge(this: any, component: any, componentsToBeMerged: any | any[]) {
+  const mergedProps = Array.isArray(componentsToBeMerged)
+    ? componentsToBeMerged.reduce(
+        (acc: any, cur: any) => ({ ...acc, ...cur.attrs }),
+        {}
+      )
+    : componentsToBeMerged.attrs;
 
   this.mergedProps = { ...this.mergedProps, ...mergedProps };
 
-  return this;
+  return component;
 }
 
-function variants(this: any, types: any) {
+function variants(this: any, component: any, types: any) {
   this.variant = types;
 
-  return this;
+  return component;
 }
 
-function attachAttrs(this: any, component: any, attrs: any) {
+function attachAttrs(this: any, component: any, parentProps: any = {}) {
   /* eslint no-param-reassign: ["error", { "props": false }] */
-  component.as = as.bind(this);
-  // attrs argument necessary for passing attrs to nested component
-  component.with = withComponent.bind(this, attrs);
-  component.attrs = attrs;
-  component.merge = merge.bind(this);
-  component.variants = variants.bind(this);
+  // components attribute is necessary for nesting components
+  component.as = as.bind(this, component);
+  component.with = withComponent.bind(this, parentProps);
+  component.merge = merge.bind(this, component);
+  component.variants = variants.bind(this, component);
 }
 
 export default attachAttrs;

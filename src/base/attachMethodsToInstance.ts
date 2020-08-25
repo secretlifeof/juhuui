@@ -9,8 +9,8 @@ function attachMethodsToInstance(Component: any, instance: any) {
   Component.variants = function w(variantObj: any) {
     return instance.variants(variantObj);
   };
-  Component.with = function w(props: any) {
-    return instance.with(props);
+  Component.with = function w(props: any, filter: string[]) {
+    return instance.with(props, filter);
   };
 }
 
