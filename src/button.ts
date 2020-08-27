@@ -1,7 +1,8 @@
 import Base from './base';
 import attachMethodsToInstance from './base/attachMethodsToInstance';
+import { ComponentType, CSSRules } from './types';
 
-export interface Props {
+export interface Props extends CSSRules {
   activeColor: string;
   fun: boolean;
   hoverColor: string;
@@ -60,7 +61,7 @@ function Button(props: any) {
   return button.render(props);
 }
 
-attachMethodsToInstance(Button, button);
+attachMethodsToInstance(Button as ComponentType, button);
 
 Button.displayName = 'Button';
 

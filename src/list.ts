@@ -1,6 +1,7 @@
 import Base from './base';
 import attachMethodsToInstance from './base/attachMethodsToInstance';
 import { Render } from './system/render';
+import { ComponentType, CSSRules } from './types';
 
 interface ListItemProps {
   spacing: string | number;
@@ -17,11 +18,11 @@ const listItemInstance = new Base(
   ['spacing']
 );
 
-export function ListItem(props: any): Base {
+export function ListItem(props: CSSRules): Base {
   return listItemInstance.render(props);
 }
 
-attachMethodsToInstance(ListItem, listItemInstance);
+attachMethodsToInstance(ListItem as ComponentType, listItemInstance);
 ListItem.displayName = 'ListItem';
 
 const listInstance = new Base(
@@ -43,11 +44,11 @@ const listInstance = new Base(
   ['spacing']
 );
 
-function List(props: any): Render {
+function List(props: CSSRules): Render {
   return listInstance.render(props);
 }
 
-attachMethodsToInstance(List, listInstance);
+attachMethodsToInstance(List as ComponentType, listInstance);
 List.displayName = 'List';
 
 export default List;

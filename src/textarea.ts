@@ -1,7 +1,7 @@
 import Base from './base';
 import attachMethodsToInstance from './base/attachMethodsToInstance';
 import input from './input';
-// import { Render } from './system/render';
+import { ComponentType, CSSRules } from './types';
 
 type Input = ReturnType<typeof input>;
 
@@ -13,11 +13,11 @@ const textareaInstance = new Base({
   resize: 'none'
 });
 
-function Textarea(props: any): Input {
+function Textarea(props: CSSRules): Input {
   return textareaInstance.render(props);
 }
 
-attachMethodsToInstance(Textarea, textareaInstance);
+attachMethodsToInstance(Textarea as ComponentType, textareaInstance);
 
 Textarea.displayName = 'Textarea';
 

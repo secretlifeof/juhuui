@@ -1,7 +1,8 @@
 import Base from './base';
 import attachMethodsToInstance from './base/attachMethodsToInstance';
+import { ComponentType, CSSRules } from './types';
 
-export interface Props {
+export interface Props extends CSSRules {
   fun: boolean;
   ratio: number;
   pseudo: any;
@@ -38,7 +39,7 @@ function AspectRatioBox(props: Props) {
   return aspectRatioBox.render(props);
 }
 
-attachMethodsToInstance(AspectRatioBox, aspectRatioBox);
+attachMethodsToInstance(AspectRatioBox as ComponentType, aspectRatioBox);
 
 AspectRatioBox.displayName = 'AspectRatioBox';
 

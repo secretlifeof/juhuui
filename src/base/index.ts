@@ -1,5 +1,6 @@
 import render from '../system/render';
 import { forwardRef } from '../system/setup';
+import { CSSProps } from '../types';
 import attachAttrs from './attachAttrs';
 import getFilteredProps from './getFilteredProps';
 
@@ -30,6 +31,10 @@ class Base {
     this.variant = {};
   }
 
+  /**
+   *
+   * @param a - TEST A
+   */
   as(a: string) {
     this.mergedProps = { ...this.mergedProps, as: a };
 
@@ -79,7 +84,7 @@ class Base {
     return this;
   }
 
-  with(val: any, filter: string[] = []) {
+  with(val: CSSProps, filter: string[] = []) {
     const attachAttrsBound = attachAttrs.bind(this);
 
     const { mergedProps, variant } = this;

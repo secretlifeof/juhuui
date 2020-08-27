@@ -1,6 +1,7 @@
 import Base from './base';
 import attachMethodsToInstance from './base/attachMethodsToInstance';
 import render, { Render } from './system/render';
+import { ComponentType, CSSRules } from './types';
 
 export interface Props {
   angle: number;
@@ -208,11 +209,14 @@ const circularProgressInstance = new Base(
   }
 );
 
-function CircularProgress(props: any): Render {
+function CircularProgress(props: CSSRules): Render {
   return circularProgressInstance.render(props);
 }
 
-attachMethodsToInstance(CircularProgress, circularProgressInstance);
+attachMethodsToInstance(
+  CircularProgress as ComponentType,
+  circularProgressInstance
+);
 
 CircularProgress.displayName = 'CircularProgress';
 

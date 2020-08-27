@@ -2,8 +2,9 @@ import Base from './base';
 import attachMethodsToInstance from './base/attachMethodsToInstance';
 import { Render } from './system/render';
 import checkTheme from './theme/checkTheme';
+import { ComponentType, CSSRules } from './types';
 
-interface Props {
+interface Props extends CSSRules {
   divideEqual: boolean;
   isInline: boolean | boolean[];
   isReversed: boolean;
@@ -100,7 +101,7 @@ function Stack(props: any): Render {
   return stackInstance.render(props);
 }
 
-attachMethodsToInstance(Stack, stackInstance);
+attachMethodsToInstance(Stack as ComponentType, stackInstance);
 
 Stack.displayName = 'Stack';
 

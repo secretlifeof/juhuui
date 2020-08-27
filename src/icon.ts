@@ -2,9 +2,10 @@ import Base from './base';
 import attachMethodsToInstance from './base/attachMethodsToInstance';
 import { Render } from './system/render';
 import { themeInternal as theme } from './system/setup';
+import { ComponentType, CSSRules } from './types';
 import createElement from './utilities/createElementFromString';
 
-interface Props {
+interface Props extends CSSRules {
   color: string;
   hoverColor?: string;
   size: string;
@@ -48,7 +49,7 @@ function Icon(props: any): Render {
   return iconInstance.render(props);
 }
 
-attachMethodsToInstance(Icon, iconInstance);
+attachMethodsToInstance(Icon as ComponentType, iconInstance);
 
 Icon.displayName = 'Icon';
 

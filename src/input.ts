@@ -1,8 +1,9 @@
 import Base from './base';
 import attachMethodsToInstance from './base/attachMethodsToInstance';
 import { Render } from './system/render';
+import { ComponentType, CSSRules } from './types';
 
-interface Props {}
+interface Props extends CSSRules {}
 
 const baseStyle = {
   display: 'flex',
@@ -32,7 +33,7 @@ function Input(props: Props): Render {
   return inputInstance.render(props);
 }
 
-attachMethodsToInstance(Input, inputInstance);
+attachMethodsToInstance(Input as ComponentType, inputInstance);
 
 Input.displayName = 'Input';
 

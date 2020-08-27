@@ -1,6 +1,7 @@
 import Base from './base';
 import attachMethodsToInstance from './base/attachMethodsToInstance';
 import render, { Render } from './system/render';
+import { ComponentType, CSSRules } from './types';
 
 interface IndicatorProps {
   color: string;
@@ -9,7 +10,7 @@ interface IndicatorProps {
   value: number;
 }
 
-interface ProgressProps {
+interface ProgressProps extends CSSRules {
   background: string;
   color: string;
   fun: boolean;
@@ -63,11 +64,11 @@ const progressInstance = new Base(
   ['max', 'min', 'value']
 );
 
-function Progress(props: any): Render {
+function Progress(props: ProgressProps): Render {
   return progressInstance.render(props);
 }
 
-attachMethodsToInstance(Progress, progressInstance);
+attachMethodsToInstance(Progress as ComponentType, progressInstance);
 
 Progress.displayName = 'Progress';
 

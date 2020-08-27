@@ -1,8 +1,9 @@
 import Base from './base';
 import attachMethodsToInstance from './base/attachMethodsToInstance';
 import { Render } from './system/render';
+import { ComponentType, CSSRules } from './types';
 
-export interface Props {
+export interface Props extends CSSRules {
   fun: boolean;
   orientation: string;
 }
@@ -31,7 +32,7 @@ function Divider(props: any): Render {
   return dividerInstance.render(props);
 }
 
-attachMethodsToInstance(Divider, dividerInstance);
+attachMethodsToInstance(Divider as ComponentType, dividerInstance);
 
 Divider.displayName = 'Divider';
 

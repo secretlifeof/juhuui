@@ -2,8 +2,9 @@ import Base from './base';
 import attachMethodsToInstance from './base/attachMethodsToInstance';
 import { NestedPseudo } from './css/processProps';
 import { Render } from './system/render';
+import { ComponentType, CSSRules } from './types';
 
-interface Props {
+interface Props extends CSSRules {
   fun: boolean;
   pseudo: NestedPseudo;
   tagSize: string;
@@ -67,7 +68,7 @@ function Tag(props: any): Render {
   return tagInstance.render(props);
 }
 
-attachMethodsToInstance(Tag, tagInstance);
+attachMethodsToInstance(Tag as ComponentType, tagInstance);
 
 Tag.displayName = 'Tag';
 

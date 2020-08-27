@@ -3,6 +3,7 @@ import attachMethodsToInstance from './base/attachMethodsToInstance';
 import { baseStyle } from './button';
 import { Render } from './system/render';
 import { themeInternal as theme } from './system/setup';
+import { ComponentType, CSSRules } from './types';
 import createElement from './utilities/createElementFromString';
 
 interface Props {
@@ -52,11 +53,11 @@ const iconButtonInstance = new Base(
   ['activeColor', 'hoverColor']
 );
 
-function IconButton(props: any): Render {
+function IconButton(props: CSSRules): Render {
   return iconButtonInstance.render(props);
 }
 
-attachMethodsToInstance(IconButton, iconButtonInstance);
+attachMethodsToInstance(IconButton as ComponentType, iconButtonInstance);
 
 IconButton.displayName = 'IconButton';
 

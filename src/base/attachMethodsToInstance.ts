@@ -1,17 +1,24 @@
-function attachMethodsToInstance(Component: any, instance: any) {
+import { As, CSSProps, InstanceType } from '../types';
+
+function attachMethodsToInstance<T extends InstanceType>(
+  component: T,
+  instance: InstanceType
+): T {
   /* eslint no-param-reassign: ["error", { "props": false }] */
-  Component.as = function a(as: any) {
+
+  component.as = function a(as: As) {
     return instance.as(as);
   };
-  Component.merge = function m(components: any) {
+  component.merge = function m(components: any) {
     return instance.merge(components);
   };
-  Component.variants = function w(variantObj: any) {
+  component.variants = function w(variantObj: any) {
     return instance.variants(variantObj);
   };
-  Component.with = function w(props: any, filter: string[]) {
+  component.with = function w(props: CSSProps, filter: string[]) {
     return instance.with(props, filter);
   };
+  return component as any;
 }
 
 export default attachMethodsToInstance;
