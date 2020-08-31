@@ -1,19 +1,18 @@
 import render from '../system/render';
 import { forwardRef } from '../system/setup';
-import { CSSProps } from '../types';
-import attachAttrs from './attachAttrs';
+import { As, CSSProps, CSSRules } from '../types';
+import attachAttrs, { WrappedComponentType } from './attachAttrs';
 import getFilteredProps from './getFilteredProps';
 
-export interface BaseSignature {
-  props?: any;
-  ref?: any;
-  mergedProps?: any;
-  removeProps?: any;
-  new (n?: string): any;
-}
+// export interface BaseSignature {
+//   props?: any;
+//   ref?: any;
+//   mergedProps?: any;
+//   removeProps?: any;
+// }
 
 class Base {
-  props: any;
+  props: CSSProps | any;
 
   ref: any;
 
@@ -23,7 +22,7 @@ class Base {
 
   variant: any;
 
-  constructor(p?: any, removeProps?: any[]) {
+  constructor(p?: CSSProps | any, removeProps?: any[]) {
     this.props = p || {};
     this.removeProps = removeProps || [];
     this.ref = {};
@@ -33,15 +32,15 @@ class Base {
 
   /**
    *
-   * @param a - TEST A
+   *
    */
-  as(a: string) {
-    this.mergedProps = { ...this.mergedProps, as: a };
+  as(as: As) {
+    this.mergedProps = { ...this.mergedProps, as };
 
     return this;
   }
 
-  getInitialValues(props: any) {
+  getInitialValues(props: CSSRules) {
     const initValues = this.props;
     return typeof initValues === 'function' ? initValues(props) : initValues;
   }
@@ -64,7 +63,7 @@ class Base {
     return variantStyles;
   }
 
-  render(props: any = {}) {
+  render(props: CSSRules = {}) {
     const initValues = this.getInitialValues(props);
     const filteredProps = getFilteredProps(props, this.removeProps);
     return render({ ...initValues, ...filteredProps });
@@ -84,15 +83,24 @@ class Base {
     return this;
   }
 
-  with(val: CSSProps, filter: string[] = []) {
+  /**
+   *  Add CSSRules to component
+   *  @param val - CSSRules | (props)=>({ CSSRules })
+   *  @param filter - string[] containing props to filter from DOM
+   *  @returns JSX Element
+   *  @example
+   *  const Simple = Box.with({ color: 'green' });
+   *  const Play = Box.with(({ bgC }) => ({ bg: bgC }), ['bgC']);
+   */
+  with(val?: CSSProps, filter: string[] = []) {
     const attachAttrsBound = attachAttrs.bind(this);
 
     const { mergedProps, variant } = this;
     const filters = [...this.removeProps, ...Object.keys(variant), ...filter];
-    const WrappedComponent = (props?: any, ref = { current: null }) => {
+    const WrappedComponent = ((props?: CSSRules, ref = { current: null }) => {
       const refOut = ref && forwardRef ? { ref } : {};
       const styles = typeof val === 'function' ? val(props) : val;
-      const initValues = this.getInitialValues(props);
+      const initValues = this.getInitialValues(props as CSSRules);
       const variantStyles = this.getVariantStyles(props, variant);
       const filteredProps = getFilteredProps(props, [...filters]);
 
@@ -104,7 +112,7 @@ class Base {
         ...filteredProps,
         ...refOut
       });
-    };
+    }) as WrappedComponentType;
 
     const attachedProps = {
       forwardProps: { ...mergedProps, ...val },
@@ -118,9 +126,9 @@ class Base {
     attachAttrsBound(WrappedComponent, attachedProps);
 
     // if used with forwardRef
-    const Forwarded = forwardRef
+    const Forwarded = (forwardRef
       ? forwardRef(WrappedComponent)
-      : WrappedComponent;
+      : WrappedComponent) as WrappedComponentType;
     attachAttrsBound(Forwarded, attachedProps);
 
     this.reset();

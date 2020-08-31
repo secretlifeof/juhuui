@@ -4,12 +4,14 @@ import { NestedPseudo } from './css/processProps';
 import { Render } from './system/render';
 import { ComponentType, CSSRules } from './types';
 
-interface Props extends CSSRules {
+interface P {
   fun: boolean;
   pseudo: NestedPseudo;
   tagSize: string;
   rest: any;
 }
+
+type Props = P & CSSRules;
 
 const sizeStyles = {
   minHeight: 7,
@@ -64,11 +66,11 @@ const tagInstance = new Base(({ pseudo }: Props) => ({
   }
 }));
 
-function Tag(props: any): Render {
+const Tag = ((props: Props): Render => {
   return tagInstance.render(props);
-}
+}) as ComponentType;
 
-attachMethodsToInstance(Tag as ComponentType, tagInstance);
+attachMethodsToInstance(Tag, tagInstance);
 
 Tag.displayName = 'Tag';
 

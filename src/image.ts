@@ -7,11 +7,11 @@ const imageInstance = new Base({
   as: 'img'
 });
 
-function Image(props: CSSRules): Render {
+const Image = ((props: CSSRules): Render => {
   return imageInstance.render(props);
-}
+}) as ComponentType;
 
-attachMethodsToInstance(Image as ComponentType, imageInstance);
+attachMethodsToInstance(Image, imageInstance);
 
 Image.displayName = 'Image';
 

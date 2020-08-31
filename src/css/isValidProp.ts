@@ -1,5 +1,9 @@
-import { availableProperties, getShortProperty } from '../properties';
-import ifStrToKebabCase from '../utilities/ifStrToKebabCase';
+import {
+  availableProperties,
+  CSSShortProperties,
+  getShortProperty
+} from '../properties';
+// import ifStrToKebabCase from '../utilities/ifStrToKebabCase';
 
 const selectorsDouble = [
   '_after',
@@ -44,54 +48,51 @@ interface ValidProp {
   fun: boolean;
 }
 
+const CACHE = new Map();
+
 /**
  * Checks all props if they are valid to be processed by juhuui
  */
 
-const isValidProp = () => {
-  const CACHE = new Map();
+const isValidProp = (propName: string, fun: boolean): ValidProp => {
+  const cachedProperty: ValidProp = CACHE.get(propName);
 
-  return (propName: string, fun: boolean): ValidProp => {
-    const cachedProperty: ValidProp = CACHE.get(propName);
+  if (cachedProperty) {
+    return cachedProperty;
+  }
 
-    if (cachedProperty) {
-      return cachedProperty;
-    }
-
-    if (fun) {
-      const property =
-        (selectorsDouble.includes(propName) &&
-          `&::${propName.replace('_', '')}`) ||
-        (selectorsSingle.includes(propName) &&
-          `&:${propName.replace('_', '')}`) ||
-        (propName === 'pseudo' && 'pseudo') ||
-        false;
-
-      if (property) {
-        const valid = { property, fun: true };
-        CACHE.set(propName, valid);
-        return valid;
-      }
-    }
-
-    let property =
-      (!Array.isArray(propName) &&
-        ((availableProperties.has(propName) && propName) ||
-          getShortProperty(propName) ||
-          (propName.includes('j_') && propName.replace('j_', '')) ||
-          (propName.includes('webkit') && `-${propName}`))) ||
+  if (fun) {
+    const property =
+      (selectorsDouble.includes(propName) &&
+        `&::${propName.replace('_', '')}`) ||
+      (selectorsSingle.includes(propName) &&
+        `&:${propName.replace('_', '')}`) ||
+      (propName === 'pseudo' && 'pseudo') ||
       false;
 
-    property = property && ifStrToKebabCase(property);
-
     if (property) {
-      const valid = { property, fun: false };
+      const valid = { property, fun: true };
       CACHE.set(propName, valid);
       return valid;
     }
+  }
 
-    return { property: false, fun: false };
-  };
+  const property = ((!Array.isArray(propName) &&
+    ((availableProperties.has(propName) && propName) ||
+      getShortProperty(propName as CSSShortProperties) ||
+      (propName.includes('j_') && propName.replace('j_', '')) ||
+      (propName.includes('webkit') && `-${propName}`))) ||
+    false) as string | string[] | undefined;
+
+  // property = property && ifStrToKebabCase(property);
+
+  if (property) {
+    const valid = { property, fun: false };
+    CACHE.set(propName, valid);
+    return valid;
+  }
+
+  return { property: false, fun: false };
 };
 
-export default isValidProp();
+export default isValidProp;

@@ -10,11 +10,11 @@ const headingInstance = new Base({
   fontFamily: 'heading'
 });
 
-function Heading(props: CSSRules): Render {
+const Heading = ((props: CSSRules): Render => {
   return headingInstance.render(props);
-}
+}) as ComponentType;
 
-attachMethodsToInstance(Heading as ComponentType, headingInstance);
+attachMethodsToInstance(Heading, headingInstance);
 
 Heading.displayName = 'Heading';
 

@@ -9,7 +9,7 @@ export interface CSS {
   extraRaw?: string;
 }
 
-type CreateElement = ReturnType<typeof h>;
+export type CreateElement = ReturnType<typeof h>;
 
 /**
  *  Concats arguments to css string and creates element

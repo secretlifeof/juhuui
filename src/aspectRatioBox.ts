@@ -2,13 +2,16 @@ import Base from './base';
 import attachMethodsToInstance from './base/attachMethodsToInstance';
 import { ComponentType, CSSRules } from './types';
 
-export interface Props extends CSSRules {
+export interface P {
   fun: boolean;
   ratio: number;
   pseudo: any;
   rest: any;
   // [key: string]: any;
 }
+
+type Props = P & CSSRules;
+
 const aspectRatioBox = new Base(
   ({ fun = true, ratio = 4 / 3, pseudo: pseudoIn = {} }) => ({
     fun,

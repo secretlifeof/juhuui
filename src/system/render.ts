@@ -1,7 +1,5 @@
 import processProps, { Props } from '../css/processProps';
-import createElement, { CSS } from './createElement';
-
-type CreateElement = ReturnType<typeof createElement>;
+import createElement, { CreateElement, CSS } from './createElement';
 
 /**
  *  All Components call this

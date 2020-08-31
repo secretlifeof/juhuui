@@ -3,7 +3,9 @@ import attachMethodsToInstance from './base/attachMethodsToInstance';
 import { Render } from './system/render';
 import { ComponentType, CSSRules } from './types';
 
-interface Props extends CSSRules {}
+interface P {}
+
+type Props = P & CSSRules;
 
 const baseStyle = {
   display: 'flex',
@@ -29,11 +31,11 @@ const inputInstance = new Base({
   as: 'input'
 });
 
-function Input(props: Props): Render {
+const Input = ((props: Props): Render => {
   return inputInstance.render(props);
-}
+}) as ComponentType;
 
-attachMethodsToInstance(Input as ComponentType, inputInstance);
+attachMethodsToInstance(Input, inputInstance);
 
 Input.displayName = 'Input';
 

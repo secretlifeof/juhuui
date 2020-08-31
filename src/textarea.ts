@@ -13,11 +13,11 @@ const textareaInstance = new Base({
   resize: 'none'
 });
 
-function Textarea(props: CSSRules): Input {
+const Textarea = ((props: CSSRules): Input => {
   return textareaInstance.render(props);
-}
+}) as ComponentType;
 
-attachMethodsToInstance(Textarea as ComponentType, textareaInstance);
+attachMethodsToInstance(Textarea, textareaInstance);
 
 Textarea.displayName = 'Textarea';
 

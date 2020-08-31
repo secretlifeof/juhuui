@@ -4,16 +4,16 @@ import { ComponentType, CSSRules } from './types';
 
 const box = new Base();
 
-export interface Props extends CSSRules {}
+type Props = CSSRules;
 
 /**
  *  Component without a default style
  *  @param props - Object of any CSS properties/shortcuts/pseudo
  *  @returns JSX Element
  */
-const Box: ComponentType = function Box(props: Props) {
+const Box = ((props: Props) => {
   return box.render(props);
-} as ComponentType;
+}) as ComponentType;
 
 attachMethodsToInstance(Box, box);
 

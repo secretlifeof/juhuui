@@ -7,11 +7,11 @@ const linkInstance = new Base({
   as: 'a'
 });
 
-function Link(props: CSSRules): Render {
+const Link = ((props: CSSRules): Render => {
   return linkInstance.render(props);
-}
+}) as ComponentType;
 
-attachMethodsToInstance(Link as ComponentType, linkInstance);
+attachMethodsToInstance(Link, linkInstance);
 
 Link.displayName = 'Link';
 

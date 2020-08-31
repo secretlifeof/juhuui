@@ -10,7 +10,7 @@ interface IndicatorProps {
   value: number;
 }
 
-interface ProgressProps extends CSSRules {
+interface ProgressP {
   background: string;
   color: string;
   fun: boolean;
@@ -22,6 +22,8 @@ interface ProgressProps extends CSSRules {
   bg: string;
   rest: any;
 }
+
+type ProgressProps = ProgressP & CSSRules;
 
 function Indicator({ color, max, min, value }: IndicatorProps): Render {
   const percent = (value / (max - min)) * 100;
@@ -64,11 +66,11 @@ const progressInstance = new Base(
   ['max', 'min', 'value']
 );
 
-function Progress(props: ProgressProps): Render {
+const Progress = ((props: ProgressProps): Render => {
   return progressInstance.render(props);
-}
+}) as ComponentType;
 
-attachMethodsToInstance(Progress as ComponentType, progressInstance);
+attachMethodsToInstance(Progress, progressInstance);
 
 Progress.displayName = 'Progress';
 

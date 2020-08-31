@@ -6,17 +6,17 @@ const updateSheet = (
 ): void => {
   if (!media) {
     if (!selector) {
-      injectCss(`.${className}{${property}:${value};}`);
+      injectCss(`${className}{${property}:${value};}`);
     } else {
       const hover = selector.includes('hover');
       injectCss(
         `${hover ? '@media(hover: hover){' : ''}${selector.replace(
           '&',
-          `.${className}`
+          className
         )}{${property}:${value};}${hover ? '}' : ''}`
       );
     }
-  } 
+  }
   if (!selector) {
     const hover = selector.includes('hover');
     // !selector.includes('hover')
@@ -27,13 +27,13 @@ const updateSheet = (
     injectCss(
       `@media(min-width:${media})${
         hover ? 'and (hover: hover)' : ''
-      }{.${className}{${property}:${value};}}`
+      }{${className}{${property}:${value};}}`
     );
   } else {
     injectCss(
       `@media(min-width:${media}){${selector.replace(
         '&',
-        `.${className}`
+        className
       )}{${property}:${value};}}`
     );
   }

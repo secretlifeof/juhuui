@@ -7,11 +7,11 @@ const textInstance = new Base({
   as: 'span'
 });
 
-function Text(props: CSSRules): Render {
+const Text = ((props: CSSRules): Render => {
   return textInstance.render(props);
-}
+}) as ComponentType;
 
-attachMethodsToInstance(Text as ComponentType, textInstance);
+attachMethodsToInstance(Text, textInstance);
 
 Text.displayName = 'Text';
 

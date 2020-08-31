@@ -3,7 +3,7 @@ import attachMethodsToInstance from './base/attachMethodsToInstance';
 import render, { Render } from './system/render';
 import { ComponentType, CSSRules } from './types';
 
-export interface Props {
+export interface P {
   angle: number;
   capIsRound: boolean;
   color: string;
@@ -17,6 +17,8 @@ export interface Props {
   label: string;
   children: any;
 }
+
+type Props = P & CSSRules;
 
 interface GetComputedProps {
   angle: number;

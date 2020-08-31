@@ -5,7 +5,7 @@ import { themeInternal as theme } from './system/setup';
 import { ComponentType, CSSRules } from './types';
 import createElement from './utilities/createElementFromString';
 
-interface Props extends CSSRules {
+interface P {
   color: string;
   hoverColor?: string;
   size: string;
@@ -13,6 +13,8 @@ interface Props extends CSSRules {
   pseudo: object;
   svg: string;
 }
+
+type Props = P & CSSRules;
 
 const iconInstance = new Base(
   ({ color, hoverColor, name, pseudo, svg }: Props) => {
@@ -45,11 +47,11 @@ const iconInstance = new Base(
   }
 );
 
-function Icon(props: any): Render {
+const Icon = ((props: Props): Render => {
   return iconInstance.render(props);
-}
+}) as ComponentType;
 
-attachMethodsToInstance(Icon as ComponentType, iconInstance);
+attachMethodsToInstance(Icon, iconInstance);
 
 Icon.displayName = 'Icon';
 

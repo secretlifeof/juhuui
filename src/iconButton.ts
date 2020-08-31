@@ -6,18 +6,17 @@ import { themeInternal as theme } from './system/setup';
 import { ComponentType, CSSRules } from './types';
 import createElement from './utilities/createElementFromString';
 
-interface Props {
+interface P {
   activeColor: string;
   fun: boolean;
   name: string;
-  buttonSize: string;
   hoverColor: string;
   pseudo: object;
   svg: string;
-  variant: string;
-  variantColor: string;
   rest: any;
 }
+
+type Props = P & CSSRules;
 
 const iconButtonInstance = new Base(
   ({ activeColor, hoverColor, name, pseudo, svg }: Props) => {
@@ -53,11 +52,11 @@ const iconButtonInstance = new Base(
   ['activeColor', 'hoverColor']
 );
 
-function IconButton(props: CSSRules): Render {
+const IconButton = ((props: Props): Render => {
   return iconButtonInstance.render(props);
-}
+}) as ComponentType;
 
-attachMethodsToInstance(IconButton as ComponentType, iconButtonInstance);
+attachMethodsToInstance(IconButton, iconButtonInstance);
 
 IconButton.displayName = 'IconButton';
 

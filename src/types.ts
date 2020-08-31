@@ -1,25 +1,42 @@
+// @ts-nocheck
 import * as CSS from 'csstype';
 
+import {
+  CSSShortProperties,
+  ShortProperties
+} from './properties/getShortProperty';
 import { Render } from './system/render';
+
+type GenericRecord<KeyT extends PropertyKey, ValueT> = {
+  [Key in KeyT]: {
+    [Key2 in Key]: CSS.PropertiesHyphen[ShortProperties[Key]];
+  };
+}[KeyT];
+
+type CSSShortRules = GenericRecord<CSSShortProperties, string>;
 
 export type CSSProperties = CSS.PropertiesFallback<
   string | number | Array<string | number | null>
 >;
 
-export type Pseudos = {
-  [P in CSS.AdvancedPseudos]?: CSSProperties;
+type Pseudos = {
+  [P in CSS.AdvancedPseudos]: CSSProperties;
 };
 
-export interface CSSRules extends CSSProperties {
+interface PseudoType {
   pseudo?: Pseudos;
   _after?: CSSProperties;
   _hover?: CSSProperties;
   _active?: CSSProperties;
 }
 
-export interface CSSProps extends CSSRules {
+export type CSSRules = PseudoType | CSSProperties | CSSShortRules;
+
+export interface CSSPropsFn {
   (props: any): CSSRules;
 }
+
+export type CSSProps = CSSPropsFn | CSSRules;
 
 export interface Variants {
   [k: string]: {
@@ -28,6 +45,7 @@ export interface Variants {
 }
 
 export type As = keyof JSX.IntrinsicElements; // 'div' | 'span' | 'main';
+
 export interface InstanceType {
   /**
    *  Set html tag or component
@@ -67,10 +85,17 @@ export interface InstanceType {
    *  const Simple = Box.with({ color: 'green' });
    *  const Play = Box.with(({ bgC }) => ({ bg: bgC }), ['bgC']);
    */
-  with: (props: CSSProps, filter: string[]) => Render;
+  with: (props?: CSSProps, filter?: string[]) => Render;
 }
 
 export interface ComponentType extends InstanceType {
   (props: CSSRules): Render;
   displayName: string;
 }
+
+export type InputValue =
+  | string
+  | number
+  | null
+  | undefined
+  | Array<string | number | null>;

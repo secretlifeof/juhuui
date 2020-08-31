@@ -2,7 +2,7 @@
  *  Processes pseudo props (_hover, pseudo, etc)
  */
 
-import { getShortProperty } from '../properties';
+import { CSSShortProperties, getShortProperty } from '../properties';
 import processEntries from './processEntries';
 
 export interface Pair {
@@ -18,7 +18,7 @@ function processPseudoEntries(entries: Pseudo, selector: string): any {
 
   for (let i = 0, e = Object.entries(entries); i < e.length; i++) {
     const [property, value]: [
-      string,
+      CSSShortProperties | string,
       string | number | Array<string | number | null>
     ] = e[i];
 
@@ -32,7 +32,9 @@ function processPseudoEntries(entries: Pseudo, selector: string): any {
     //   continue;
     // }
 
-    const cssProperty = getShortProperty(property) || property;
+    const cssProperty =
+      (getShortProperty(property as CSSShortProperties) as string | string[]) ||
+      property;
 
     processEntries(
       cssProperty,

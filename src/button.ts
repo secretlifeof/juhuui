@@ -2,12 +2,14 @@ import Base from './base';
 import attachMethodsToInstance from './base/attachMethodsToInstance';
 import { ComponentType, CSSRules } from './types';
 
-export interface Props extends CSSRules {
+export interface P {
   activeColor: string;
   fun: boolean;
   hoverColor: string;
   pseudo: any;
 }
+
+type Props = P & CSSRules;
 
 interface BaseStyle {
   [key: string]: string;

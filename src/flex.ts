@@ -5,11 +5,11 @@ import { ComponentType, CSSRules } from './types';
 
 const flexInstance = new Base({ display: 'flex' });
 
-function Flex(props: CSSRules): Render {
+const Flex = ((props: CSSRules): Render => {
   return flexInstance.render(props);
-}
+}) as ComponentType;
 
-attachMethodsToInstance(Flex as ComponentType, flexInstance);
+attachMethodsToInstance(Flex, flexInstance);
 
 Flex.displayName = 'Flex';
 

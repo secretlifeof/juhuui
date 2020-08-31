@@ -3,10 +3,12 @@ import attachMethodsToInstance from './base/attachMethodsToInstance';
 import { Render } from './system/render';
 import { ComponentType, CSSRules } from './types';
 
-export interface Props extends CSSRules {
+export interface P {
   fun: boolean;
   orientation: string;
 }
+
+type Props = P & CSSRules;
 
 const dividerInstance = new Base(
   ({ fun, orientation }: Props) => ({

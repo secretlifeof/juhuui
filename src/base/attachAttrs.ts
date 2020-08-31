@@ -1,19 +1,21 @@
-import render from '../system/render';
+import render, { Render } from '../system/render';
 import { forwardRef } from '../system/setup';
-import { CSSProps, InstanceType } from '../types';
+import { As, CSSProps, CSSRules, InstanceType } from '../types';
 import getFilteredProps from './getFilteredProps';
 
-interface WrappedComponentType extends InstanceType {
-  props?: any;
-  ref?: { current: any };
+export interface WrappedComponentType extends InstanceType {
+  (props?: CSSRules, ref?: { current: any }): Render;
 }
 
-function as(this: any, component: any, a: any) {
+function as(this: any, component: any, a: As) {
   this.mergedProps = { ...this.mergedProps, as: a };
 
   return component;
 }
 
+/**
+ * TEST
+ */
 function withComponent(
   this: any,
   {
@@ -22,7 +24,7 @@ function withComponent(
     forwardFilter = [],
     forwardVariant = {}
   },
-  val: CSSProps,
+  val?: CSSProps,
   filter: string[] = []
 ) {
   /* eslint-disable @typescript-eslint/no-use-before-define */
@@ -36,7 +38,7 @@ function withComponent(
     ...Object.keys(variant),
     ...filter
   ];
-  const WrappedComponent = (props?: any, ref = { current: null }) => {
+  const WrappedComponent = ((props?: CSSRules, ref = { current: null }) => {
     const refOut = ref && forwardRef ? { ref } : {};
     const styles = typeof val === 'function' ? val(props) : val;
     const attrs =
@@ -61,7 +63,7 @@ function withComponent(
       ...filteredProps,
       ...refOut
     });
-  };
+  }) as WrappedComponentType;
 
   const parentProps = {
     forwardProps: { ...forwardProps, ...mergedProps, ...val },
@@ -71,13 +73,13 @@ function withComponent(
   };
 
   // if used without forwardRef
-  attachAttrsBound(WrappedComponent as any, parentProps);
+  attachAttrsBound(WrappedComponent, parentProps);
 
-  const Forwarded = forwardRef
+  const Forwarded = (forwardRef
     ? forwardRef(WrappedComponent)
-    : WrappedComponent;
+    : WrappedComponent) as WrappedComponentType;
   // if used with forwardRef
-  attachAttrsBound(Forwarded as WrappedComponentType, parentProps);
+  attachAttrsBound(Forwarded, parentProps);
 
   this.reset();
 
@@ -103,11 +105,11 @@ function variants(this: any, component: any, types: any) {
   return component;
 }
 
-function attachAttrs<T extends WrappedComponentType>(
+function attachAttrs<T extends InstanceType>(
   this: any,
   component: T,
   parentProps: any = {}
-) {
+): T {
   /* eslint no-param-reassign: ["error", { "props": false }] */
   // components attribute is necessary for nesting components
   component.as = as.bind(this, component);

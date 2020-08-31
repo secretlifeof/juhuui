@@ -3,26 +3,29 @@ import attachMethodsToInstance from './base/attachMethodsToInstance';
 import { Render } from './system/render';
 import { ComponentType, CSSRules } from './types';
 
-interface ListItemProps {
+interface ListItemP {
   spacing: string | number;
 }
 
-interface ListProps {
+interface ListP {
   spacing: string | number;
   styleType: string;
   pseudo: any;
 }
+
+type ListProps = ListP & CSSRules;
+type ListItemProps = ListItemP & CSSRules;
 
 const listItemInstance = new Base(
   ({ spacing = 0 }: ListItemProps) => ({ as: 'li', marginBottom: spacing }),
   ['spacing']
 );
 
-export function ListItem(props: CSSRules): Base {
+export const ListItem = ((props: ListProps): Render => {
   return listItemInstance.render(props);
-}
+}) as ComponentType;
 
-attachMethodsToInstance(ListItem as ComponentType, listItemInstance);
+attachMethodsToInstance(ListItem, listItemInstance);
 ListItem.displayName = 'ListItem';
 
 const listInstance = new Base(
@@ -44,11 +47,11 @@ const listInstance = new Base(
   ['spacing']
 );
 
-function List(props: CSSRules): Render {
+const List = ((props: ListItemProps): Render => {
   return listInstance.render(props);
-}
+}) as ComponentType;
 
-attachMethodsToInstance(List as ComponentType, listInstance);
+attachMethodsToInstance(List, listInstance);
 List.displayName = 'List';
 
 export default List;

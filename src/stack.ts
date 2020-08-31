@@ -4,7 +4,7 @@ import { Render } from './system/render';
 import checkTheme from './theme/checkTheme';
 import { ComponentType, CSSRules } from './types';
 
-interface Props extends CSSRules {
+interface P {
   divideEqual: boolean;
   isInline: boolean | boolean[];
   isReversed: boolean;
@@ -13,6 +13,8 @@ interface Props extends CSSRules {
   gap: string | number;
   rest: any;
 }
+
+type Props = P & CSSRules;
 
 const stackInstance = new Base(
   ({
@@ -97,11 +99,11 @@ const stackInstance = new Base(
   }
 );
 
-function Stack(props: any): Render {
+const Stack = ((props: Props): Render => {
   return stackInstance.render(props);
-}
+}) as ComponentType;
 
-attachMethodsToInstance(Stack as ComponentType, stackInstance);
+attachMethodsToInstance(Stack, stackInstance);
 
 Stack.displayName = 'Stack';
 

@@ -5,10 +5,11 @@
 
 import getClassName from '../system/getClassName';
 import { themeInternal as theme } from '../system/setup';
+import type { InputValue } from '../types';
 
 const createCss = (
   property: string[] | string,
-  value: string | number | null | undefined | Array<string | number | null>,
+  value: InputValue,
   selector?: string
 ): string | string[] => {
   if (value === null || value === undefined) return '';

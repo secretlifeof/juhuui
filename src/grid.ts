@@ -5,11 +5,11 @@ import { ComponentType, CSSRules } from './types';
 
 const gridInstance = new Base({ display: 'grid' });
 
-function Grid(props: CSSRules): Render {
+const Grid = ((props: CSSRules): Render => {
   return gridInstance.render(props);
-}
+}) as ComponentType;
 
-attachMethodsToInstance(Grid as ComponentType, gridInstance);
+attachMethodsToInstance(Grid, gridInstance);
 
 Grid.displayName = 'Grid';
 
