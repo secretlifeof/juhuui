@@ -5,10 +5,9 @@ import { Render } from './system/render';
 import { ComponentType, CSSRules } from './types';
 
 interface P {
-  fun: boolean;
-  pseudo: NestedPseudo;
-  tagSize: string;
-  rest: any;
+  fun?: boolean;
+  pseudo?: NestedPseudo;
+  [key: string]: any;
 }
 
 type Props = P & CSSRules;
@@ -75,7 +74,7 @@ const tagInstance = new Base(({ pseudo }: Props) => ({
  */
 const Tag = ((props: Props): Render => {
   return tagInstance.render(props);
-}) as ComponentType;
+}) as ComponentType<P>;
 
 attachMethodsToInstance(Tag, tagInstance);
 

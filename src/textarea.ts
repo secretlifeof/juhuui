@@ -5,6 +5,10 @@ import { ComponentType, CSSRules } from './types';
 
 type Input = ReturnType<typeof input>;
 
+interface P {
+  [key: string]: any;
+}
+
 const textareaInstance = new Base({
   as: 'textarea',
   lineHeight: 'short',
@@ -21,7 +25,7 @@ const textareaInstance = new Base({
  */
 const Textarea = ((props: CSSRules): Input => {
   return textareaInstance.render(props);
-}) as ComponentType;
+}) as ComponentType<P>;
 
 attachMethodsToInstance(Textarea, textareaInstance);
 

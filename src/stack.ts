@@ -5,13 +5,13 @@ import checkTheme from './theme/checkTheme';
 import { ComponentType, CSSRules } from './types';
 
 interface P {
-  divideEqual: boolean;
-  isInline: boolean | boolean[];
-  isReversed: boolean;
-  pseudo: any;
-  spacing: string | number;
-  gap: string | number;
-  rest: any;
+  divideEqual?: boolean;
+  isInline?: boolean | boolean[];
+  isReversed?: boolean;
+  pseudo?: any;
+  spacing?: string | number;
+  gap?: string | number;
+  [key: string]: any;
 }
 
 type Props = P & CSSRules;
@@ -115,7 +115,7 @@ const stackInstance = new Base(
  */
 const Stack = ((props: Props): Render => {
   return stackInstance.render(props);
-}) as ComponentType;
+}) as ComponentType<P>;
 
 attachMethodsToInstance(Stack, stackInstance);
 

@@ -11,16 +11,14 @@ interface IndicatorProps {
 }
 
 interface ProgressP {
-  background: string;
-  color: string;
-  fun: boolean;
-  max: number;
-  min: number;
-  size: string;
-  value: number;
-  height: number | string;
-  bg: string;
-  rest: any;
+  color?: string;
+  fun?: boolean;
+  max?: number;
+  min?: number;
+  height?: number | string;
+  value?: number;
+  bg?: string;
+  [key: string]: any;
 }
 
 type ProgressProps = ProgressP & CSSRules;
@@ -68,17 +66,18 @@ const progressInstance = new Base(
 
 /**
  * Horizontal progress bar.
- * @param color - background color
- * @param max - max value
- * @param min - min value
- * @param value - value completed
+ * @param bg - Background color
+ * @param color - Track color
+ * @param max - Max value
+ * @param min - Min value
+ * @param value - Value completed
  * @returns JSX Element
  * @example
  * <Progress value={60}>Click</Progress>
  */
 const Progress = ((props: ProgressProps): Render => {
   return progressInstance.render(props);
-}) as ComponentType;
+}) as ComponentType<ProgressP>;
 
 attachMethodsToInstance(Progress, progressInstance);
 

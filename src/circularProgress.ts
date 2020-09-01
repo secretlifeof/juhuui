@@ -4,17 +4,18 @@ import render, { Render } from './system/render';
 import { ComponentType, CSSRules } from './types';
 
 export interface P {
-  angle: number;
-  capIsRound: boolean;
-  color: string;
-  max: number;
-  min: number;
-  size: string;
-  thickness: number;
-  trackColor: string;
-  value: number;
-  label: string;
-  children: any;
+  angle?: number;
+  capIsRound?: boolean;
+  color?: string;
+  max?: number;
+  min?: number;
+  size?: string;
+  thickness?: number;
+  trackColor?: string;
+  value?: number;
+  label?: string;
+  children?: any;
+  [key: string]: any;
 }
 
 type Props = P & CSSRules;
@@ -226,14 +227,11 @@ const circularProgressInstance = new Base(
  * @example
  * <CircularProgress value={60}>Click</CircularProgress>
  */
-function CircularProgress(props: CSSRules): Render {
+const CircularProgress = ((props: CSSRules): Render => {
   return circularProgressInstance.render(props);
-}
+}) as ComponentType<P>;
 
-attachMethodsToInstance(
-  CircularProgress as ComponentType,
-  circularProgressInstance
-);
+attachMethodsToInstance(CircularProgress, circularProgressInstance);
 
 CircularProgress.displayName = 'CircularProgress';
 

@@ -3,6 +3,10 @@ import attachMethodsToInstance from './base/attachMethodsToInstance';
 import { Render } from './system/render';
 import { ComponentType, CSSRules } from './types';
 
+interface P {
+  [key: string]: any;
+}
+
 const linkInstance = new Base({
   as: 'a'
 });
@@ -16,7 +20,7 @@ const linkInstance = new Base({
  */
 const Link = ((props: CSSRules): Render => {
   return linkInstance.render(props);
-}) as ComponentType;
+}) as ComponentType<P>;
 
 attachMethodsToInstance(Link, linkInstance);
 

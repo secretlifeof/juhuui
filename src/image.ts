@@ -3,6 +3,10 @@ import attachMethodsToInstance from './base/attachMethodsToInstance';
 import { Render } from './system/render';
 import { ComponentType, CSSRules } from './types';
 
+interface P {
+  [key: string]: any;
+}
+
 const imageInstance = new Base({
   as: 'img'
 });
@@ -15,7 +19,7 @@ const imageInstance = new Base({
  */
 const Image = ((props: CSSRules): Render => {
   return imageInstance.render(props);
-}) as ComponentType;
+}) as ComponentType<P>;
 
 attachMethodsToInstance(Image, imageInstance);
 

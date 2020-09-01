@@ -3,7 +3,9 @@ import attachMethodsToInstance from './base/attachMethodsToInstance';
 import { Render } from './system/render';
 import { ComponentType, CSSRules } from './types';
 
-interface P {}
+interface P {
+  [key: string]: any;
+}
 
 type Props = P & CSSRules;
 
@@ -39,7 +41,7 @@ const inputInstance = new Base({
  */
 const Input = ((props: Props): Render => {
   return inputInstance.render(props);
-}) as ComponentType;
+}) as ComponentType<P>;
 
 attachMethodsToInstance(Input, inputInstance);
 

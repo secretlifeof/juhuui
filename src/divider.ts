@@ -4,8 +4,9 @@ import { Render } from './system/render';
 import { ComponentType, CSSRules } from './types';
 
 export interface P {
-  fun: boolean;
-  orientation: string;
+  fun?: boolean;
+  orientation?: string;
+  [key: string]: any;
 }
 
 type Props = P & CSSRules;
@@ -37,11 +38,11 @@ const dividerInstance = new Base(
  * @example
  * <span>A</span><Divider orientation="vertical" /><span>B</span>
  */
-function Divider(props: Props): Render {
+const Divider = ((props: Props): Render => {
   return dividerInstance.render(props);
-}
+}) as ComponentType<P>;
 
-attachMethodsToInstance(Divider as ComponentType, dividerInstance);
+attachMethodsToInstance(Divider, dividerInstance);
 
 Divider.displayName = 'Divider';
 

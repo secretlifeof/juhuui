@@ -6,19 +6,20 @@ import { ComponentType, CSSRules } from './types';
 import createElement from './utilities/createElementFromString';
 
 interface P {
-  color: string;
+  color?: string;
   hoverColor?: string;
-  size: string;
-  name: string;
-  pseudo: object;
-  svg: string;
+  size?: string;
+  name?: string;
+  pseudo?: object;
+  svg?: string;
+  [key: string]: any;
 }
 
 type Props = P & CSSRules;
 
 const iconInstance = new Base(
   ({ color, hoverColor, name, pseudo, svg }: Props) => {
-    const themeSvg = theme.icons[name];
+    const themeSvg = name && theme.icons[name];
     // @ts-ignore
     const child = createElement(svg || themeSvg);
 
@@ -60,7 +61,7 @@ const iconInstance = new Base(
  */
 const Icon = ((props: Props): Render => {
   return iconInstance.render(props);
-}) as ComponentType;
+}) as ComponentType<P>;
 
 attachMethodsToInstance(Icon, iconInstance);
 

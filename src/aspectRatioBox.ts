@@ -3,11 +3,10 @@ import attachMethodsToInstance from './base/attachMethodsToInstance';
 import { ComponentType, CSSRules } from './types';
 
 export interface P {
-  fun: boolean;
-  ratio: number;
-  pseudo: any;
-  rest: any;
-  // [key: string]: any;
+  fun?: boolean;
+  ratio?: number;
+  pseudo?: any;
+  [key: string]: any;
 }
 
 type Props = P & CSSRules;
@@ -45,11 +44,11 @@ const aspectRatioBox = new Base(
   ['ratio']
 );
 
-function AspectRatioBox(props: Props) {
+const AspectRatioBox = ((props: Props) => {
   return aspectRatioBox.render(props);
-}
+}) as ComponentType<P>;
 
-attachMethodsToInstance(AspectRatioBox as ComponentType, aspectRatioBox);
+attachMethodsToInstance(AspectRatioBox, aspectRatioBox);
 
 AspectRatioBox.displayName = 'AspectRatioBox';
 

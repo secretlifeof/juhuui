@@ -4,6 +4,10 @@ import { ComponentType, CSSRules } from './types';
 
 const box = new Base();
 
+interface P {
+  [key: string]: any;
+}
+
 type Props = CSSRules;
 
 /**
@@ -13,7 +17,7 @@ type Props = CSSRules;
  */
 const Box = ((props: Props) => {
   return box.render(props);
-}) as ComponentType;
+}) as ComponentType<P>;
 
 attachMethodsToInstance(Box, box);
 

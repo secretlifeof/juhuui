@@ -3,10 +3,11 @@ import attachMethodsToInstance from './base/attachMethodsToInstance';
 import { ComponentType, CSSRules } from './types';
 
 export interface P {
-  activeColor: string;
-  fun: boolean;
-  hoverColor: string;
-  pseudo: any;
+  activeColor?: string;
+  fun?: boolean;
+  hoverColor?: string;
+  pseudo?: any;
+  [key: string]: any;
 }
 
 type Props = P & CSSRules;
@@ -66,11 +67,11 @@ const button = new Base(
  * @example
  * <Button>Click</Button>
  */
-function Button(props: Props) {
+const Button = ((props: Props) => {
   return button.render(props);
-}
+}) as ComponentType<P>;
 
-attachMethodsToInstance(Button as ComponentType, button);
+attachMethodsToInstance(Button, button);
 
 Button.displayName = 'Button';
 

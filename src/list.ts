@@ -5,12 +5,14 @@ import { ComponentType, CSSRules } from './types';
 
 interface ListItemP {
   spacing: string | number;
+  [key: string]: any;
 }
 
 interface ListP {
   spacing: string | number;
   styleType: string;
   pseudo: any;
+  [key: string]: any;
 }
 
 type ListProps = ListP & CSSRules;
@@ -32,7 +34,7 @@ const listItemInstance = new Base(
  */
 export const ListItem = ((props: ListProps): Render => {
   return listItemInstance.render(props);
-}) as ComponentType;
+}) as ComponentType<ListItemP>;
 
 attachMethodsToInstance(ListItem, listItemInstance);
 ListItem.displayName = 'ListItem';
@@ -69,7 +71,7 @@ const listInstance = new Base(
  */
 const List = ((props: ListItemProps): Render => {
   return listInstance.render(props);
-}) as ComponentType;
+}) as ComponentType<ListP>;
 
 attachMethodsToInstance(List, listInstance);
 List.displayName = 'List';

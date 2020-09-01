@@ -3,6 +3,10 @@ import attachMethodsToInstance from './base/attachMethodsToInstance';
 import { Render } from './system/render';
 import { ComponentType, CSSRules } from './types';
 
+interface P {
+  [key: string]: any;
+}
+
 const headingInstance = new Base({
   as: 'h2',
   lineHeight: 'shorter',
@@ -21,7 +25,7 @@ const headingInstance = new Base({
  */
 const Heading = ((props: CSSRules): Render => {
   return headingInstance.render(props);
-}) as ComponentType;
+}) as ComponentType<P>;
 
 attachMethodsToInstance(Heading, headingInstance);
 

@@ -3,6 +3,10 @@ import attachMethodsToInstance from './base/attachMethodsToInstance';
 import { Render } from './system/render';
 import { ComponentType, CSSRules } from './types';
 
+interface P {
+  [key: string]: any;
+}
+
 const flexInstance = new Base({ display: 'flex' });
 
 /**
@@ -13,7 +17,7 @@ const flexInstance = new Base({ display: 'flex' });
  */
 const Flex = ((props: CSSRules): Render => {
   return flexInstance.render(props);
-}) as ComponentType;
+}) as ComponentType<P>;
 
 attachMethodsToInstance(Flex, flexInstance);
 

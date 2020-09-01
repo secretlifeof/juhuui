@@ -3,6 +3,10 @@ import attachMethodsToInstance from './base/attachMethodsToInstance';
 import { Render } from './system/render';
 import { ComponentType, CSSRules } from './types';
 
+interface P {
+  [key: string]: any;
+}
+
 const gridInstance = new Base({ display: 'grid' });
 
 /**
@@ -16,7 +20,7 @@ const gridInstance = new Base({ display: 'grid' });
  */
 const Grid = ((props: CSSRules): Render => {
   return gridInstance.render(props);
-}) as ComponentType;
+}) as ComponentType<P>;
 
 attachMethodsToInstance(Grid, gridInstance);
 
