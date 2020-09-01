@@ -13,6 +13,12 @@ const textareaInstance = new Base({
   resize: 'none'
 });
 
+/**
+ * Textarea tag with some default styling.
+ * @returns JSX Element
+ * @example
+ * <Textarea />
+ */
 const Textarea = ((props: CSSRules): Input => {
   return textareaInstance.render(props);
 }) as ComponentType;

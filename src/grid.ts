@@ -5,6 +5,15 @@ import { ComponentType, CSSRules } from './types';
 
 const gridInstance = new Base({ display: 'grid' });
 
+/**
+ * Box with display="grid".
+ * @returns JSX Element
+ * @example
+ * <Grid>
+ *  <Box>Hello</Box>
+ *  <Box>there</Box>
+ * </Grid>
+ */
 const Grid = ((props: CSSRules): Render => {
   return gridInstance.render(props);
 }) as ComponentType;

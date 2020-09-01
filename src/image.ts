@@ -7,6 +7,12 @@ const imageInstance = new Base({
   as: 'img'
 });
 
+/**
+ * <img /> tag
+ * @returns JSX Element
+ * @example
+ * <Img src="https://..."/>
+ */
 const Image = ((props: CSSRules): Render => {
   return imageInstance.render(props);
 }) as ComponentType;

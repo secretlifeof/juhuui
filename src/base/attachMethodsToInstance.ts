@@ -1,4 +1,5 @@
-import { As, CSSProps, InstanceType } from '../types';
+import { As, CSSProps } from '../types';
+import { InstanceType } from './attachAttrs';
 
 // function attachMethodsToInstance<T>(
 //   component: T,

@@ -31,6 +31,12 @@ const inputInstance = new Base({
   as: 'input'
 });
 
+/**
+ * Input tag with some default styling.
+ * @returns JSX Element
+ * @example
+ * <Input />
+ */
 const Input = ((props: Props): Render => {
   return inputInstance.render(props);
 }) as ComponentType;

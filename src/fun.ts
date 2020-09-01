@@ -5,6 +5,12 @@ import { ComponentType, CSSRules } from './types';
 
 const funInstance = new Base({ fun: true });
 
+/**
+ * Box with fun="true". Activate pseudo properties.
+ * @returns JSX Element
+ * @example
+ * <Fun _hover={{color: 'red'}}>Hello</Fun>
+ */
 function Fun(props: CSSRules): Render {
   return funInstance.render(props);
 }

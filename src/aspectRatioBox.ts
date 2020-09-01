@@ -12,6 +12,13 @@ export interface P {
 
 type Props = P & CSSRules;
 
+/**
+ * Constrain a box to a ratio.
+ * @param ratio - Ratio as number
+ * @returns JSX Element
+ * @example
+ * <AspectRatioBox><Img /></AspectRatioBox>
+ */
 const aspectRatioBox = new Base(
   ({ fun = true, ratio = 4 / 3, pseudo: pseudoIn = {} }) => ({
     fun,

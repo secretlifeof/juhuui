@@ -30,7 +30,14 @@ const dividerInstance = new Base(
   ['orientation']
 );
 
-function Divider(props: any): Render {
+/**
+ * Divide content.
+ * @param orientation - vertical|horizontal
+ * @returns JSX Element
+ * @example
+ * <span>A</span><Divider orientation="vertical" /><span>B</span>
+ */
+function Divider(props: Props): Render {
   return dividerInstance.render(props);
 }
 

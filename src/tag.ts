@@ -66,6 +66,13 @@ const tagInstance = new Base(({ pseudo }: Props) => ({
   }
 }));
 
+/**
+ * Text/SVG tags with some default styling .
+ * @returns JSX Element
+ * @example
+ * <Tag>Hello</Tag>
+ * <Tag><Icon name="moon" /></Tag>
+ */
 const Tag = ((props: Props): Render => {
   return tagInstance.render(props);
 }) as ComponentType;

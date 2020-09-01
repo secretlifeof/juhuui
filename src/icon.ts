@@ -26,8 +26,9 @@ const iconInstance = new Base(
       as: 'svg',
       fun: true,
       ...child.props,
-      height: 'auto',
-      width: 'auto',
+      // height: 'auto',
+      // width: 'auto',
+      size: '8',
       // p to avoid bug with safari
       p: '1px',
       pseudo: {
@@ -47,6 +48,16 @@ const iconInstance = new Base(
   }
 );
 
+/**
+ * SVG Icon.
+ * @param color - Stroke & fill color
+ * @param hover - Stroke & fill hover color
+ * @param name - SVG string from theme
+ * @param svg - SVG string
+ * @returns JSX Element
+ * @example
+ * <Icon name="moon" />
+ */
 const Icon = ((props: Props): Render => {
   return iconInstance.render(props);
 }) as ComponentType;

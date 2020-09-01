@@ -58,8 +58,15 @@ const button = new Base(
   }),
   ['activeColor', 'hoverColor']
 );
-
-function Button(props: any) {
+/**
+ * Button with some default styling.
+ * @param activeColor - :active background
+ * @param hoverColor - :hover background
+ * @returns JSX Element
+ * @example
+ * <Button>Click</Button>
+ */
+function Button(props: Props) {
   return button.render(props);
 }
 

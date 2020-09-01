@@ -66,6 +66,16 @@ const progressInstance = new Base(
   ['max', 'min', 'value']
 );
 
+/**
+ * Horizontal progress bar.
+ * @param color - background color
+ * @param max - max value
+ * @param min - min value
+ * @param value - value completed
+ * @returns JSX Element
+ * @example
+ * <Progress value={60}>Click</Progress>
+ */
 const Progress = ((props: ProgressProps): Render => {
   return progressInstance.render(props);
 }) as ComponentType;

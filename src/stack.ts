@@ -99,6 +99,20 @@ const stackInstance = new Base(
   }
 );
 
+/**
+ * Stack.
+ * @param divideEqual - Divide size of children equally
+ * @param gap - Gap between children
+ * @param isInline - true is vertical, false is horizontal orientation
+ * @param isReversed - Direction of children
+ * @param stack - Gap between children
+ * @returns JSX Element
+ * @example
+ * <Stack>
+ *  <Box>Hello</Box>
+ *  <Box>there</Box>
+ * </Stack>
+ */
 const Stack = ((props: Props): Render => {
   return stackInstance.render(props);
 }) as ComponentType;

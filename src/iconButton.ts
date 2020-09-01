@@ -51,7 +51,16 @@ const iconButtonInstance = new Base(
   },
   ['activeColor', 'hoverColor']
 );
-
+/**
+ * Button with SVG icon with some default styling.
+ * @param activeColor - :active background
+ * @param hoverColor - :hover background
+ * @param name - svg from theme obj.
+ * @param svg - optional svg string
+ * @returns JSX Element
+ * @example
+ * <IconButton name="moon">Click</IconButton>
+ */
 const IconButton = ((props: Props): Render => {
   return iconButtonInstance.render(props);
 }) as ComponentType;

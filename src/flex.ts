@@ -5,6 +5,12 @@ import { ComponentType, CSSRules } from './types';
 
 const flexInstance = new Base({ display: 'flex' });
 
+/**
+ * Box with display="flex".
+ * @returns JSX Element
+ * @example
+ * <Flex><div/><div/></Flex>
+ */
 const Flex = ((props: CSSRules): Render => {
   return flexInstance.render(props);
 }) as ComponentType;

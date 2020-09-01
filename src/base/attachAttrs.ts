@@ -1,7 +1,49 @@
 import render, { Render } from '../system/render';
 import { forwardRef } from '../system/setup';
-import { As, CSSProps, CSSRules, InstanceType } from '../types';
+import { As, CSSProps, CSSRules, Variants } from '../types';
 import getFilteredProps from './getFilteredProps';
+
+export interface InstanceType {
+  /**
+   *  Set html tag or component
+   *  @param as - Tag or component
+   *  @returns component. Must be combined with with()
+   *  @example
+   *  const Comp = Box.as('main')
+   *  <Comp>main</Comp>
+   */
+  as: (as: As) => InstanceType;
+  /**
+   *  Merge other Juhuui components
+   *  @param components - Component or components[]
+   *  @returns component. Must be combined with with()
+   *  @example
+   *  const First = Box.with({color:'green'})
+   *  const Comp = Box.merge(First).with()
+   *  <Comp>main</Comp>
+   */
+  merge: (components: InstanceType) => InstanceType;
+  /**
+   *  Add variants props
+   *  @param variantObj - Variants obj [propName]:{ variant:{ CSSRules } }
+   *  @returns component. Must be combined with with()
+   *  @example
+   *  const Variant = Box.variant({
+   *    variants: { sm: { size: '5px' }, lg: { size: '10px' } }
+   *  });
+   */
+  variants: (variantObj: Variants) => InstanceType;
+  /**
+   *  Add CSSRules to component
+   *  @param props - CSSRules | (props)=>({ CSSRules })
+   *  @param filter - string[] containing props to filter from DOM
+   *  @returns JSX Element
+   *  @example
+   *  const Simple = Box.with({ color: 'green' });
+   *  const Play = Box.with(({ bgC }) => ({ bg: bgC }), ['bgC']);
+   */
+  with: (props?: CSSProps, filter?: string[]) => Render;
+}
 
 export interface WrappedComponentType extends InstanceType {
   (props?: CSSRules, ref?: { current: any }): Render;

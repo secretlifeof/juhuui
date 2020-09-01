@@ -10,7 +10,6 @@ export interface P {
   max: number;
   min: number;
   size: string;
-  text: string;
   thickness: number;
   trackColor: string;
   value: number;
@@ -211,6 +210,22 @@ const circularProgressInstance = new Base(
   }
 );
 
+/**
+ * Circular progress visualization.
+ * @param angle - start angle
+ * @param capIsRound - rounded cap
+ * @param color - background color
+ * @param max - max value
+ * @param min - min value
+ * @param size - width & height
+ * @param thickness - thickness of track
+ * @param trackColor - track color
+ * @param value - value completed
+ * @param label - center description
+ * @returns JSX Element
+ * @example
+ * <CircularProgress value={60}>Click</CircularProgress>
+ */
 function CircularProgress(props: CSSRules): Render {
   return circularProgressInstance.render(props);
 }

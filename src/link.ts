@@ -7,6 +7,13 @@ const linkInstance = new Base({
   as: 'a'
 });
 
+/**
+ * Box with as="a"
+ * @param as - Set tag i.e. "Link" from Gatsby
+ * @returns JSX Element
+ * @example
+ * <Link href="http://...">Space</Link>
+ */
 const Link = ((props: CSSRules): Render => {
   return linkInstance.render(props);
 }) as ComponentType;

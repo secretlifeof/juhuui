@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 // Thanks to: https://stackoverflow.com/questions/7616461/generate-a-hash-from-string-in-javascript
 
 // const hashCode = (s: string) => {
@@ -7,7 +9,7 @@
 // };
 
 function hashCode(s: string) {
-  let h = 0
+  let h = 0;
   for (let i = 0; i < s.length; i++) {
     const chr = s.charCodeAt(i);
     h = (h << 5) - h + chr;

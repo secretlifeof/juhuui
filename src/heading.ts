@@ -10,6 +10,15 @@ const headingInstance = new Base({
   fontFamily: 'heading'
 });
 
+/**
+ * H2 Element.
+ * @returns JSX Element
+ * @param as - Set tag name i.e. "h3"
+ * @example
+ * <Heading>
+ *  Wonderperson
+ * </Heading>
+ */
 const Heading = ((props: CSSRules): Render => {
   return headingInstance.render(props);
 }) as ComponentType;

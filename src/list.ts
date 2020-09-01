@@ -21,6 +21,15 @@ const listItemInstance = new Base(
   ['spacing']
 );
 
+/**
+ * List item
+ * @param spacing - Margin bottom
+ * @returns JSX Element
+ * @example
+ * <List>
+ *  <ListItem>One</ListItem>
+ * </List>
+ */
 export const ListItem = ((props: ListProps): Render => {
   return listItemInstance.render(props);
 }) as ComponentType;
@@ -47,6 +56,17 @@ const listInstance = new Base(
   ['spacing']
 );
 
+/**
+ * Unordered list
+ * @param as - Tag i.e. 'ol'
+ * @param spacing - Margin bottom between children
+ * @param styleType - list-style-type
+ * @returns JSX Element
+ * @example
+ * <List>
+ *  <ListItem>One</ListItem>
+ * </List>
+ */
 const List = ((props: ListItemProps): Render => {
   return listInstance.render(props);
 }) as ComponentType;

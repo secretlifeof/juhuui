@@ -7,6 +7,12 @@ const textInstance = new Base({
   as: 'span'
 });
 
+/**
+ * Box set as="span".
+ * @returns JSX Element
+ * @example
+ * <Text>Hello</Text>
+ */
 const Text = ((props: CSSRules): Render => {
   return textInstance.render(props);
 }) as ComponentType;
