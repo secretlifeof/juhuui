@@ -4,39 +4,39 @@ describe('isValidProp', () => {
   test('valid single property', () => {
     expect(isValidProp('fontFamily', false)).toEqual({
       fun: false,
-      property: 'font-family',
+      property: 'fontFamily'
     });
   });
   test('valid single(:) pseudo property', () => {
     expect(isValidProp('_hover', true)).toEqual({
       fun: true,
-      property: '&:hover',
+      property: '&:hover'
     });
   });
   test('valid double(::) pseudo property', () => {
     expect(isValidProp('_after', true)).toEqual({
       fun: true,
-      property: '&::after',
+      property: '&::after'
     });
   });
   test('valid short property', () => {
     expect(isValidProp('mx', false)).toEqual({
       fun: false,
-      property: ['margin-left', 'margin-right'],
+      property: ['marginLeft', 'marginRight']
     });
     expect(isValidProp('mx', true)).toEqual({
       fun: false,
-      property: ['margin-left', 'margin-right'],
+      property: ['marginLeft', 'marginRight']
     });
   });
   test('not valid property', () => {
     expect(isValidProp('blabla', false)).toEqual({
       fun: false,
-      property: false,
+      property: false
     });
     expect(isValidProp('blabla', true)).toEqual({
       fun: false,
-      property: false,
+      property: false
     });
   });
 });
