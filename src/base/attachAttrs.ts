@@ -1,6 +1,7 @@
 import render, { Render } from '../system/render';
 import { forwardRef } from '../system/setup';
 import { As, CSSProps, CSSRules, Variants } from '../types';
+import mergeObjects from '../utilities/mergeObjects';
 import getFilteredProps from './getFilteredProps';
 
 export interface InstanceType {
@@ -93,15 +94,24 @@ function withComponent(
       ...forwardVariant,
       ...variant
     });
+    const mergedStyles = mergeObjects(
+      {},
+      mergedProps,
+      attrs,
+      functionAttrs,
+      styles,
+      variantStyles
+    );
     const filteredProps = getFilteredProps(props, filters);
 
     return render({
       ...initValues,
-      ...attrs,
-      ...mergedProps,
-      ...functionAttrs,
-      ...variantStyles,
-      ...styles,
+      // ...attrs,
+      ...mergedStyles,
+      // ...mergedProps,
+      // ...functionAttrs,
+      // ...variantStyles,
+      // ...styles,
       ...filteredProps,
       ...refOut
     });

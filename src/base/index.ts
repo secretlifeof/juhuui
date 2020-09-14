@@ -1,6 +1,8 @@
+// @ts-nocheck
 import render from '../system/render';
 import { forwardRef } from '../system/setup';
 import { As, CSSProps, CSSRules } from '../types';
+import mergeObjects from '../utilities/mergeObjects';
 import attachAttrs, { WrappedComponentType } from './attachAttrs';
 import getFilteredProps from './getFilteredProps';
 
@@ -55,7 +57,7 @@ class Base {
       const variantStyle = variantObj[selectedVariant];
 
       if (variantStyle) {
-        variantStyles = { ...variantStyles, ...variantStyle };
+        variantStyles = mergeObjects(variantStyles, variantStyle);
       }
     }
     this.removeProps = [...this.removeProps, ...variantNames];
@@ -75,6 +77,7 @@ class Base {
   reset() {
     this.mergedProps = {};
     this.variant = {};
+    this.removeProps = [];
   }
 
   variants(types: any) {
@@ -102,13 +105,15 @@ class Base {
       const styles = typeof val === 'function' ? val(props) : val;
       const initValues = this.getInitialValues(props as CSSRules);
       const variantStyles = this.getVariantStyles(props, variant);
+      const mergedStyles = mergeObjects({}, styles, variantStyles, mergedProps);
       const filteredProps = getFilteredProps(props, [...filters]);
 
       return render({
         ...initValues,
-        ...mergedProps,
-        ...variantStyles,
-        ...styles,
+        // ...mergedProps,
+        // ...variantStyles,
+        // ...styles,
+        ...mergedStyles,
         ...filteredProps,
         ...refOut
       });

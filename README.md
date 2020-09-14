@@ -8,8 +8,7 @@ Juhuui is a a UI library and a tool made for building design systems. Merge and 
 
 #### 🔔 Work in progress
 
-This is a work in progress and the API is still being finalized. Please install juhuui@next for features described below.
-You can of course test it and provide some feedback :-)
+This is a work in progress and the API is still being finalized. Please install juhuui@next for features described below. All feedback is kind of nice!
 
 ---
 
@@ -47,7 +46,28 @@ setup(createElement);
 Juhu you can start building components.
 
 ```js
-import { Box, Flex, Fun, Icon, Text } from 'juhuui';
+import {
+  AspectRatioBox,
+  Button,
+  Box,
+  CircularProgress,
+  Divider,
+  Flex,
+  Fun,
+  Grid,
+  Heading,
+  Icon,
+  IconButton,
+  Input,
+  Link,
+  List,
+  ListItem,
+  Progress,
+  Stack,
+  Tag,
+  Text,
+  Textarea
+} from 'juhuui';
 
 const SayWhat = () => (
   <Flex direction="column">
@@ -68,36 +88,55 @@ const SayWhat = () => (
 
 ## Styled component
 
-All components can be created externally. This is useful for separating styles and components. Styles can be overwritten by writing them inline. Please use the 'fw' prop to forward arguments because 'fw' will be removed from the DOM.
+All components can be created externally. This is useful for separating styles and components. Styles can be overwritten by writing them inline. Please use the 'fw' prop to forward arguments because 'fw' will be removed from the DOM. The with function takes a second argument, an array of strings to be removed from the DOM, as an alternative to 'fw'.
 
 ```javascript
 import { Text, Box } from 'juhuui';
 
 const UpperCase = Text.with({
   textTransform: 'uppercase',
-  color: 'orange.600'
+  c: 'orange.600'
 })
 
 <UpperCase>Hello there!</UpperCase>;
 
 // or
 
-const Colorful = Text.with({(fw}) => ({
+const Colorful = Text.with(({fw}) => ({
   bg: fw.background,
   color: 'orange.600'
 }))
 
 <Colorful fw={{ background: 'yellow.200' }}>Orange</Colorful>;
-// or overwrite styles by adding a css property to the component
-<Colorful color="red.300" fw={{ background: 'yellow.200' }}>Red</Colorful>;
+// or overwrite styles by adding a css property inline
+<Colorful backgroundColor="red.300" fw={{ backgroundColor: 'yellow.200' }}>Red</Colorful>;
 
 // or merge
 
 const GreenBox = Box.with({ bg: 'green' })
 const Red = Text.with({ color: 'red' })
-const SpaceCase = Red.merge([GreenBox]).with({ textTransform: 'uppercase' })
+const SpaceCase = Colorful.merge([GreenBox, Red]).with({ textTransform: 'uppercase' })
 
 <SpaceCase>Invisible green</SpaceCase>
+```
+
+## Create variants
+
+Variants are a probably a necessity for a good design system.
+
+```javascript
+import { Button } from 'juhuui'
+
+const B = Button.variants({ variant: {
+  green: {
+    bg: 'green'
+  },
+  blue: {
+    bg: 'blue'
+  }
+} }).with()
+
+<B variant="green">GREENIE</B>
 ```
 
 ## Create class names
