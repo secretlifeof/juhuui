@@ -96,7 +96,8 @@ const stackInstance = new Base(
         ...pseudo
       }
     };
-  }
+  },
+  ['divideEqual', 'isInline', 'isReversed', 'spacing', 'gap']
 );
 
 /**

@@ -49,7 +49,7 @@ const iconButtonInstance = new Base(
       }
     };
   },
-  ['activeColor', 'hoverColor']
+  ['activeColor', 'hoverColor', 'name', 'svg']
 );
 /**
  * Button with SVG icon with some default styling.

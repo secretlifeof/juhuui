@@ -46,7 +46,8 @@ const iconInstance = new Base(
         ...pseudo
       }
     };
-  }
+  },
+  ['hoverColor', 'color', 'name', 'svg']
 );
 
 /**

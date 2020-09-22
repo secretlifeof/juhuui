@@ -4,14 +4,14 @@ import { Render } from './system/render';
 import { ComponentType, CSSRules } from './types';
 
 interface ListItemP {
-  spacing: string | number;
+  spacing?: string | number;
   [key: string]: any;
 }
 
 interface ListP {
-  spacing: string | number;
-  styleType: string;
-  pseudo: any;
+  spacing?: string | number;
+  styleType?: string;
+  pseudo?: any;
   [key: string]: any;
 }
 
@@ -55,13 +55,13 @@ const listInstance = new Base(
       ...pseudo
     }
   }),
-  ['spacing']
+  ['spacing', 'styleType']
 );
 
 /**
  * Unordered list
  * @param as - Tag i.e. 'ol'
- * @param spacing - Margin bottom between children
+ * @param spacing - margin-bottom between children
  * @param styleType - list-style-type
  * @returns JSX Element
  * @example
