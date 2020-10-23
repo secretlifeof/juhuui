@@ -27,9 +27,26 @@ function processProps({
   children,
   as,
   fun: inFun = defaultFun,
+  ref,
+  href,
+  style,
+  className,
+  onClick,
+  onMouseEnter,
+  OnMouseLeave,
   ...props
 }: Props) {
-  const returnProps: any = { children, as };
+  const returnProps: any = {
+    children,
+    as,
+    ref,
+    href,
+    style,
+    className,
+    onClick,
+    onMouseEnter,
+    OnMouseLeave
+  };
 
   const classNamesByProperty = new Map();
 
@@ -38,8 +55,6 @@ function processProps({
       string,
       Pseudo | NestedPseudo | string | number
     ] = entries[i];
-
-    // const propValIsFn = typeof propVal === 'function'
 
     const { property, fun } = isValidProp(propName, inFun);
 

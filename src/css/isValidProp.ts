@@ -44,7 +44,8 @@ const selectorsSingle = [
 ];
 
 interface ValidProp {
-  property: string | string[] | false;
+  property?: string | string[] | false;
+  propName?: string | string[] | false;
   fun: boolean;
 }
 
@@ -83,8 +84,6 @@ const isValidProp = (propName: string, fun: boolean): ValidProp => {
       (propName.includes('j_') && propName.replace('j_', '')) ||
       (propName.includes('webkit') && `-${propName}`))) ||
     false) as string | string[] | undefined;
-
-  // property = property && ifStrToKebabCase(property);
 
   if (property) {
     const valid = { property, fun: false };
