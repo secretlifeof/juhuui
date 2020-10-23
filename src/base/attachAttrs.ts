@@ -44,6 +44,7 @@ export interface InstanceType {
    *  const Play = Box.with(({ bgC }) => ({ bg: bgC }), ['bgC']);
    */
   with: (props?: CSSProps, filter?: string[]) => Render;
+  attrs: any;
 }
 
 export interface WrappedComponentType extends InstanceType {
@@ -81,9 +82,14 @@ function withComponent(
     ...Object.keys(variant),
     ...filter
   ];
-  const WrappedComponent = ((props?: CSSRules, ref = { current: null }) => {
+
+  const valIsFunction = typeof val === 'function';
+
+  const WrappedComponent = ((props?: CSSRules, ref?: any) => {
+    // const refOut = ref && forwardRef ? { ref } : {};
     const refOut = ref && forwardRef ? { ref } : {};
-    const styles = typeof val === 'function' ? val(props) : val;
+    // @ts-ignore
+    const styles = valIsFunction ? val(props) : val;
     const attrs =
       typeof forwardProps === 'function' ? forwardProps(props) : forwardProps;
     const functionAttrs = forwardFunctions.reduce((acc, cur: any) => {
@@ -106,12 +112,7 @@ function withComponent(
 
     return render({
       ...initValues,
-      // ...attrs,
       ...mergedStyles,
-      // ...mergedProps,
-      // ...functionAttrs,
-      // ...variantStyles,
-      // ...styles,
       ...filteredProps,
       ...refOut
     });
@@ -121,7 +122,8 @@ function withComponent(
     forwardProps: { ...forwardProps, ...mergedProps, ...val },
     forwardFunctions: [...forwardFunctions, val],
     forwardFilter: filters,
-    forwardVariant: variant
+    forwardVariant: variant,
+    attrs: { ...forwardProps, ...mergedProps, ...val }
   };
 
   // if used without forwardRef
@@ -168,6 +170,7 @@ function attachAttrs<T extends InstanceType>(
   component.with = withComponent.bind(this, parentProps);
   component.merge = merge.bind(this, component);
   component.variants = variants.bind(this, component);
+  component.attrs = parentProps.attrs;
 
   return component as any;
 }

@@ -20,8 +20,10 @@
     "watch": "microbundle watch"
   },
   "dependencies": {
+    "array-keyed-map": "^2.0.1",
     "csstype": "^3.0.3",
-    "htm": "^3.0.3"
+    "htm": "^3.0.3",
+    "juhuui": "^0.0.5-beta.13"
   },
   "devDependencies": {
     "@changesets/changelog-github": "^0.2.7",

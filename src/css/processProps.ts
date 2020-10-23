@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { defaultFun } from '../system/setup';
 import ifStrToKebabCase from '../utilities/ifStrToKebabCase';
 import isValidProp from './isValidProp';
@@ -37,6 +38,8 @@ function processProps({
       string,
       Pseudo | NestedPseudo | string | number
     ] = entries[i];
+
+    // const propValIsFn = typeof propVal === 'function'
 
     const { property, fun } = isValidProp(propName, inFun);
 

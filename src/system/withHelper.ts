@@ -12,7 +12,7 @@ const withHelper = (fn: any) => {
   return (val: any) => {
     function Styled(props: any, ref: any) {
       const styles = typeof val === 'function' ? val(props) : val;
-      return fn({ ...styles, ...props, ...(forwardRef && { ref }) });
+      return fn({ ...styles, ...props, ...(forwardRef && ref && { ref }) });
     }
     return forwardRef ? forwardRef(Styled) : Styled;
   };

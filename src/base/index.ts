@@ -1,6 +1,6 @@
 // @ts-nocheck
 import render from '../system/render';
-import { forwardRef } from '../system/setup';
+import { forwardRef, h } from '../system/setup';
 import { As, CSSProps, CSSRules } from '../types';
 import mergeObjects from '../utilities/mergeObjects';
 import attachAttrs, { WrappedComponentType } from './attachAttrs';
@@ -97,22 +97,22 @@ class Base {
    */
   with(val?: CSSProps, filter: string[] = []) {
     const attachAttrsBound = attachAttrs.bind(this);
+    const valIsFunction = typeof val === 'function';
 
     const { mergedProps, variant } = this;
     const filters = [...this.removeProps, ...Object.keys(variant), ...filter];
-    const WrappedComponent = ((props?: CSSRules, ref = { current: null }) => {
+
+    const WrappedComponent = ((props?: CSSRules, ref) => {
       const refOut = ref && forwardRef ? { ref } : {};
-      const styles = typeof val === 'function' ? val(props) : val;
+
+      const styles = valIsFunction ? val(props) : val;
       const initValues = this.getInitialValues(props as CSSRules);
       const variantStyles = this.getVariantStyles(props, variant);
-      const mergedStyles = mergeObjects({}, styles, variantStyles, mergedProps);
+      const mergedStyles = mergeObjects({}, mergedProps, variantStyles, styles);
       const filteredProps = getFilteredProps(props, [...filters]);
 
       return render({
         ...initValues,
-        // ...mergedProps,
-        // ...variantStyles,
-        // ...styles,
         ...mergedStyles,
         ...filteredProps,
         ...refOut
@@ -123,8 +123,8 @@ class Base {
       forwardProps: { ...mergedProps, ...val },
       forwardFunctions: [val],
       forwardFilter: filters,
-      forwardVariant: variant
-      // forwardMerge: mergedProps
+      forwardVariant: variant,
+      attrs: { ...mergedProps, ...val }
     };
 
     // if used without forwardRef
