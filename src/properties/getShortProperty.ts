@@ -66,7 +66,7 @@ type ValueOf<T> = T[keyof T];
 export type ShortProperties = typeof shortProperties;
 export type CSSShortProperties = keyof ShortProperties;
 
-const getShortProperty = (
+export const getShortProperty = (
   key: CSSShortProperties
 ):
   | ValueOf<typeof shortProperties>

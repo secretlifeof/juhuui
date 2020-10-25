@@ -22,16 +22,6 @@ function processPseudoEntries(entries: Pseudo, selector: string): any {
       string | number | Array<string | number | null>
     ] = e[i];
 
-    // Why did I add this?
-    // if (typeof value === 'object' && !Array.isArray(value)) {
-    //   for (const k in value) {
-    //     const v = value[k];
-
-    //     classNamesByProperty.set(k, createPseudoEntries({ [k]: v }, selector));
-    //   }
-    //   continue;
-    // }
-
     const cssProperty =
       (getShortProperty(property as CSSShortProperties) as string | string[]) ||
       property;

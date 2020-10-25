@@ -114,8 +114,10 @@ class Base {
       const filteredProps = getFilteredProps(props, [...filters]);
 
       return render({
-        ...initValues,
-        ...mergedStyles,
+        baseStyles: {
+          ...initValues,
+          ...mergedStyles
+        },
         ...filteredProps,
         ...refOut
       });

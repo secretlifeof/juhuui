@@ -1,3 +1,4 @@
+// @ts-nocheck
 import Base from './base';
 import attachMethodsToInstance from './base/attachMethodsToInstance';
 import render, { Render } from './system/render';
