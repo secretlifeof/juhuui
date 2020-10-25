@@ -19,7 +19,7 @@ interface P {
 type Props = P & CSSRules;
 
 const iconButtonInstance = new Base(
-  ({ activeColor, hoverColor, name, pseudo, svg }: Props) => {
+  ({ activeColor, hoverColor, name, svg }: Props) => {
     const themeSvg = name && theme.icons[name];
     // @ts-ignore
     const child = createElement(svg || themeSvg);

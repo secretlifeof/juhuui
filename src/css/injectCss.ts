@@ -1,36 +1,34 @@
 import getStyleTag from '../system/getStyleTag';
+import { isDev } from '../utilities/is';
 
-const RAW_TAG = '_juhuui_raw';
 export const CACHE_SSR = new Set();
 
 const virtualInjector = (rule: string): void => {
   CACHE_SSR.add(rule);
 };
 
-// const injectorDOM = (tag?: string) => {
-//   const target = getStyleTag(tag) as HTMLStyleElement;
+const injectorDOM = (rule: string, tag?: string) => {
+  const target = getStyleTag(tag) as HTMLStyleElement;
 
-//   // target.innerHTML = Array.from(CACHE_WORK).join('');
-// };
-
-export const injectorCSSOM = (rule: string, tag?: string): void => {
-  const sheet = getStyleTag(tag).sheet as CSSStyleSheet;
-
-  sheet.insertRule(rule, sheet.cssRules.length);
+  target.innerHTML += rule;
 };
 
-const injectCss = (rule: string, rawString?: string): void => {
+export const injectorCSSOM = (
+  rule: string,
+  tag?: string,
+  media?: boolean
+): void => {
+  const sheet = getStyleTag(tag).sheet as CSSStyleSheet;
+
+  sheet.insertRule(rule, media ? sheet.cssRules.length : 0);
+};
+
+const injectCss = (rule: string, media?: boolean): void => {
   try {
-    !rawString ? injectorCSSOM(rule) : injectorCSSOM(rule, RAW_TAG);
+    !isDev ? injectorCSSOM(rule, undefined, media) : injectorDOM(rule);
   } catch {
     virtualInjector(rule);
   }
-  // if (firstRun) {
-  //   !rawString ? injectorDOM() : injectorDOM(RAW_TAG);
-  // } else {
-  //   !rawString ? injectorCSSOM() : injectorCSSOM(RAW_TAG);
-  //   CACHE_WORK.clear();
-  // }
 };
 
 export default injectCss;

@@ -6,10 +6,13 @@ import createCss from './createCss';
  *  Processes all entries to return classNames
  */
 
+type ClassNames = string | string[];
+type CSSProperty = string | string[];
+
 const processEntries = (
-  cssProperty: string | string[],
+  cssProperty: CSSProperty,
   value: InputValue,
-  addClassName: (property: string, className: string | string[]) => void,
+  addClassName: (property: string, className: ClassNames) => void,
   selector?: string | undefined
 ) => {
   const className = createCss(cssProperty, value, selector);

@@ -21,7 +21,6 @@ const stackInstance = new Base(
     divideEqual = true,
     isInline = false,
     isReversed = false,
-    pseudo = {},
     spacing,
     gap: gapIn = 2
   }: Props) => {

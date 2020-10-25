@@ -19,7 +19,7 @@ const sizeStyles = {
   px: 2
 };
 
-const tagInstance = new Base(({ pseudo }: Props) => ({
+const tagInstance = new Base({
   ...sizeStyles,
   bg: 'gray.200',
   display: 'inline-flex',
@@ -60,7 +60,7 @@ const tagInstance = new Base(({ pseudo }: Props) => ({
     padding: '0.1em',
     minWidth: '1em'
   }
-}));
+});
 
 /**
  * Text/SVG tags with some default styling .

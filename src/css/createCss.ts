@@ -7,8 +7,12 @@ import getClassName from '../system/getClassName';
 import { themeInternal as theme } from '../system/setup';
 import type { InputValue } from '../types';
 
+type ClassNames = string[];
+
+type CSSProperty = string[] | string;
+
 const createCss = (
-  property: string[] | string,
+  property: CSSProperty,
   value: InputValue,
   selector?: string
 ): string | string[] => {
@@ -19,7 +23,7 @@ const createCss = (
   }
 
   if (Array.isArray(value)) {
-    const classNames: string[] = [];
+    const classNames: ClassNames = [];
 
     for (let i = 0; i < value.length; i++) {
       const v = value[i];
@@ -54,7 +58,7 @@ const createCss = (
   }
 
   if (Array.isArray(property) && !Array.isArray(value)) {
-    const classNames: string[] = [];
+    const classNames: ClassNames = [];
 
     for (let j = 0; j < property.length; j++) {
       classNames.push(getClassName(property[j], value, undefined, selector));

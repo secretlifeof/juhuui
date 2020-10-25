@@ -15,7 +15,8 @@ const updateSheet = (
       `${hover ? '@media(hover: hover){' : ''}${selector.replace(
         '&',
         className
-      )}{${property}:${value};}${hover ? '}' : ''}`
+      )}{${property}:${value};}${hover ? '}' : ''}`,
+      true
     );
     return;
   }
@@ -24,14 +25,16 @@ const updateSheet = (
     injectCss(
       `@media(min-width:${media})${
         hover ? 'and (hover: hover)' : ''
-      }{${className}{${property}:${value};}}`
+      }{${className}{${property}:${value};}}`,
+      true
     );
   } else {
     injectCss(
       `@media(min-width:${media}){${selector.replace(
         '&',
         className
-      )}{${property}:${value};}}`
+      )}{${property}:${value};}}`,
+      true
     );
   }
 };

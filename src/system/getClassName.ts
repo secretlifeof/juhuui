@@ -5,11 +5,13 @@
 import checkTheme from '../theme/checkTheme';
 import hash from '../utilities/hash';
 import ifStrToKebabCase from '../utilities/ifStrToKebabCase';
+import { isDev } from '../utilities/is';
 import getPrecedence from './getPrecedence';
 import updateSheet from './updateSheet';
 
 const CACHE = new Map();
 const precedenceCache = new Map();
+const usedClassNames = new Map();
 
 const updateClass = (updateStyleSheet: string) => {
   const precedenceItem = precedenceCache.get(updateStyleSheet);
@@ -61,9 +63,24 @@ const getClassName = (
   if (!className) {
     const themedValue = checkTheme(property, value);
 
-    className = hash(
-      `${selector}${property}${!mediaArr ? themedValue : mediaArr}`
-    );
+    let devClassName = '';
+    if (isDev) {
+      devClassName = `${property}-${themedValue}${media ? `-${media}` : ''}${
+        selector ? `-PP${selector.replace(' ', '-')}` : ''
+      })`.replace(/[~!@$%^&*()+=,.';:"?><[\]{}`# ]/g, '');
+      const usedClassName = usedClassNames.get(devClassName);
+
+      if (usedClassName) {
+        devClassName += usedClassName.iterator;
+        usedClassNames.set(devClassName, usedClassName.iterator + 1);
+      } else {
+        usedClassNames.set(devClassName, 1);
+      }
+    }
+
+    className = !isDev
+      ? hash(`${selector}${property}${!mediaArr ? themedValue : mediaArr}`)
+      : devClassName;
 
     updateSheet(`.${className}`.repeat(precedence), {
       property,
