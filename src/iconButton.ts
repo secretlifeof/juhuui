@@ -29,23 +29,20 @@ const iconButtonInstance = new Base(
       children: child,
       as: 'button',
       borderRadius: 'md',
-      _hover: {
+      '&:hover': {
         background: hoverColor
       },
       fun: true,
-      _active: {
+      '&:active': {
         background: activeColor
       },
-      pseudo: {
-        '&:focus': {
-          boxShadow: 'outline'
-        },
-        '&:disabled': {
-          opacity: '40%',
-          cursor: 'not-allowed',
-          boxShadow: 'none'
-        },
-        ...pseudo
+      '&:focus': {
+        boxShadow: 'outline'
+      },
+      '&:disabled': {
+        opacity: '40%',
+        cursor: 'not-allowed',
+        boxShadow: 'none'
       }
     };
   },

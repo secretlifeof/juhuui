@@ -19,26 +19,23 @@ type Props = P & CSSRules;
  * <AspectRatioBox><Img /></AspectRatioBox>
  */
 const aspectRatioBox = new Base(
-  ({ fun = true, ratio = 4 / 3, pseudo: pseudoIn = {} }) => ({
+  ({ fun = true, ratio = 4 / 3 }) => ({
     fun,
     position: 'relative',
-    pseudo: {
-      '&:before': {
-        height: '0',
-        content: "''",
-        display: 'block',
-        paddingBottom: Array.isArray(ratio)
-          ? ratio.map((r) => `${(1 / r) * 100}%`)
-          : `${(1 / ratio) * 100}%`
-      },
-      '& *:first-child': {
-        position: 'absolute',
-        width: '100%',
-        height: '100%',
-        top: 0,
-        left: 0
-      },
-      ...pseudoIn
+    '&:before': {
+      height: '0',
+      content: "''",
+      display: 'block',
+      paddingBottom: Array.isArray(ratio)
+        ? ratio.map((r) => `${(1 / r) * 100}%`)
+        : `${(1 / ratio) * 100}%`
+    },
+    '& *:first-child': {
+      position: 'absolute',
+      width: '100%',
+      height: '100%',
+      top: 0,
+      left: 0
     }
   }),
   ['ratio']

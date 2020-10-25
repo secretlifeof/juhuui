@@ -40,19 +40,16 @@ attachMethodsToInstance(ListItem, listItemInstance);
 ListItem.displayName = 'ListItem';
 
 const listInstance = new Base(
-  ({ spacing = 0, styleType = 'disc', pseudo = {} }: ListProps) => ({
+  ({ spacing = 0, styleType = 'disc' }: ListProps) => ({
     as: 'ul',
     listStyleType: styleType,
     listStylePosition: 'inside',
-    pseudo: {
-      '& li': {
-        marginBottom: spacing
-      },
-      '& li > span > svg': {
-        size: '0.7em',
-        marginRight: '0.4em'
-      },
-      ...pseudo
+    '& li': {
+      marginBottom: spacing
+    },
+    '& li > span > svg': {
+      size: '0.7em',
+      marginRight: '0.4em'
     }
   }),
   ['spacing', 'styleType']

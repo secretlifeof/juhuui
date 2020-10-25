@@ -34,27 +34,24 @@ export const baseStyle: BaseStyle = {
 };
 
 const button = new Base(
-  ({ activeColor, fun, hoverColor, pseudo }: Props) => ({
+  ({ activeColor, fun, hoverColor }: Props) => ({
     ...baseStyle,
     as: 'button',
     borderRadius: 'md',
-    _hover: {
+    '&:hover': {
       background: hoverColor
     },
     fun,
-    _active: {
+    '&:active': {
       background: activeColor
     },
-    pseudo: {
-      '&:focus': {
-        boxShadow: 'outline'
-      },
-      '&:disabled': {
-        opacity: '40%',
-        cursor: 'not-allowed',
-        boxShadow: 'none'
-      },
-      ...pseudo
+    '&:focus': {
+      boxShadow: 'outline'
+    },
+    '&:disabled': {
+      opacity: '40%',
+      cursor: 'not-allowed',
+      boxShadow: 'none'
     }
   }),
   ['activeColor', 'hoverColor']

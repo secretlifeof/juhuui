@@ -18,7 +18,7 @@ interface P {
 type Props = P & CSSRules;
 
 const iconInstance = new Base(
-  ({ color, hoverColor, name, pseudo, svg }: Props) => {
+  ({ color, hoverColor, name, svg }: Props) => {
     const themeSvg = name && theme.icons[name];
     // @ts-ignore
     const child = createElement(svg || themeSvg);
@@ -32,19 +32,16 @@ const iconInstance = new Base(
       size: '8',
       // p to avoid bug with safari
       p: '1px',
-      pseudo: {
-        '& *': {
-          fill: color,
-          stroke: color
-        },
-        ...(hoverColor && {
-          '&:hover *': {
-            fill: hoverColor,
-            stroke: hoverColor
-          }
-        }),
-        ...pseudo
-      }
+      '& *': {
+        fill: color,
+        stroke: color
+      },
+      ...(hoverColor && {
+        '&:hover *': {
+          fill: hoverColor,
+          stroke: hoverColor
+        }
+      })
     };
   },
   ['hoverColor', 'color', 'name', 'svg']

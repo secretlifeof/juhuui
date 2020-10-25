@@ -83,18 +83,15 @@ const stackInstance = new Base(
     return {
       display: 'flex',
       flexDirection,
-      pseudo: {
-        '& > *:not(:first-child)': {
-          ...(isReversed ? { marginBottom: my } : { marginTop: my }),
-          ...(isReversed ? { marginRight: mx } : { marginLeft: mx })
-        },
-        ...(divideEqual && {
-          '& > *': {
-            flex: 1
-          }
-        }),
-        ...pseudo
-      }
+      '& > *:not(:first-child)': {
+        ...(isReversed ? { marginBottom: my } : { marginTop: my }),
+        ...(isReversed ? { marginRight: mx } : { marginLeft: mx })
+      },
+      ...(divideEqual && {
+        '& > *': {
+          flex: 1
+        }
+      })
     };
   },
   ['divideEqual', 'isInline', 'isReversed', 'spacing', 'gap']
