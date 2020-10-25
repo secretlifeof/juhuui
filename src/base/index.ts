@@ -1,6 +1,6 @@
 // @ts-nocheck
 import render from '../system/render';
-import { forwardRef, h } from '../system/setup';
+import { forwardRef } from '../system/setup';
 import { As, CSSProps, CSSRules } from '../types';
 import mergeObjects from '../utilities/mergeObjects';
 import attachAttrs, { WrappedComponentType } from './attachAttrs';
@@ -23,6 +23,8 @@ class Base {
   removeProps: any;
 
   variant: any;
+
+  attrs: any;
 
   constructor(p?: CSSProps | any, removeProps?: any[]) {
     this.props = p || {};
