@@ -7,20 +7,18 @@ import createCss from './createCss';
  */
 
 const processEntries = (
-  property: string | string[],
+  cssProperty: string | string[],
   value: InputValue,
   addClassName: (property: string, className: string | string[]) => void,
   selector?: string | undefined
 ) => {
-  // const cssProperty = ifStrToKebabCase(property);
+  const className = createCss(cssProperty, value, selector);
 
-  const className = createCss(property, value, selector);
-
-  if (!Array.isArray(property)) {
-    addClassName(property, className);
+  if (!Array.isArray(cssProperty)) {
+    addClassName(cssProperty, className);
   } else {
-    for (let i = 0; i < property.length; i++) {
-      addClassName(property[i], className);
+    for (let i = 0; i < cssProperty.length; i++) {
+      addClassName(cssProperty[i], className);
     }
   }
 };

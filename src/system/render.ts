@@ -1,4 +1,5 @@
-import processProps, { Props } from '../css/processProps';
+// @ts-nocheck
+import { processCss, Props } from '../css/processCss';
 import createElement, { CreateElement, CSS } from './createElement';
 
 /**
@@ -6,13 +7,13 @@ import createElement, { CreateElement, CSS } from './createElement';
  */
 
 function render(
-  props: Props,
+  { css: cssIn = {}, baseStyles, fun, ...props }: Props,
   extraRaw: string | undefined = '',
   child?: Array<object>
 ): CreateElement {
-  const root = processProps(props);
+  const root = processCss({ css: { ...baseStyles, ...cssIn }, fun });
   const css: CSS = { classNames: root.classNames, extraRaw };
-  return createElement(root.returnProps, child, css);
+  return createElement(props, child, css);
 }
 
 export type Render = ReturnType<typeof render>;

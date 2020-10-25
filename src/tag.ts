@@ -1,6 +1,7 @@
+// @ts-nocheck
 import Base from './base';
 import attachMethodsToInstance from './base/attachMethodsToInstance';
-import { NestedPseudo } from './css/processProps';
+import { NestedPseudo } from './css/processCss';
 import { Render } from './system/render';
 import { ComponentType, CSSRules } from './types';
 

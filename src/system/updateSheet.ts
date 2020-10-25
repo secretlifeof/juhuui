@@ -7,23 +7,20 @@ const updateSheet = (
   if (!media) {
     if (!selector) {
       injectCss(`${className}{${property}:${value};}`);
-    } else {
-      const hover = selector.includes('hover');
-      injectCss(
-        `${hover ? '@media(hover: hover){' : ''}${selector.replace(
-          '&',
-          className
-        )}{${property}:${value};}${hover ? '}' : ''}`
-      );
+      return;
     }
+
+    const hover = selector.includes('hover');
+    injectCss(
+      `${hover ? '@media(hover: hover){' : ''}${selector.replace(
+        '&',
+        className
+      )}{${property}:${value};}${hover ? '}' : ''}`
+    );
+    return;
   }
   if (!selector) {
     const hover = selector.includes('hover');
-    // !selector.includes('hover')
-    //   ? injectCss(
-    //       `@media(min-width:${media}){.${className}{${property}:${value};}}`
-    //     )
-    //   : injectCss(`@media(hover){.${className}{${property}:${value};}}`);
     injectCss(
       `@media(min-width:${media})${
         hover ? 'and (hover: hover)' : ''

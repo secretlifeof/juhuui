@@ -1,8 +1,8 @@
-import processProps from '../css/processProps';
+import { processCss } from '../css/processCss';
 import { CSSRules } from '../types';
 
 export const css = (props: CSSRules): string => {
-  const system = processProps(props);
+  const system = processCss(props);
   return system.classNames.join(' ');
 };
 
