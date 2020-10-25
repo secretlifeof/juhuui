@@ -24,6 +24,8 @@ class Base {
 
   variant: any;
 
+  attrs: any;
+
   constructor(p?: CSSProps | any, removeProps?: any[]) {
     this.props = p || {};
     this.removeProps = removeProps || [];
