@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { processCss } from '../processCss';
 
 describe('processProps', () => {

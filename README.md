@@ -8,7 +8,7 @@ I made this tool because because I wanted the best of (very objective) Styled-Co
 
 #### 🔔 Work in progress
 
-This is a work in progress and the API is still being finalized. Please install juhuui@next for features described below. Feedback is also kindness :-)
+This is a work in progress and the API is still being finalized. Please install juhuui@next for features described below.Feedback is also kindness :-)
 
 ---
 
