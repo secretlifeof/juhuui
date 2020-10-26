@@ -1,6 +1,6 @@
 const TAG_ID = '_juhuui';
 
-const getStyleTag = (tag?: string) => {
+export const getStyleTag = (tag?: string) => {
   let styleEl = document.getElementById(
     tag || TAG_ID
   ) as HTMLStyleElement | null;

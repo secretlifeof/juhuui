@@ -10,7 +10,11 @@ const virtualInjector = (rule: string): void => {
 const injectorDOM = (rule: string, tag?: string) => {
   const target = getStyleTag(tag) as HTMLStyleElement;
 
-  target.innerHTML += rule;
+  const ruleIsMedia = rule.includes('@');
+
+  target.innerHTML = ruleIsMedia
+    ? target.innerHTML + rule
+    : rule + target.innerHTML;
 };
 
 export const injectorCSSOM = (

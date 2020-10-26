@@ -9,7 +9,7 @@ import { isDev } from '../utilities/is';
 import getPrecedence from './getPrecedence';
 import updateSheet from './updateSheet';
 
-const CACHE = new Map();
+export const CACHE_CLASSNAMES = new Map();
 const precedenceCache = new Map();
 const usedClassNames = new Map();
 
@@ -59,7 +59,7 @@ const getClassName = (
     });
   }
 
-  let className = CACHE.get(key);
+  let className = CACHE_CLASSNAMES.get(key);
   if (!className) {
     const themedValue = checkTheme(property, value);
 
@@ -93,7 +93,7 @@ const getClassName = (
       updateClass(updateStyleSheet);
     }
 
-    CACHE.set(key, className);
+    CACHE_CLASSNAMES.set(key, className);
 
     return className;
   }

@@ -1,7 +1,9 @@
 // @ts-nocheck
 import { getShortProperty } from '../properties/getShortProperty';
+import { getStyleTag } from '../system/getStyleTag';
 import { defaultFun } from '../system/setup';
 import ifStrToKebabCase from '../utilities/ifStrToKebabCase';
+import { isServer } from '../utilities/is';
 import processEntries from './processEntries';
 import processPseudoEntries, { Pseudo } from './processPseudoEntries';
 
@@ -21,7 +23,12 @@ export interface Props {
  *  Returns class names for valid ones and the rest are forwarded.
  */
 
-const CACHE = new Map();
+const getSSRData = () => {
+  const target = getStyleTag();
+  return JSON.parse(target.dataset.process);
+};
+
+export const CACHE_PROCESS = new Map(!isServer ? getSSRData() : []);
 
 export const processCss = ({
   css,
@@ -43,14 +50,14 @@ export const processCss = ({
     if (
       renderPseudoProperties &&
       propertyIsString &&
-      cssProperty.match(/[&:+^.#*, >~[=$]/g)
+      cssProperty.match(/[&:+^.#*, >~[=$]/)
     )
       fun = true;
 
     const cacheKey = propertyIsString
       ? `${propName}${propVal}`
       : `${propName}${Object.entries(propVal)}`;
-    const cachedClassNames = CACHE.get(cacheKey);
+    const cachedClassNames = CACHE_PROCESS.get(cacheKey);
 
     if (cachedClassNames) {
       if (!Array.isArray(cssProperty)) {
@@ -73,7 +80,7 @@ export const processCss = ({
         propVal as string,
         (p: string, className: string | string[]) => {
           classNamesByProperty.set(p, className);
-          CACHE.set(cacheKey, className);
+          CACHE_PROCESS.set(cacheKey, className);
         }
       );
     }

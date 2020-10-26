@@ -2,13 +2,13 @@
 
 ### UI tool intended for design systems
 
-Juhuui is a a UI library and a tool made for building design systems. Merge and nest components in a simple manner. Variants can be created programmatically.
+I made this tool because because I wanted the best of (very objective) Styled-Components, Chakra-UI, but with atomic CSS classes. Merge and nest components. Create variants. Hope that you will experience the same joy that I have using Juhuui.
 
 ---
 
 #### 🔔 Work in progress
 
-This is a work in progress and the API is still being finalized. Please install juhuui@next for features described below. All feedback is kind of nice!
+This is a work in progress and the API is still being finalized. Please install juhuui@next for features described below. Feedback is also kindness :-)
 
 ---
 
@@ -26,7 +26,7 @@ This is a work in progress and the API is still being finalized. Please install 
 
 **install from npm:**
 
-```js
+```shell
 npm install juhuui@next
 ```
 
@@ -41,7 +41,7 @@ import { createElement } from 'react'; // or h from Preact
 setup(createElement);
 ```
 
-## Inline components
+## Inline and overwriting styled components
 
 Juhu you can start building components.
 
@@ -70,10 +70,10 @@ import {
 } from 'juhuui';
 
 const SayWhat = () => (
-  <Flex direction="column">
-    <Box color="green">RAINBOW</Box>
+  <Flex css={{ direction: 'column' }}>
+    <Box css={{ color: 'green' }}>RAINBOW</Box>
     <Fun
-      pseudo={{
+      css={{
         '&:hover *': {
           fill: ['red', 'yellow', 'blue']
         }
@@ -109,7 +109,7 @@ const Colorful = Text.with(({fw}) => ({
 
 <Colorful fw={{ background: 'yellow.200' }}>Orange</Colorful>;
 // or overwrite styles by adding a css property inline
-<Colorful backgroundColor="red.300" fw={{ backgroundColor: 'yellow.200' }}>Red</Colorful>;
+<Colorful css={{ backgroundColor  "red.300" }} fw={{ backgroundColor: 'yellow.200' }}>Red</Colorful>;
 
 // or merge
 
@@ -141,7 +141,7 @@ const B = Button.variants({ variant: {
 
 ## Create class names
 
-Function for creating class names. To give you the freedom of developing according to your needs. If you are looking for a tool that only creates class names we recommend a smaller tool called [otion](https://github.com/kripod/otion).
+Function for creating class names. Just for the power of freedom. Performance is better than the above. If you are looking for a tool that only creates class names we recommend a smaller tool called [otion](https://github.com/kripod/otion).
 
 ```js
 import { css } from 'juhuui';
@@ -158,7 +158,7 @@ const classNames = css({
 
 For extracting critical CSS please use the extractCss function.
 
-Here is a short example how you would do this in Next.js.
+Here is a short example how you would do this in Next.js. The data attributes needs to be called "data-process".
 
 ```js
 // _document.js
@@ -169,8 +169,8 @@ export default class MyDocument extends Document {
   static async getInitialProps({ renderPage }) {
     const page = renderPage();
 
-    const css = extractCss();
-    return { ...page, css };
+    const { css, data } = extractCss();
+    return { ...page, css, data };
   }
 
   render() {
@@ -180,6 +180,7 @@ export default class MyDocument extends Document {
           <style
             id={'_juhuui'}
             dangerouslySetInnerHTML={{ __html: this.props.css }}
+            data-process={this.props.data}
           />
         </Head>
         <body>
@@ -234,9 +235,7 @@ Any feedback is met with love and curiosity. Have fun! 💚
 - [ ] Add vendor prefix to options
 - [ ] Minimal version without a default theme
 - [ ] Default React/Preact versions without a need for calling setup
-- [ ] More recipes
 - [ ] Improve type safety
-- [ ] Improve performance after server side rendering
 
 ## Benchmarks
 
