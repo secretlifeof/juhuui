@@ -1,3 +1,4 @@
+// @ts-nocheck
 import render, { Render } from '../system/render';
 import { forwardRef } from '../system/setup';
 import { As, CSSProps, CSSRules, Variants } from '../types';
@@ -85,7 +86,10 @@ function withComponent(
 
   const valIsFunction = typeof val === 'function';
 
-  const WrappedComponent = ((props?: CSSRules, ref?: any) => {
+  const WrappedComponent = ((
+    { merge: mergeProps, ...props }: CSSRules,
+    ref?: any
+  ) => {
     // const refOut = ref && forwardRef ? { ref } : {};
     const refOut = ref && forwardRef ? { ref } : {};
     // @ts-ignore
@@ -100,8 +104,10 @@ function withComponent(
       ...forwardVariant,
       ...variant
     });
+    const mergedInlineStyles = this.merge(mergeProps || {}, true);
     const mergedStyles = mergeObjects(
       {},
+      mergedInlineStyles,
       mergedProps,
       attrs,
       functionAttrs,

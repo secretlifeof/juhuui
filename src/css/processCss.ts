@@ -25,7 +25,8 @@ export interface Props {
 
 const getSSRData = () => {
   const target = getStyleTag();
-  return JSON.parse(target.dataset.process);
+  const dataset = target.dataset.process;
+  return dataset ? JSON.parse(dataset) : [];
 };
 
 export const CACHE_PROCESS = new Map(!isServer ? getSSRData() : []);

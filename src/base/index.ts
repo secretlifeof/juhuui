@@ -67,10 +67,17 @@ class Base {
     return variantStyles;
   }
 
-  render(props: CSSRules = {}) {
+  render({ merge, ...props }: CSSRules = {}) {
     const initValues = this.getInitialValues(props);
     const filteredProps = getFilteredProps(props, this.removeProps);
-    return render({ ...initValues, ...filteredProps });
+    this.merge(merge || {});
+    const { mergedProps } = this;
+    this.mergedProps = {};
+    return render({
+      ...initValues,
+      baseStyles: { ...props.css, ...mergedProps },
+      ...filteredProps
+    });
   }
 
   /**
@@ -104,13 +111,20 @@ class Base {
     const { mergedProps, variant } = this;
     const filters = [...this.removeProps, ...Object.keys(variant), ...filter];
 
-    const WrappedComponent = ((props?: CSSRules, ref) => {
+    const WrappedComponent = (({ merge, ...props }: CSSRules, ref) => {
       const refOut = ref && forwardRef ? { ref } : {};
 
       const styles = valIsFunction ? val(props) : val;
       const initValues = this.getInitialValues(props as CSSRules);
       const variantStyles = this.getVariantStyles(props, variant);
-      const mergedStyles = mergeObjects({}, mergedProps, variantStyles, styles);
+      const mergedInlineStyles = this.merge(merge || {}, true);
+      const mergedStyles = mergeObjects(
+        {},
+        mergedInlineStyles,
+        mergedProps,
+        variantStyles,
+        styles
+      );
       const filteredProps = getFilteredProps(props, [...filters]);
 
       return render({
@@ -146,17 +160,17 @@ class Base {
     return Forwarded;
   }
 
-  merge(components: any) {
+  merge(components: any, returnProps: boolean) {
     const mergedProps = Array.isArray(components)
       ? components.reduce(
           (acc: any, cur: any) => ({ ...acc, ...cur.attrs }),
           {}
         )
       : components.attrs;
+    !returnProps &&
+      (this.mergedProps = { ...this.mergedProps, ...mergedProps });
 
-    this.mergedProps = { ...this.mergedProps, ...mergedProps };
-
-    return this;
+    return !returnProps ? this : mergedProps;
   }
 }
 
