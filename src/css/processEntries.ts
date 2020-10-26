@@ -1,5 +1,4 @@
 import type { InputValue } from '../types';
-// import ifStrToKebabCase from '../utilities/ifStrToKebabCase';
 import createCss from './createCss';
 
 /**

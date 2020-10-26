@@ -2,7 +2,6 @@
 import { getShortProperty } from '../properties/getShortProperty';
 import { getStyleTag } from '../system/getStyleTag';
 import { defaultFun } from '../system/setup';
-import ifStrToKebabCase from '../utilities/ifStrToKebabCase';
 import { isServer } from '../utilities/is';
 import processEntries from './processEntries';
 import processPseudoEntries, { Pseudo } from './processPseudoEntries';
@@ -49,6 +48,7 @@ export const processCss = ({
 
     let fun = false;
     if (
+      defaultFun &&
       renderPseudoProperties &&
       propertyIsString &&
       cssProperty.match(/[&:+^.#*, >~[=$]/)
@@ -69,11 +69,9 @@ export const processCss = ({
         }
       }
     } else if (fun) {
-      const pseudoSelector = ifStrToKebabCase(cssProperty);
-
       classNamesByProperty.set(
-        pseudoSelector,
-        processPseudoEntries(propVal, pseudoSelector)
+        cssProperty,
+        processPseudoEntries(propVal, cssProperty)
       );
     } else {
       processEntries(

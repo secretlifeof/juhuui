@@ -1,61 +1,23 @@
-import {
-  PRECEDENCE_GROUPS,
-  SHORT_HAND_PROPERTIES,
-  SHORT_HAND_PROPERTIES_SECOND_LINE
-} from '../properties/availableProperties';
-
-const addedShortProperties = new Set();
-const addedShortPropertiesSecondLine = new Set();
-const addedLonghandByShorthand = new Map();
-const shortHandProperties = new Set(SHORT_HAND_PROPERTIES);
-const shortHandPropertiesSecondLine = new Set(
-  SHORT_HAND_PROPERTIES_SECOND_LINE
-);
+// @ts-nocheck
 
 const getPrecedence = (property: string) => {
   let precedence = 1;
 
-  const shortHandProperty = shortHandProperties.has(property) && property;
-  const shortHandPropertySecondLine =
-    shortHandPropertiesSecondLine.has(property) && property;
-
   /**
-   *  returns i.e. "border" for "borderColor"
+   * Regex is taken from https://github.com/kripod/otion/blob/main/packages/otion/src/propertyMatchers.ts.
+   * Great thanks to Kripod for taking his time to write this.
    */
-  const precedenceFamily = PRECEDENCE_GROUPS[property];
 
-  const usedShortProperty = addedShortProperties.has(precedenceFamily);
-  const usedShortPropertySecondLine = addedShortPropertiesSecondLine.has(
-    precedenceFamily
-  );
+  const PROPERTIES_CORRECTION = /^(?:(border-(?!w|c|sty)|[tlbr].{2,4}m?$|c.{7}$)|([fl].{5}l|g.{8}$|pl))/;
 
-  if (usedShortProperty) {
-    ++precedence;
-  }
-  if (usedShortPropertySecondLine) {
-    ++precedence;
-  }
-
-  /**
-   *  If more specific CSS property has already been added to the stylesheet, then add it again and multiply className.
-   */
-  let updateStyleSheet;
-  const longhandAlreadyAdded = addedLonghandByShorthand.get(property);
-  if (
-    longhandAlreadyAdded &&
-    (shortHandProperty || shortHandPropertySecondLine)
-  ) {
-    updateStyleSheet = longhandAlreadyAdded;
-  }
-
-  shortHandProperty && addedShortProperties.add(property);
-  shortHandPropertySecondLine && addedShortPropertiesSecondLine.add(property);
-  precedenceFamily && addedLonghandByShorthand.set(precedenceFamily, property);
+  const correction = PROPERTIES_CORRECTION.exec(property);
+  precedence +=
+    (property.match(/-/g) || []).length +
+    (correction && correction[1] ? 1 : 0) -
+    (correction && correction[2] ? 1 : 0);
 
   return {
-    precedence,
-    itemAffectedByPrecedence: precedenceFamily && !longhandAlreadyAdded,
-    updateStyleSheet
+    precedence
   };
 };
 

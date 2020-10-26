@@ -4,33 +4,13 @@
 
 import checkTheme from '../theme/checkTheme';
 import hash from '../utilities/hash';
-import ifStrToKebabCase from '../utilities/ifStrToKebabCase';
+import { ifStrToKebabCase } from '../utilities/ifStrToKebabCase';
 import { isDev } from '../utilities/is';
 import getPrecedence from './getPrecedence';
 import updateSheet from './updateSheet';
 
 export const CACHE_CLASSNAMES = new Map();
-const precedenceCache = new Map();
 const usedClassNames = new Map();
-
-const updateClass = (updateStyleSheet: string) => {
-  const precedenceItem = precedenceCache.get(updateStyleSheet);
-
-  const { property, value, media, mediaArr, selector } = precedenceItem;
-
-  const themedValue = checkTheme(property, value);
-
-  const cn = hash(
-    `${selector}${property}${!mediaArr ? themedValue : mediaArr}`
-  );
-
-  updateSheet(`.${cn}`.repeat(2), {
-    property,
-    value: themedValue,
-    media,
-    selector
-  });
-};
 
 const getClassName = (
   propertyCamelCased: string,
@@ -42,22 +22,7 @@ const getClassName = (
   const property = ifStrToKebabCase(propertyCamelCased);
   const key = `${media}${selector}${property}${!mediaArr ? value : mediaArr}`;
 
-  const {
-    itemAffectedByPrecedence,
-    precedence,
-    updateStyleSheet
-  } = getPrecedence(propertyCamelCased);
-
-  if (itemAffectedByPrecedence) {
-    precedenceCache.set(propertyCamelCased, {
-      key,
-      property,
-      value,
-      media,
-      mediaArr,
-      selector
-    });
-  }
+  const { precedence } = getPrecedence(property as string);
 
   let className = CACHE_CLASSNAMES.get(key);
   if (!className) {
@@ -89,17 +54,9 @@ const getClassName = (
       selector
     });
 
-    if (updateStyleSheet) {
-      updateClass(updateStyleSheet);
-    }
-
     CACHE_CLASSNAMES.set(key, className);
 
     return className;
-  }
-
-  if (updateStyleSheet) {
-    updateClass(updateStyleSheet);
   }
 
   return className;
