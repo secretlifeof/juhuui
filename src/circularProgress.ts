@@ -115,11 +115,13 @@ function getComputedProps({
 
   const circleReturn: CircleReturn = {
     root: {
-      size,
-      fontSize: '100%',
-      display: 'inline-block',
-      position: 'relative',
-      verticalAlign: 'middle',
+      baseStyles: {
+        size,
+        fontSize: '100%',
+        display: 'inline-block',
+        position: 'relative',
+        verticalAlign: 'middle'
+      },
       role: 'progressbar',
       'aria-valuemin': min,
       'aria-valuemax': max,
@@ -129,9 +131,11 @@ function getComputedProps({
     svg: {
       as: 'svg',
       viewBox: viewBoxAttr,
-      verticalAlign: 'top',
-      transform: `rotate3d(0, 0, 1, ${angle - 90}deg)`,
-      size: '100%'
+      baseStyles: {
+        verticalAlign: 'top',
+        transform: `rotate3d(0, 0, 1, ${angle - 90}deg)`,
+        size: '100%'
+      }
     },
 
     label: {

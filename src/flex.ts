@@ -7,7 +7,7 @@ interface P {
   [key: string]: any;
 }
 
-const flexInstance = new Base({ display: 'flex' });
+const flexInstance = new Base({ baseStyles: { display: 'flex' } });
 
 /**
  * Box with display="flex".

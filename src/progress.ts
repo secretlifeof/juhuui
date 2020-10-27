@@ -39,7 +39,7 @@ function Indicator({ color, max, min, value }: IndicatorProps): Render {
     role: 'progressbar'
   };
 
-  return render({ ...style, ...props });
+  return render({ baseStyles: { ...style }, ...props });
 }
 
 const progressInstance = new Base(
@@ -55,10 +55,7 @@ const progressInstance = new Base(
 
     return {
       children: indicator,
-      position: 'relative',
-      height,
-      overflow: 'hidden',
-      bg
+      baseStyles: { position: 'relative', height, overflow: 'hidden', bg }
     };
   },
   ['max', 'min', 'value']

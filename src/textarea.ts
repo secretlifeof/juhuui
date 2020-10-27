@@ -11,10 +11,12 @@ interface P {
 
 const textareaInstance = new Base({
   as: 'textarea',
-  lineHeight: 'short',
-  minHeight: '80px',
-  py: '8px',
-  resize: 'none'
+  baseStyles: {
+    lineHeight: 'short',
+    minHeight: '80px',
+    py: '8px',
+    resize: 'none'
+  }
 });
 
 /**

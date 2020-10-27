@@ -87,7 +87,7 @@ function withComponent(
   const valIsFunction = typeof val === 'function';
 
   const WrappedComponent = ((
-    { merge: mergeProps, ...props }: CSSRules,
+    { merge: mergeProps, as: asIn, ...props }: CSSRules,
     ref?: any
   ) => {
     // const refOut = ref && forwardRef ? { ref } : {};
@@ -99,7 +99,7 @@ function withComponent(
     const functionAttrs = forwardFunctions.reduce((acc, cur: any) => {
       return { ...acc, ...(typeof cur === 'function' ? cur(props) : cur) };
     }, {});
-    const initValues = this.getInitialValues(props);
+    const { baseStyles, ...baseProps } = this.getInitialValues(props);
     const variantStyles = this.getVariantStyles(props, {
       ...forwardVariant,
       ...variant
@@ -117,8 +117,9 @@ function withComponent(
     const filteredProps = getFilteredProps(props, filters);
 
     return render({
+      ...baseProps,
       baseStyles: {
-        ...initValues,
+        ...baseStyles,
         ...mergedStyles
       },
       ...filteredProps,

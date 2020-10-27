@@ -14,18 +14,20 @@ type Props = P & CSSRules;
 const dividerInstance = new Base(
   ({ fun, orientation }: Props) => ({
     'aria-orientation': orientation,
-    border: '0',
-    borderColor: 'inherit',
-    fun,
-    opacity: '0.6',
-    height: 0,
-    ...(orientation === 'vertical'
-      ? {
-          borderLeft: '0.0625rem solid',
-          height: 'auto',
-          mx: 2
-        }
-      : { borderTop: '1px solid', width: '100%', my: 2 }),
+    baseStyles: {
+      border: '0',
+      borderColor: 'inherit',
+      fun,
+      opacity: '0.6',
+      height: 0,
+      ...(orientation === 'vertical'
+        ? {
+            borderLeft: '0.0625rem solid',
+            height: 'auto',
+            mx: 2
+          }
+        : { borderTop: '1px solid', width: '100%', my: 2 })
+    },
     as: orientation === 'vertical' ? 'div' : 'hr'
   }),
   ['orientation']

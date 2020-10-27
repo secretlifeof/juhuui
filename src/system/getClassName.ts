@@ -1,3 +1,4 @@
+// @ts-nocheck
 /**
  *  Creates or returns classNames
  */
@@ -30,14 +31,18 @@ const getClassName = (
 
     let devClassName = '';
     if (isDev) {
+      if (typeof value === 'object') {
+        console.log('VALUE is OBJECT', property, value);
+      }
+
       devClassName = `${property}-${themedValue}${media ? `-${media}` : ''}${
         selector ? `-PP${selector.replace(' ', '-')}` : ''
-      })`.replace(/[~!@$%^&*()+=,.';:"?><[\]{}`# ]/g, '');
+      })`.replace(/[~!@$%^&*()+=,.';:"?/><[\]{}`# ]/g, '');
       const usedClassName = usedClassNames.get(devClassName);
 
       if (usedClassName) {
-        devClassName += usedClassName.iterator;
-        usedClassNames.set(devClassName, usedClassName.iterator + 1);
+        devClassName += usedClassName;
+        usedClassNames.set(devClassName, usedClassName + 1);
       } else {
         usedClassNames.set(devClassName, 1);
       }

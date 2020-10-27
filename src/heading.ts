@@ -9,9 +9,11 @@ interface P {
 
 const headingInstance = new Base({
   as: 'h2',
-  lineHeight: 'shorter',
-  // fontWeight: 'bold',
-  fontFamily: 'heading'
+  baseStyles: {
+    lineHeight: 'shorter',
+    // fontWeight: 'bold',
+    fontFamily: 'heading'
+  }
 });
 
 /**

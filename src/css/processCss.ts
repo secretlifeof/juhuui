@@ -2,7 +2,7 @@
 import { getShortProperty } from '../properties/getShortProperty';
 import { getStyleTag } from '../system/getStyleTag';
 import { defaultFun } from '../system/setup';
-import { isServer } from '../utilities/is';
+import { isDev, isServer } from '../utilities/is';
 import processEntries from './processEntries';
 import processPseudoEntries, { Pseudo } from './processPseudoEntries';
 
@@ -28,7 +28,7 @@ const getSSRData = () => {
   return dataset ? JSON.parse(dataset) : [];
 };
 
-export const CACHE_PROCESS = new Map(!isServer ? getSSRData() : []);
+export const CACHE_PROCESS = new Map(!isServer && !isDev ? getSSRData() : []);
 
 export const processCss = ({
   css,

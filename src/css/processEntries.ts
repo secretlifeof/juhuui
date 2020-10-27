@@ -14,6 +14,7 @@ const processEntries = (
   addClassName: (property: string, className: ClassNames) => void,
   selector?: string | undefined
 ) => {
+  if (typeof value === 'string' && value.length === 0) return;
   const className = createCss(cssProperty, value, selector);
 
   if (!Array.isArray(cssProperty)) {

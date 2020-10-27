@@ -38,8 +38,9 @@ class Base {
    *
    *
    */
-  as(as: As) {
-    this.mergedProps = { ...this.mergedProps, as };
+  as(asIn: As) {
+    // this.as = { ...this.mergedProps, asIn };
+    this.asSet = asIn;
 
     return this;
   }
@@ -68,14 +69,17 @@ class Base {
   }
 
   render({ merge, ...props }: CSSRules = {}) {
-    const initValues = this.getInitialValues(props);
-    const filteredProps = getFilteredProps(props, this.removeProps);
+    const { baseStyles, ...baseProps } = this.getInitialValues(props);
+    const filteredProps = getFilteredProps(props, [
+      'baseStyles',
+      ...this.removeProps
+    ]);
     this.merge(merge || {});
     const { mergedProps } = this;
     this.mergedProps = {};
     return render({
-      ...initValues,
-      baseStyles: { ...props.css, ...mergedProps },
+      ...baseProps,
+      baseStyles: { ...baseStyles, ...mergedProps },
       ...filteredProps
     });
   }
@@ -87,6 +91,7 @@ class Base {
     this.mergedProps = {};
     this.variant = {};
     this.removeProps = [];
+    this.asSet = undefined;
   }
 
   variants(types: any) {
@@ -108,14 +113,22 @@ class Base {
     const attachAttrsBound = attachAttrs.bind(this);
     const valIsFunction = typeof val === 'function';
 
-    const { mergedProps, variant } = this;
-    const filters = [...this.removeProps, ...Object.keys(variant), ...filter];
+    const { mergedProps, variant, asSet } = this;
+    const filters = [
+      'baseStyles',
+      ...this.removeProps,
+      ...Object.keys(variant),
+      ...filter
+    ];
 
     const WrappedComponent = (({ merge, ...props }: CSSRules, ref) => {
       const refOut = ref && forwardRef ? { ref } : {};
 
-      const styles = valIsFunction ? val(props) : val;
-      const initValues = this.getInitialValues(props as CSSRules);
+      const { as: asIn, ...styles } = valIsFunction ? val(props) : val ?? {};
+      const { baseStyles, ...baseProps } = this.getInitialValues(
+        props as CSSRules
+      );
+
       const variantStyles = this.getVariantStyles(props, variant);
       const mergedInlineStyles = this.merge(merge || {}, true);
       const mergedStyles = mergeObjects(
@@ -125,11 +138,14 @@ class Base {
         variantStyles,
         styles
       );
+
       const filteredProps = getFilteredProps(props, [...filters]);
 
       return render({
+        ...baseProps,
+        ...((asSet || asIn) && { as: asSet || asIn }),
         baseStyles: {
-          ...initValues,
+          ...baseStyles,
           ...mergedStyles
         },
         ...filteredProps,
@@ -160,7 +176,7 @@ class Base {
     return Forwarded;
   }
 
-  merge(components: any, returnProps: boolean) {
+  merge(components: any, returnProps?: boolean) {
     const mergedProps = Array.isArray(components)
       ? components.reduce(
           (acc: any, cur: any) => ({ ...acc, ...cur.attrs }),

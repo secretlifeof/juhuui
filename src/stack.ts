@@ -22,7 +22,8 @@ const stackInstance = new Base(
     isInline = false,
     isReversed = false,
     spacing,
-    gap: gapIn = 2
+    gap: gapIn = 2,
+    css
   }: Props) => {
     const isInlineArr = Array.isArray(isInline);
     const gap = spacing || gapIn;
@@ -80,17 +81,20 @@ const stackInstance = new Base(
       : spacingValue;
 
     return {
-      display: 'flex',
-      flexDirection,
-      '& > *:not(:first-child)': {
-        ...(isReversed ? { marginBottom: my } : { marginTop: my }),
-        ...(isReversed ? { marginRight: mx } : { marginLeft: mx })
-      },
-      ...(divideEqual && {
-        '& > *': {
-          flex: 1
-        }
-      })
+      baseStyles: {
+        display: 'flex',
+        flexDirection,
+        '& > *:not(:first-child)': {
+          ...(isReversed ? { marginBottom: my } : { marginTop: my }),
+          ...(isReversed ? { marginRight: mx } : { marginLeft: mx })
+        },
+        ...(divideEqual && {
+          '& > *': {
+            flex: 1
+          }
+        }),
+        ...css
+      }
     };
   },
   ['divideEqual', 'isInline', 'isReversed', 'spacing', 'gap']

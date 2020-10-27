@@ -20,45 +20,47 @@ const sizeStyles = {
 };
 
 const tagInstance = new Base({
-  ...sizeStyles,
-  bg: 'gray.200',
-  display: 'inline-flex',
-  alignItems: 'center',
-  rounded: 'md',
-  fontWeight: 'medium',
-  '& > svg': {
-    width: '0.7em',
-    height: '0.7em',
-    marginRight: '0.4em'
-  },
-  '& > svg:last-child': {
-    marginRight: '0em',
-    marginLeft: '0.4em'
-  },
-  '& > button > svg': {
-    display: 'inline-block',
-    width: '100%',
-    height: '100%'
-  },
-  '& > button:first-child': {
-    display: 'flex',
+  baseStyles: {
+    ...sizeStyles,
+    bg: 'gray.200',
+    display: 'inline-flex',
     alignItems: 'center',
-    justifyContent: 'center',
-    width: '1em',
-    height: '1em',
-    marginRight: '0.4em',
-    padding: '0.1em',
-    minWidth: '1em'
-  },
-  '& > button:last-child': {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: '1em',
-    height: '1em',
-    marginLeft: '0.4em',
-    padding: '0.1em',
-    minWidth: '1em'
+    rounded: 'md',
+    fontWeight: 'medium',
+    '& > svg': {
+      width: '0.7em',
+      height: '0.7em',
+      marginRight: '0.4em'
+    },
+    '& > svg:last-child': {
+      marginRight: '0em',
+      marginLeft: '0.4em'
+    },
+    '& > button > svg': {
+      display: 'inline-block',
+      width: '100%',
+      height: '100%'
+    },
+    '& > button:first-child': {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      width: '1em',
+      height: '1em',
+      marginRight: '0.4em',
+      padding: '0.1em',
+      minWidth: '1em'
+    },
+    '& > button:last-child': {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      width: '1em',
+      height: '1em',
+      marginLeft: '0.4em',
+      padding: '0.1em',
+      minWidth: '1em'
+    }
   }
 });
 

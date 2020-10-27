@@ -7,7 +7,7 @@ interface P {
   [key: string]: any;
 }
 
-const gridInstance = new Base({ display: 'grid' });
+const gridInstance = new Base({ baseStyles: { display: 'grid' } });
 
 /**
  * Box with display="grid".

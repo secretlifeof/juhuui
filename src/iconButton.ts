@@ -25,24 +25,26 @@ const iconButtonInstance = new Base(
     const child = createElement(svg || themeSvg);
 
     return {
-      ...baseStyle,
       children: child,
       as: 'button',
-      borderRadius: 'md',
-      '&:hover': {
-        background: hoverColor
-      },
-      fun: true,
-      '&:active': {
-        background: activeColor
-      },
-      '&:focus': {
-        boxShadow: 'outline'
-      },
-      '&:disabled': {
-        opacity: '40%',
-        cursor: 'not-allowed',
-        boxShadow: 'none'
+      baseStyles: {
+        ...baseStyle,
+        borderRadius: 'md',
+        '&:hover': {
+          background: hoverColor
+        },
+        fun: true,
+        '&:active': {
+          background: activeColor
+        },
+        '&:focus': {
+          boxShadow: 'outline'
+        },
+        '&:disabled': {
+          opacity: '40%',
+          cursor: 'not-allowed',
+          boxShadow: 'none'
+        }
       }
     };
   },

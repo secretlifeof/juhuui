@@ -27,8 +27,7 @@ const sizeStyle = {
 };
 
 const inputInstance = new Base({
-  ...baseStyle,
-  ...sizeStyle,
+  bseStyles: { ...baseStyle, ...sizeStyle },
   fun: true,
   as: 'input'
 });

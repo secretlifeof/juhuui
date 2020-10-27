@@ -19,7 +19,10 @@ type ListProps = ListP & CSSRules;
 type ListItemProps = ListItemP & CSSRules;
 
 const listItemInstance = new Base(
-  ({ spacing = 0 }: ListItemProps) => ({ as: 'li', marginBottom: spacing }),
+  ({ spacing = 0, css }: ListItemProps) => ({
+    as: 'li',
+    baseStyles: { marginBottom: spacing, ...css }
+  }),
   ['spacing']
 );
 
@@ -42,14 +45,16 @@ ListItem.displayName = 'ListItem';
 const listInstance = new Base(
   ({ spacing = 0, styleType = 'disc' }: ListProps) => ({
     as: 'ul',
-    listStyleType: styleType,
-    listStylePosition: 'inside',
-    '& li': {
-      marginBottom: spacing
-    },
-    '& li > span > svg': {
-      size: '0.7em',
-      marginRight: '0.4em'
+    baseStyles: {
+      listStyleType: styleType,
+      listStylePosition: 'inside',
+      '& li': {
+        marginBottom: spacing
+      },
+      '& li > span > svg': {
+        size: '0.7em',
+        marginRight: '0.4em'
+      }
     }
   }),
   ['spacing', 'styleType']

@@ -29,19 +29,21 @@ const iconInstance = new Base(
       ...child.props,
       // height: 'auto',
       // width: 'auto',
-      size: '8',
+      baseStyles: {
+        size: '8',
+        p: '1px',
+        '& *': {
+          fill: color,
+          stroke: color
+        },
+        ...(hoverColor && {
+          '&:hover *': {
+            fill: hoverColor,
+            stroke: hoverColor
+          }
+        })
+      }
       // p to avoid bug with safari
-      p: '1px',
-      '& *': {
-        fill: color,
-        stroke: color
-      },
-      ...(hoverColor && {
-        '&:hover *': {
-          fill: hoverColor,
-          stroke: hoverColor
-        }
-      })
     };
   },
   ['hoverColor', 'color', 'name', 'svg']
