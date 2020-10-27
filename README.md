@@ -118,6 +118,8 @@ const Red = Text.with({ color: 'red' })
 const SpaceCase = Colorful.merge([GreenBox, Red]).with({ textTransform: 'uppercase' })
 
 <SpaceCase>Invisible green</SpaceCase>
+// or inline merge
+<Box merge={[GreenBox, Red]}>
 ```
 
 ## Create variants
