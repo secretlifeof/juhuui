@@ -1,4 +1,4 @@
-import getStyleTag from '../system/getStyleTag';
+import { getStyleTag } from '../system/getStyleTag';
 import { isDev } from '../utilities/is';
 
 export const CACHE_SSR = new Set();
@@ -11,10 +11,13 @@ const injectorDOM = (rule: string, tag?: string) => {
   const target = getStyleTag(tag) as HTMLStyleElement;
 
   const ruleIsMedia = rule.includes('@');
+  const targetInnerHTML = target.innerHTML;
 
-  target.innerHTML = ruleIsMedia
-    ? target.innerHTML + rule
-    : rule + target.innerHTML;
+  if (!targetInnerHTML.includes(rule)) {
+    target.innerHTML = ruleIsMedia
+      ? target.innerHTML + rule
+      : rule + target.innerHTML;
+  }
 };
 
 export const injectorCSSOM = (

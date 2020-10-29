@@ -16,11 +16,12 @@ This is a work in progress and the API is still being finalized. Please install 
 
 - Nesting components
 - Theme (default/customizable)
-- Small (<10kb)
+- Relatively Small (<10kb)
+- Descriptive class names in developer mode (_"color-orange sm:color-blue md:color-green"_)
+- @media queries are written as arrays (_['green', 'orange', 'pink']_)
 - Same shortcuts as Styled-System
 - Extract critical CSS for server side rendering
-- Easy to implement darkmode
-- @media queries are written as arrays (_['green', 'orange', 'pink']_)
+- Implement darkmode using CSS variables
 
 ## Installation
 

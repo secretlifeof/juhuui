@@ -8,10 +8,13 @@ import hash from '../utilities/hash';
 import { ifStrToKebabCase } from '../utilities/ifStrToKebabCase';
 import { isDev } from '../utilities/is';
 import getPrecedence from './getPrecedence';
+import { themeInternal as theme } from './setup';
 import updateSheet from './updateSheet';
 
 export const CACHE_CLASSNAMES = new Map();
 const usedClassNames = new Map();
+
+const mediaClassNames = ['sm', 'md', 'lg', 'xl', 'xxl', 'xxxl'];
 
 const getClassName = (
   propertyCamelCased: string,
@@ -30,14 +33,30 @@ const getClassName = (
     const themedValue = checkTheme(property, value);
 
     let devClassName = '';
+
     if (isDev) {
       if (typeof value === 'object') {
-        console.log('VALUE is OBJECT', property, value);
+        // eslint-disable-next-line no-console
+        console.error(
+          'The CSS value is an Object. This might be because you nested a key inside the "css" prop. It is only possible for pseudo properties.',
+          property,
+          value
+        );
       }
 
-      devClassName = `${property}-${themedValue}${media ? `-${media}` : ''}${
-        selector ? `-PP${selector.replace(' ', '-')}` : ''
-      })`.replace(/[~!@$%^&*()+=,.';:"?/><[\]{}`# ]/g, '');
+      const mediaByNaming =
+        media.length > 0
+          ? `${mediaClassNames[theme.breakpoints.indexOf(media)]}\\:`
+          : '';
+
+      devClassName = `${mediaByNaming}${
+        selector && selector.length > 3
+          ? `${selector.replace(/[&:]/g, '').trim().replace(' ', '-')}\\:`
+          : ''
+      }${property}-${themedValue})`.replace(
+        /[~!@$%^&*()+=,.';"?/><[\]{}`# ]/g,
+        ''
+      );
       const usedClassName = usedClassNames.get(devClassName);
 
       if (usedClassName) {
@@ -49,7 +68,7 @@ const getClassName = (
     }
 
     className = !isDev
-      ? hash(`${selector}${property}${!mediaArr ? themedValue : mediaArr}`)
+      ? hash(`${selector}${property}${themedValue || ''}${media || ''}`) // ${!mediaArr ? themedValue : mediaArr}`)
       : devClassName;
 
     updateSheet(`.${className}`.repeat(precedence), {
@@ -61,7 +80,7 @@ const getClassName = (
 
     CACHE_CLASSNAMES.set(key, className);
 
-    return className;
+    return !isDev ? className : className.replace(/\\:/g, ':');
   }
 
   return className;
