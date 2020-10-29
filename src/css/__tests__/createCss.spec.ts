@@ -12,12 +12,14 @@ describe('createCss', () => {
   });
   test('value == array && property == string', () => {
     const input = ['none', 'initial'];
-    expect(createCss('display', input).length).toEqual(1);
+    expect(createCss('display', input).length).toEqual(2);
   });
   test('value == array && property == array', () => {
     const input = ['10', '20'];
     const properties = ['width', 'height'];
-    expect(createCss(properties, input).length).toEqual(properties.length);
+    expect(createCss(properties, input).length).toEqual(
+      properties.length + input.length
+    );
   });
   test('value == string && property == array', () => {
     const properties = ['width', 'height'];
