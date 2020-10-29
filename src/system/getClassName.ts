@@ -78,9 +78,13 @@ const getClassName = (
       selector
     });
 
-    CACHE_CLASSNAMES.set(key, className);
+    const sanitizedClassName = !isDev
+      ? className
+      : className.replace(/\\:/g, ':');
 
-    return !isDev ? className : className.replace(/\\:/g, ':');
+    CACHE_CLASSNAMES.set(key, sanitizedClassName);
+
+    return sanitizedClassName;
   }
 
   return className;
