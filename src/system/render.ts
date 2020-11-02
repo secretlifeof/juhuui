@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { processCss, Props } from '../css/processCss';
-import createElement, { CreateElement, CSS } from './createElement';
+import createElement, { CreateElement } from './createElement';
 
 /**
  *  All Components call this
@@ -8,16 +8,15 @@ import createElement, { CreateElement, CSS } from './createElement';
 
 function render(
   { css: cssIn, baseStyles, fun, ...props }: Props,
-  extraRaw: string | undefined = '',
   child?: Array<object>
 ): CreateElement {
-  const { classNames = [] } = processCss({
-    css: { ...baseStyles, ...cssIn },
-    fun
-  });
+  const classNames =
+    processCss({
+      css: { ...baseStyles, ...cssIn },
+      fun
+    }) ?? [];
 
-  const css: CSS = { classNames, extraRaw };
-  return createElement(props, child, css);
+  return createElement(props, child, classNames);
 }
 
 export type Render = ReturnType<typeof render>;

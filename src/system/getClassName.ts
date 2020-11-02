@@ -26,7 +26,7 @@ const getClassName = (
   const property = ifStrToKebabCase(propertyCamelCased);
   const key = `${media}${selector}${property}${!mediaArr ? value : mediaArr}`;
 
-  const { precedence } = getPrecedence(property as string);
+  const precedence = getPrecedence(property as string);
 
   let className = CACHE_CLASSNAMES.get(key);
   if (!className) {
@@ -59,7 +59,7 @@ const getClassName = (
       );
       const usedClassName = usedClassNames.get(devClassName);
 
-      if (usedClassName) {
+      if (usedClassName && selector.length > 0) {
         devClassName += usedClassName;
         usedClassNames.set(devClassName, usedClassName + 1);
       } else {

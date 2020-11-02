@@ -52,8 +52,8 @@ export interface WrappedComponentType extends InstanceType {
   (props?: CSSRules, ref?: { current: any }): Render;
 }
 
-function as(this: any, component: any, a: As) {
-  this.mergedProps = { ...this.mergedProps, as: a };
+function as(this: any, component: any, asIn: As) {
+  this.asSet = asIn;
 
   return component;
 }
@@ -76,7 +76,7 @@ function withComponent(
   const attachAttrsBound = attachAttrs.bind(this);
   /* eslint-enable @typescript-eslint/no-use-before-define */
 
-  const { mergedProps, variant } = this;
+  const { mergedProps, variant, asSet } = this;
   const filters = [
     ...this.removeProps,
     ...forwardFilter,
@@ -87,14 +87,14 @@ function withComponent(
   const valIsFunction = typeof val === 'function';
 
   const WrappedComponent = ((
-    { merge: mergeProps, as: asIn, ...props }: CSSRules,
+    { merge: mergeProps, ...props }: CSSRules,
     ref?: any
   ) => {
     // const refOut = ref && forwardRef ? { ref } : {};
     const refOut = ref && forwardRef ? { ref } : {};
     // @ts-ignore
-    const styles = valIsFunction ? val(props) : val;
-    const attrs =
+    const { as: asIn, ...styles } = valIsFunction ? val(props) : val;
+    const { as: asForwarded, ...attrs } =
       typeof forwardProps === 'function' ? forwardProps(props) : forwardProps;
     const functionAttrs = forwardFunctions.reduce((acc, cur: any) => {
       return { ...acc, ...(typeof cur === 'function' ? cur(props) : cur) };
@@ -104,9 +104,8 @@ function withComponent(
       ...forwardVariant,
       ...variant
     });
-    const mergedInlineStyles = this.merge(mergeProps || {}, true);
+    const mergedInlineStyles = this.merge(mergeProps || {}, true) ?? {};
     const mergedStyles = mergeObjects(
-      {},
       mergedInlineStyles,
       mergedProps,
       attrs,
@@ -118,6 +117,9 @@ function withComponent(
 
     return render({
       ...baseProps,
+      ...((asSet || asIn || asForwarded) && {
+        as: asSet || asIn || asForwarded
+      }),
       baseStyles: {
         ...baseStyles,
         ...mergedStyles
@@ -131,17 +133,13 @@ function withComponent(
     forwardProps: { ...forwardProps, ...mergedProps, ...val },
     forwardFunctions: [...forwardFunctions, val],
     forwardFilter: filters,
-    forwardVariant: variant,
-    attrs: { ...forwardProps, ...mergedProps, ...val }
+    forwardVariant: variant
+    // attrs: { ...forwardProps, ...mergedProps, ...val }
   };
-
-  // if used without forwardRef
-  attachAttrsBound(WrappedComponent, parentProps);
 
   const Forwarded = (forwardRef
     ? forwardRef(WrappedComponent)
     : WrappedComponent) as WrappedComponentType;
-  // if used with forwardRef
   attachAttrsBound(Forwarded, parentProps);
 
   this.reset();
@@ -179,7 +177,7 @@ function attachAttrs<T extends InstanceType>(
   component.with = withComponent.bind(this, parentProps);
   component.merge = merge.bind(this, component);
   component.variants = variants.bind(this, component);
-  component.attrs = parentProps.attrs;
+  component.forwardProps = parentProps.forwardProps;
 
   return component as any;
 }

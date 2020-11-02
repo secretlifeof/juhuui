@@ -204,9 +204,9 @@ const circularProgressInstance = new Base(
 
     const i = render(indicator);
     const t = render(track);
-    const s = render(svg, undefined, [t, i]);
+    const s = render(svg, [t, i]);
 
-    const labelChild = render(labelObj.style, undefined, labelObj.text);
+    const labelChild = render(labelObj.style, labelObj.text);
 
     return {
       children: [s, label && labelChild, children],

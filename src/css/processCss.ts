@@ -85,9 +85,11 @@ export const processCss = ({
     }
   }
 
-  return {
-    classNames: Array.from(classNamesByProperty.values()).flat()
-  };
+  return Array.from(classNamesByProperty.values()).flat();
+
+  // return {
+  //   classNames: Array.from(classNamesByProperty.values()).flat()
+  // };
 };
 
 export default processCss;

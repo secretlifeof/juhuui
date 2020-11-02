@@ -18,9 +18,8 @@ export type CreateElement = ReturnType<typeof h>;
 const createElement = (
   { as: propAs, children, className = '', ...props }: Props,
   child: Array<object> | undefined,
-  css: CSS
+  classNames: string[]
 ): CreateElement => {
-  const { classNames } = css;
   const tag: string = propAs || 'div';
 
   return h(
