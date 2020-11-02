@@ -1,4 +1,5 @@
 // @ts-nocheck
+/* eslint-disable no-restricted-syntax */
 import { getShortProperty } from '../properties/getShortProperty';
 import { getStyleTag } from '../system/getStyleTag';
 import { defaultFun } from '../system/setup';
@@ -36,11 +37,9 @@ export const processCss = ({
 }: Props) => {
   const classNamesByProperty = new Map();
 
-  for (let i = 0, entries = Object.entries(css); i < entries.length; i++) {
-    const [propName, propVal]: [
-      string,
-      Pseudo | NestedPseudo | string | number
-    ] = entries[i];
+  /* eslint-disable guard-for-in */
+  for (const propName in css) {
+    const propVal = css[propName];
 
     const cssProperty = getShortProperty(propName) || propName;
 
@@ -84,12 +83,9 @@ export const processCss = ({
       );
     }
   }
+  /* eslint-enable guard-for-in */
 
   return Array.from(classNamesByProperty.values()).flat();
-
-  // return {
-  //   classNames: Array.from(classNamesByProperty.values()).flat()
-  // };
 };
 
 export default processCss;

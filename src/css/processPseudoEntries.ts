@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-syntax */
 /**
  *  Processes pseudo props (_hover, pseudo, etc)
  */
@@ -13,14 +14,16 @@ export interface Pseudo {
   [key: string]: any; // string | number | Array<string | number | null>;
 }
 
+/* eslint-disable guard-for-in */
 function processPseudoEntries(entries: Pseudo, selector: string): any {
   const classNamesByProperty = new Map();
 
-  for (let i = 0, e = Object.entries(entries); i < e.length; i++) {
-    const [property, value]: [
-      CSSShortProperties | string,
-      string | number | Array<string | number | null>
-    ] = e[i];
+  for (const property in entries) {
+    // const [property, value]: [
+    //   CSSShortProperties | string,
+    //   string | number | Array<string | number | null>
+    // ] = e[i];
+    const value = entries[property];
 
     const cssProperty =
       (getShortProperty(property as CSSShortProperties) as string | string[]) ||
@@ -33,6 +36,7 @@ function processPseudoEntries(entries: Pseudo, selector: string): any {
       selector
     );
   }
+  /* eslint-enable guard-for-in */
 
   return Array.from(classNamesByProperty.values()).flat();
 }
