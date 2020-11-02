@@ -1,69 +1,36 @@
-importers:
-  .:
-    dependencies:
-      array-keyed-map: 2.0.1
-      csstype: 3.0.3
-      htm: 3.0.4
-      juhuui: 'link:'
-    devDependencies:
-      '@changesets/changelog-github': 0.2.7
-      '@changesets/cli': 2.10.3
-      '@types/jest': 26.0.14
-      '@types/react': 16.9.49
-      '@types/react-dom': 16.9.8
-      '@typescript-eslint/eslint-plugin': 3.10.1_f85c4f7bc4dc7641f8e133569bb62832
-      '@typescript-eslint/parser': 3.10.1_eslint@7.9.0+typescript@3.9.7
-      eslint: 7.9.0
-      eslint-config-airbnb-typescript: 9.0.0_a4acd26621f2be35d76eeaf3dafb2b3b
-      eslint-config-prettier: 6.11.0_eslint@7.9.0
-      eslint-import-resolver-typescript: 2.3.0_abdf0c9d977be3d37bd469dd74184e57
-      eslint-plugin-import: 2.22.0_eslint@7.9.0
-      eslint-plugin-json: 2.1.2
-      eslint-plugin-jsx-a11y: 6.3.1_eslint@7.9.0
-      eslint-plugin-prettier: 3.1.4_eslint@7.9.0+prettier@2.1.2
-      eslint-plugin-react: 7.20.6_eslint@7.9.0
-      eslint-plugin-simple-import-sort: 5.0.3_eslint@7.9.0
-      husky: 4.3.0
-      jest: 26.4.2
-      lerna: 3.22.1
-      lint-staged: 10.4.0
-      microbundle: 0.12.3
-      prettier: 2.1.2
-      rimraf: 3.0.2
-      ts-jest: 26.4.0_jest@26.4.2+typescript@3.9.7
-      typescript: 3.9.7
-    specifiers:
-      '@changesets/changelog-github': ^0.2.7
-      '@changesets/cli': ^2.10.1
-      '@types/jest': ^26.0.10
-      '@types/react': ^16.9.48
-      '@types/react-dom': ^16.9.8
-      '@typescript-eslint/eslint-plugin': ^3.9.1
-      '@typescript-eslint/parser': ^3.9.1
-      array-keyed-map: ^2.0.1
-      csstype: ^3.0.3
-      eslint: ^7.7.0
-      eslint-config-airbnb-typescript: ^9.0.0
-      eslint-config-prettier: ^6.11.0
-      eslint-import-resolver-typescript: ^2.2.1
-      eslint-plugin-import: ^2.22.0
-      eslint-plugin-json: ^2.1.1
-      eslint-plugin-jsx-a11y: ^6.3.1
-      eslint-plugin-prettier: ^3.1.4
-      eslint-plugin-react: ^7.20.6
-      eslint-plugin-simple-import-sort: ^5.0.3
-      htm: ^3.0.3
-      husky: ^4.2.5
-      jest: ^26.4.0
-      juhuui: ^0.0.5-beta.13
-      lerna: ^3.22.1
-      lint-staged: ^10.2.11
-      microbundle: ^0.12.3
-      prettier: ^2.0.5
-      rimraf: ^3.0.2
-      ts-jest: ^26.2.0
-      typescript: ^3.9.5
-lockfileVersion: 5.1
+dependencies:
+  array-keyed-map: 2.0.1
+  csstype: 3.0.3
+  htm: 3.0.4
+  juhuui: 0.0.5-beta.16
+devDependencies:
+  '@changesets/changelog-github': 0.2.7
+  '@changesets/cli': 2.10.3
+  '@types/jest': 26.0.14
+  '@types/react': 16.9.49
+  '@types/react-dom': 16.9.8
+  '@typescript-eslint/eslint-plugin': 3.10.1_f85c4f7bc4dc7641f8e133569bb62832
+  '@typescript-eslint/parser': 3.10.1_eslint@7.9.0+typescript@3.9.7
+  eslint: 7.9.0
+  eslint-config-airbnb-typescript: 9.0.0_a4acd26621f2be35d76eeaf3dafb2b3b
+  eslint-config-prettier: 6.11.0_eslint@7.9.0
+  eslint-import-resolver-typescript: 2.3.0_abdf0c9d977be3d37bd469dd74184e57
+  eslint-plugin-import: 2.22.0_eslint@7.9.0
+  eslint-plugin-json: 2.1.2
+  eslint-plugin-jsx-a11y: 6.3.1_eslint@7.9.0
+  eslint-plugin-prettier: 3.1.4_eslint@7.9.0+prettier@2.1.2
+  eslint-plugin-react: 7.20.6_eslint@7.9.0
+  eslint-plugin-simple-import-sort: 5.0.3_eslint@7.9.0
+  husky: 4.3.0
+  jest: 26.4.2
+  lerna: 3.22.1
+  lint-staged: 10.4.0
+  microbundle: 0.12.3
+  prettier: 2.1.2
+  rimraf: 3.0.2
+  ts-jest: 26.4.0_jest@26.4.2+typescript@3.9.7
+  typescript: 3.9.7
+lockfileVersion: 5.2
 packages:
   /@babel/code-frame/7.10.4:
     dependencies:
@@ -1423,7 +1390,7 @@ packages:
       jest-haste-map: 26.3.0
       jest-message-util: 26.3.0
       jest-regex-util: 26.0.0
-      jest-resolve: 26.4.0_jest-resolve@26.4.0
+      jest-resolve: 26.4.0
       jest-resolve-dependencies: 26.4.2
       jest-runner: 26.4.2
       jest-runtime: 26.4.2
@@ -1493,7 +1460,7 @@ packages:
       istanbul-lib-source-maps: 4.0.0
       istanbul-reports: 3.0.2
       jest-haste-map: 26.3.0
-      jest-resolve: 26.4.0_jest-resolve@26.4.0
+      jest-resolve: 26.4.0
       jest-util: 26.3.0
       jest-worker: 26.3.0
       slash: 3.0.0
@@ -6804,7 +6771,7 @@ packages:
       jest-get-type: 26.3.0
       jest-jasmine2: 26.4.2
       jest-regex-util: 26.0.0
-      jest-resolve: 26.4.0_jest-resolve@26.4.0
+      jest-resolve: 26.4.0
       jest-util: 26.3.0
       jest-validate: 26.4.2
       micromatch: 4.0.2
@@ -6988,7 +6955,7 @@ packages:
       integrity: sha512-PeaRrg8Dc6mnS35gOo/CbZovoDPKAeB1FICZiuagAgGvbWdNNyjQjkOaGUa/3N3JtpQ/Mh9P4A2D4Fv51NnP8Q==
   /jest-pnp-resolver/1.2.2_jest-resolve@26.4.0:
     dependencies:
-      jest-resolve: 26.4.0_jest-resolve@26.4.0
+      jest-resolve: 26.4.0
     dev: true
     engines:
       node: '>=6'
@@ -7015,7 +6982,7 @@ packages:
       node: '>= 10.14.2'
     resolution:
       integrity: sha512-ADHaOwqEcVc71uTfySzSowA/RdxUpCxhxa2FNLiin9vWLB1uLPad3we+JSSROq5+SrL9iYPdZZF8bdKM7XABTQ==
-  /jest-resolve/26.4.0_jest-resolve@26.4.0:
+  /jest-resolve/26.4.0:
     dependencies:
       '@jest/types': 26.3.0
       chalk: 4.1.0
@@ -7028,8 +6995,6 @@ packages:
     dev: true
     engines:
       node: '>= 10.14.2'
-    peerDependencies:
-      jest-resolve: '*'
     resolution:
       integrity: sha512-bn/JoZTEXRSlEx3+SfgZcJAVuTMOksYq9xe9O6s4Ekg84aKBObEaVXKOEilULRqviSLAYJldnoWV9c07kwtiCg==
   /jest-runner/26.4.2:
@@ -7048,7 +7013,7 @@ packages:
       jest-haste-map: 26.3.0
       jest-leak-detector: 26.4.2
       jest-message-util: 26.3.0
-      jest-resolve: 26.4.0_jest-resolve@26.4.0
+      jest-resolve: 26.4.0
       jest-runtime: 26.4.2
       jest-util: 26.3.0
       jest-worker: 26.3.0
@@ -7080,7 +7045,7 @@ packages:
       jest-message-util: 26.3.0
       jest-mock: 26.3.0
       jest-regex-util: 26.0.0
-      jest-resolve: 26.4.0_jest-resolve@26.4.0
+      jest-resolve: 26.4.0
       jest-snapshot: 26.4.2
       jest-util: 26.3.0
       jest-validate: 26.4.2
@@ -7115,7 +7080,7 @@ packages:
       jest-haste-map: 26.3.0
       jest-matcher-utils: 26.4.2
       jest-message-util: 26.3.0
-      jest-resolve: 26.4.0_jest-resolve@26.4.0
+      jest-resolve: 26.4.0
       natural-compare: 1.4.0
       pretty-format: 26.4.2
       semver: 7.3.2
@@ -7336,6 +7301,14 @@ packages:
       node: '>=4.0'
     resolution:
       integrity: sha512-z1xSldJ6imESSzOjd3NNkieVJKRlKYSOtMG8SFyCj2FIrvSaSuli/WjpBkEzCBoR9bYYYFgqJw61Xhu7Lcgk+w==
+  /juhuui/0.0.5-beta.16:
+    dependencies:
+      array-keyed-map: 2.0.1
+      csstype: 3.0.3
+      htm: 3.0.4
+    dev: false
+    resolution:
+      integrity: sha512-JOgVx5k9qFVAqoPDyNZhjSOPVLNWkVkYac9r21Xo7Vle4hX7SzjGBOa6wiHdVPZ80SvJdYu1EluZRQXIhKPkgQ==
   /kind-of/3.2.2:
     dependencies:
       is-buffer: 1.1.6
@@ -11821,3 +11794,34 @@ packages:
       node: '>=8'
     resolution:
       integrity: sha512-aePbxDmcYW++PaqBsJ+HYUFwCdv4LVvdnhBy78E57PIor8/OVvhMrADFFEDh8DHDFRv/O9i3lPhsENjO7QX0+A==
+specifiers:
+  '@changesets/changelog-github': ^0.2.7
+  '@changesets/cli': ^2.10.1
+  '@types/jest': ^26.0.10
+  '@types/react': ^16.9.48
+  '@types/react-dom': ^16.9.8
+  '@typescript-eslint/eslint-plugin': ^3.9.1
+  '@typescript-eslint/parser': ^3.9.1
+  array-keyed-map: ^2.0.1
+  csstype: ^3.0.3
+  eslint: ^7.7.0
+  eslint-config-airbnb-typescript: ^9.0.0
+  eslint-config-prettier: ^6.11.0
+  eslint-import-resolver-typescript: ^2.2.1
+  eslint-plugin-import: ^2.22.0
+  eslint-plugin-json: ^2.1.1
+  eslint-plugin-jsx-a11y: ^6.3.1
+  eslint-plugin-prettier: ^3.1.4
+  eslint-plugin-react: ^7.20.6
+  eslint-plugin-simple-import-sort: ^5.0.3
+  htm: ^3.0.3
+  husky: ^4.2.5
+  jest: ^26.4.0
+  juhuui: ^0.0.5-beta.13
+  lerna: ^3.22.1
+  lint-staged: ^10.2.11
+  microbundle: ^0.12.3
+  prettier: ^2.0.5
+  rimraf: ^3.0.2
+  ts-jest: ^26.2.0
+  typescript: ^3.9.5

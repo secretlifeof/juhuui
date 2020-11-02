@@ -118,8 +118,8 @@ class Base {
     const isVariants = Object.keys(variant).length > 0;
     const filters = [...this.removeProps, ...Object.keys(variant), ...filter];
 
-    const WrappedComponent = (({ merge, ...props }: CSSRules, ref) => {
-      // const refOut = ref && forwardRef ? { ref } : {};
+    const WrappedComponent = (({ merge, ...props }: CSSRules, ref = {}) => {
+      const refOut = ref && forwardRef ? { ref } : {};
 
       const { as: asIn, ...styles } = valIsFunction ? val(props) : val ?? {};
       const { baseStyles, ...baseProps } = this.getInitialValues(
@@ -147,7 +147,7 @@ class Base {
           ...mergedStyles
         },
         ...filteredProps,
-        ref
+        ...refOut
       });
     }) as WrappedComponentType;
 
