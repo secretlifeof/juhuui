@@ -28,7 +28,6 @@ class Base {
 
   constructor(p?: CSSProps | any, removeProps?: any[] = []) {
     this.props = p || {};
-    this.propsIsFunction = typeof p === 'function';
     this.removeProps = ['baseStyles', 'fw', ...removeProps];
     this.ref = {};
     this.mergedProps = {};
@@ -47,7 +46,7 @@ class Base {
 
   getInitialValues(props: CSSRules) {
     const initValues = this.props;
-    return this.propsIsFunction ? initValues(props) : initValues;
+    return typeof initValues === 'function' ? initValues(props) : initValues;
   }
 
   getVariantStyles(props: any, variants: any = {}) {
@@ -77,6 +76,7 @@ class Base {
     this.merge(merge || {});
     const { mergedProps } = this;
     this.mergedProps = {};
+
     return render({
       ...baseProps,
       baseStyles: { ...baseStyles, ...mergedProps },

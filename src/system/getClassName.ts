@@ -59,7 +59,7 @@ const getClassName = (
       );
       const usedClassName = usedClassNames.get(devClassName);
 
-      if (usedClassName) {
+      if (usedClassName && selector.length > 0) {
         devClassName += usedClassName;
         usedClassNames.set(devClassName, usedClassName + 1);
       } else {
