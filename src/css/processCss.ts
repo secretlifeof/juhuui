@@ -31,17 +31,19 @@ const getSSRData = () => {
 
 export const CACHE_PROCESS = new Map(!isServer && !isDev ? getSSRData() : []);
 
-export const processCss = ({
-  css,
-  fun: renderPseudoProperties = defaultFun
-}: Props) => {
-  const classNamesByProperty = new Map();
+export const processCss = (
+  { css, fun: renderPseudoProperties = defaultFun }: Props,
+  organizedClassNames?: any
+) => {
+  const { preProcessedCss, returnClassNamesByProperty = false } =
+    organizedClassNames || {};
+  const classNamesByProperty = new Map(!preProcessedCss ? [] : preProcessedCss);
 
   /* eslint-disable guard-for-in */
-  for (const propName in css) {
-    const propVal = css[propName];
+  for (const property in css) {
+    const value = css[property];
 
-    const cssProperty = getShortProperty(propName) || propName;
+    const cssProperty = getShortProperty(property) || property;
 
     const propertyIsString = typeof cssProperty === 'string';
 
@@ -55,37 +57,39 @@ export const processCss = ({
       fun = true;
 
     const cacheKey = propertyIsString
-      ? `${propName}${propVal}`
-      : `${propName}${Object.entries(propVal)}`;
+      ? `${property}${value}`
+      : `${property}${Object.entries(value)}`;
     const cachedClassNames = CACHE_PROCESS.get(cacheKey);
 
     if (cachedClassNames) {
       if (!Array.isArray(cssProperty)) {
         classNamesByProperty.set(cssProperty, cachedClassNames);
       } else {
-        for (let j = 0; j < cssProperty.length; j++) {
-          classNamesByProperty.set(cssProperty[j], cachedClassNames);
+        for (let i = 0; i < cssProperty.length; i++) {
+          classNamesByProperty.set(cssProperty[i], cachedClassNames);
         }
       }
-    } else if (fun) {
-      classNamesByProperty.set(
-        cssProperty,
-        processPseudoEntries(propVal, cssProperty)
-      );
-    } else {
+    } else if (!fun) {
       processEntries(
         cssProperty,
-        propVal as string,
+        value as string,
         (p: string, className: string | string[]) => {
           classNamesByProperty.set(p, className);
           CACHE_PROCESS.set(cacheKey, className);
         }
       );
+    } else {
+      classNamesByProperty.set(
+        cssProperty,
+        processPseudoEntries(value, cssProperty)
+      );
     }
   }
   /* eslint-enable guard-for-in */
 
-  return Array.from(classNamesByProperty.values()).flat();
+  return !returnClassNamesByProperty
+    ? Array.from(classNamesByProperty.values()).flat()
+    : classNamesByProperty;
 };
 
 export default processCss;

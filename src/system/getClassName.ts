@@ -45,9 +45,9 @@ const getClassName = (
       }
 
       const mediaByNaming =
-        media.length > 0
-          ? `${mediaClassNames[theme.breakpoints.indexOf(media)]}\\:`
-          : '';
+        (media.length > 0 &&
+          `${mediaClassNames[theme.breakpoints.indexOf(media)]}\\:`) ??
+        `m${media}`;
 
       devClassName = `${mediaByNaming}${
         selector && selector.length > 3

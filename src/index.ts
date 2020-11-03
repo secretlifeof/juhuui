@@ -1,4 +1,3 @@
-export { default as availableProperties } from './properties/availableProperties';
 export { default as AspectRatioBox } from './aspectRatioBox';
 export { default as Box } from './box';
 export { default as Button } from './button';

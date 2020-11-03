@@ -1,4 +1,5 @@
 // @ts-nocheck
+import { processCss } from '../css/processCss';
 import render, { Render } from '../system/render';
 import { forwardRef } from '../system/setup';
 import { As, CSSProps, CSSRules, Variants } from '../types';
@@ -85,6 +86,10 @@ function withComponent(
   ];
 
   const valIsFunction = typeof val === 'function';
+  const { as: asInOuter, ...stylesIn } = (!valIsFunction && val) ?? {};
+  const preProcessedCss =
+    !valIsFunction &&
+    processCss({ css: stylesIn }, { returnClassNamesByProperty: true });
 
   const WrappedComponent = ((
     { merge: mergeProps, ...props }: CSSRules,
@@ -93,13 +98,15 @@ function withComponent(
     // const refOut = ref && forwardRef ? { ref } : {};
     const refOut = ref && forwardRef ? { ref } : {};
     // @ts-ignore
-    const { as: asIn, ...styles } = valIsFunction ? val(props) : val;
+    const { as: asIn, ...styles } = (valIsFunction && val(props)) ?? {};
     const { as: asForwarded, ...attrs } =
       typeof forwardProps === 'function' ? forwardProps(props) : forwardProps;
     const functionAttrs = forwardFunctions.reduce((acc, cur: any) => {
       return { ...acc, ...(typeof cur === 'function' ? cur(props) : cur) };
     }, {});
-    const { baseStyles, ...baseProps } = this.getInitialValues(props);
+    const { baseStyles, ...baseProps } = this.propsIsFunction
+      ? this.props(props)
+      : this.props;
     const variantStyles = this.getVariantStyles(props, {
       ...forwardVariant,
       ...variant
@@ -117,13 +124,14 @@ function withComponent(
 
     return render({
       ...baseProps,
-      ...((asSet || asIn || asForwarded) && {
-        as: asSet || asIn || asForwarded
+      ...((asSet || asIn || asInOuter || asForwarded) && {
+        as: asSet || asIn || asInOuter || asForwarded
       }),
       baseStyles: {
         ...baseStyles,
         ...mergedStyles
       },
+      preProcessedCss,
       ...filteredProps,
       ...refOut
     });

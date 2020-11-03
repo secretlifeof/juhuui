@@ -1,4 +1,5 @@
 // @ts-nocheck
+import { processCss } from '../css/processCss';
 import render from '../system/render';
 import { forwardRef } from '../system/setup';
 import { As, CSSProps, CSSRules } from '../types';
@@ -12,6 +13,8 @@ import getFilteredProps from './getFilteredProps';
 //   mergedProps?: any;
 //   removeProps?: any;
 // }
+
+const staticPropsToRemove = ['baseStyles', 'fw'];
 
 class Base {
   props: CSSProps | any;
@@ -28,10 +31,11 @@ class Base {
 
   constructor(p?: CSSProps | any, removeProps?: any[] = []) {
     this.props = p || {};
-    this.removeProps = ['baseStyles', 'fw', ...removeProps];
+    this.removeProps = [...staticPropsToRemove, ...removeProps];
     this.ref = {};
     this.mergedProps = {};
     this.variant = {};
+    this.propsIsFunction = typeof p === 'function';
   }
 
   /**
@@ -46,7 +50,7 @@ class Base {
 
   getInitialValues(props: CSSRules) {
     const initValues = this.props;
-    return typeof initValues === 'function' ? initValues(props) : initValues;
+    return this.propsIsFunction ? initValues(props) : initValues;
   }
 
   getVariantStyles(props: any, variants: any = {}) {
@@ -90,9 +94,8 @@ class Base {
   reset() {
     this.mergedProps = {};
     this.variant = {};
-    this.removeProps = [];
+    this.removeProps = staticPropsToRemove;
     this.asSet = undefined;
-    this.propsIsFunction = undefined;
   }
 
   variants(types: any) {
@@ -114,6 +117,16 @@ class Base {
     const attachAttrsBound = attachAttrs.bind(this);
     const valIsFunction = typeof val === 'function';
 
+    /**
+     * Preprocess styles on styled component mount and not on each render
+     * returns an ES6 Map with [cssProperty, className] that is passed to
+     * processCss so that those will not be processed a second time
+     */
+    const { as: asInOuter, ...stylesIn } = (!valIsFunction && val) ?? {};
+    const preProcessedCss =
+      !valIsFunction &&
+      processCss({ css: stylesIn }, { returnClassNamesByProperty: true });
+
     const { mergedProps, variant, asSet } = this;
     const isVariants = Object.keys(variant).length > 0;
     const filters = [...this.removeProps, ...Object.keys(variant), ...filter];
@@ -121,10 +134,10 @@ class Base {
     const WrappedComponent = (({ merge, ...props }: CSSRules, ref = {}) => {
       const refOut = ref && forwardRef ? { ref } : {};
 
-      const { as: asIn, ...styles } = valIsFunction ? val(props) : val ?? {};
-      const { baseStyles, ...baseProps } = this.getInitialValues(
-        props as CSSRules
-      );
+      const { as: asIn, ...styles } = (valIsFunction && val(props)) ?? {};
+      const { baseStyles, ...baseProps } = this.propsIsFunction
+        ? this.props(props)
+        : this.props;
 
       const variantStyles = isVariants
         ? this.getVariantStyles(props, variant)
@@ -141,11 +154,12 @@ class Base {
 
       return render({
         ...baseProps,
-        as: asSet || asIn,
+        as: asSet || asIn || asInOuter,
         baseStyles: {
           ...baseStyles,
           ...mergedStyles
         },
+        preProcessedCss,
         ...filteredProps,
         ...refOut
       });

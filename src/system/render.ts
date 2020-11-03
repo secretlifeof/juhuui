@@ -7,14 +7,17 @@ import createElement, { CreateElement } from './createElement';
  */
 
 function render(
-  { css: cssIn, baseStyles, fun, ...props }: Props,
+  { css: cssIn, baseStyles, fun, preProcessedCss, ...props }: Props,
   child?: Array<object>
 ): CreateElement {
   const classNames =
-    processCss({
-      css: { ...baseStyles, ...cssIn },
-      fun
-    }) ?? [];
+    processCss(
+      {
+        css: { ...baseStyles, ...cssIn },
+        fun
+      },
+      { preProcessedCss }
+    ) ?? [];
 
   return createElement(props, child, classNames);
 }
