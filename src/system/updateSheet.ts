@@ -2,11 +2,11 @@ import injectCss from '../css/injectCss';
 
 const updateSheet = (
   className: string,
-  { property, value, media, selector, mediaQuery }: any
+  { media, selector, mediaQuery, css }: any
 ): void => {
   if (!media && !mediaQuery) {
     if (!selector) {
-      injectCss(`${className}{${property}:${value};}`);
+      injectCss(`${className}{${css}}\n`);
       return;
     }
 
@@ -15,7 +15,7 @@ const updateSheet = (
       `${hover ? '@media(hover: hover){' : ''}${selector.replace(
         '&',
         className
-      )}{${property}:${value};}${hover ? '}' : ''}`,
+      )}{${css}}${hover ? '}' : ''}\n`,
       true
     );
     return;
@@ -25,7 +25,7 @@ const updateSheet = (
     injectCss(
       `@media(min-width:${media})${
         hover ? 'and (hover: hover)' : ''
-      }{${className}{${property}:${value};}}`,
+      }{${className}{${css}}}\n`,
       true
     );
   }
@@ -33,14 +33,14 @@ const updateSheet = (
     injectCss(
       `@media${mediaQuery}{${
         !selector ? className : `${selector.replace('&', className)}`
-      }{${property}:${value};}}`
+      }{${css}}}\n`
     );
   } else {
     injectCss(
       `@media(min-width:${media}){${selector.replace(
         '&',
         className
-      )}{${property}:${value};}}`,
+      )}{${css}}}\n`,
       true
     );
   }

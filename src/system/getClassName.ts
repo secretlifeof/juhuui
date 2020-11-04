@@ -1,7 +1,8 @@
-// @ts-nocheck
 /**
  *  Creates or returns classNames
  */
+
+import { prefixProperty } from 'tiny-css-prefixer';
 
 import checkTheme from '../theme/checkTheme';
 import hash from '../utilities/hash';
@@ -16,10 +17,19 @@ const usedClassNames = new Map();
 
 const mediaClassNames = ['sm', 'md', 'lg', 'xl', 'xxl', 'xxxl'];
 
+const prefixCss = (property: string, value: string) => {
+  const flag = prefixProperty(property);
+  let css = `${property}: ${value};\n`;
+  if (flag & 0b001) css += `-ms-${css}`;
+  if (flag & 0b010) css += `-moz-${css}`;
+  if (flag & 0b100) css += `-webkit-${css}`;
+  return css;
+};
+
 const getClassName = (
   propertyCamelCased: string,
   value: string | number,
-  media: string | undefined | number = '',
+  media: string = '',
   selector: string | undefined = '',
   mediaQuery?: string // mediaArr?: Array<string | number | null> | false
 ) => {
@@ -73,12 +83,15 @@ const getClassName = (
       ? hash(`${selector}${property}${themedValue || ''}${mediaQuery || media}`) // ${!mediaArr ? themedValue : mediaArr}`)
       : devClassName;
 
+    const cssWithPrefix = prefixCss(property, themedValue);
+
     updateSheet(`.${className}`.repeat(precedence), {
       property,
       value: themedValue,
       media,
       selector,
-      mediaQuery
+      mediaQuery,
+      css: cssWithPrefix
     });
 
     const sanitizedClassName = !isDev
