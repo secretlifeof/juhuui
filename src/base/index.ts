@@ -126,6 +126,9 @@ class Base {
     const preProcessedCss =
       !valIsFunction &&
       processCss({ css: stylesIn }, { returnClassNamesByProperty: true });
+    const preProcessedKeys = preProcessedCss
+      ? Array.from(preProcessedCss.keys())
+      : [];
 
     const { mergedProps, variant, asSet } = this;
     const isVariants = Object.keys(variant).length > 0;
@@ -135,9 +138,10 @@ class Base {
       const refOut = ref && forwardRef ? { ref } : {};
 
       const { as: asIn, ...styles } = (valIsFunction && val(props)) ?? {};
-      const { baseStyles, ...baseProps } = this.propsIsFunction
+      const { baseStyles = {}, ...baseProps } = this.propsIsFunction
         ? this.props(props)
         : this.props;
+      const filteredBaseStyles = getFilteredProps(baseStyles, preProcessedKeys);
 
       const variantStyles = isVariants
         ? this.getVariantStyles(props, variant)
@@ -150,13 +154,13 @@ class Base {
         styles
       );
 
-      const filteredProps = getFilteredProps(props, [...filters]);
+      const filteredProps = getFilteredProps(props, filters);
 
       return render({
         ...baseProps,
         as: asSet || asIn || asInOuter,
         baseStyles: {
-          ...baseStyles,
+          ...filteredBaseStyles,
           ...mergedStyles
         },
         preProcessedCss,

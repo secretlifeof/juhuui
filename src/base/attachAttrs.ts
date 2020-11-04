@@ -90,6 +90,9 @@ function withComponent(
   const preProcessedCss =
     !valIsFunction &&
     processCss({ css: stylesIn }, { returnClassNamesByProperty: true });
+  const preProcessedKeys = preProcessedCss
+    ? Array.from(preProcessedCss.keys())
+    : [];
 
   const WrappedComponent = ((
     { merge: mergeProps, ...props }: CSSRules,
@@ -104,13 +107,17 @@ function withComponent(
     const functionAttrs = forwardFunctions.reduce((acc, cur: any) => {
       return { ...acc, ...(typeof cur === 'function' ? cur(props) : cur) };
     }, {});
-    const { baseStyles, ...baseProps } = this.propsIsFunction
+
+    const { baseStyles = {}, ...baseProps } = this.propsIsFunction
       ? this.props(props)
       : this.props;
+    const filteredBaseStyles = getFilteredProps(baseStyles, preProcessedKeys);
+
     const variantStyles = this.getVariantStyles(props, {
       ...forwardVariant,
       ...variant
     });
+
     const mergedInlineStyles = this.merge(mergeProps || {}, true) ?? {};
     const mergedStyles = mergeObjects(
       mergedInlineStyles,
@@ -128,7 +135,7 @@ function withComponent(
         as: asSet || asIn || asInOuter || asForwarded
       }),
       baseStyles: {
-        ...baseStyles,
+        ...filteredBaseStyles,
         ...mergedStyles
       },
       preProcessedCss,
