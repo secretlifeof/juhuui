@@ -7,20 +7,20 @@ import { setup, theme as juhuuiTheme } from 'juhuui';
 import { createElement } from 'react';
 
 const theme = {
-	colors: {
-		...juhuuiTheme.colors,
-		juhuui: {
-			50: 'var(--c50)',
-			100: 'var(--c100)',
-			200: 'var(--c200)',
-			300: 'var(--c300)',
-			900: 'var(--c900)'
-		}
-	}
+  colors: {
+    ...juhuuiTheme.colors,
+    juhuui: {
+      50: 'var(--c50)',
+      100: 'var(--c100)',
+      200: 'var(--c200)',
+      300: 'var(--c300)',
+      900: 'var(--c900)'
+    }
+  }
 };
 
 setup(createElement, {
-	theme
+  theme
 });
 ```
 

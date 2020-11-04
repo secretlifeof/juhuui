@@ -24,7 +24,7 @@ All pseudo properties (except :root and a few more) can be accessed by adding an
 
 ```jsx
 <Fun color="yellow" _hover={{ color: 'blue' }}>
-	<div>Why did you make me blue? </div>
+  <div>Why did you make me blue? </div>
 </Fun>
 ```
 
@@ -32,7 +32,7 @@ is the same as
 
 ```jsx
 <Box fun color="yellow" _hover={{ color: 'blue' }}>
-	<div>Why did you make me blue? </div>
+  <div>Why did you make me blue? </div>
 </Box>
 ```
 
@@ -40,8 +40,8 @@ If you wish to make complex selectors you can use the pseudo prop.
 
 ```jsx
 <Fun pseudo={{ '&:hover p': { color: 'green' } }}>
-	<div>I´m Divvy</div>
-	<p>Yo I´m Piddy and I love green</p>
+  <div>I´m Divvy</div>
+  <p>Yo I´m Piddy and I love green</p>
 </Fun>
 ```
 

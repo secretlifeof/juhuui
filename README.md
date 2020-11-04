@@ -37,7 +37,7 @@ It needs a createElement function so it knows how build components. Add this som
 
 ```js
 import { setup } from 'juhuui';
-import { createElement } from 'react'; // or h from Preact
+import { createElement } from 'react';
 
 setup(createElement);
 ```
@@ -164,7 +164,6 @@ For extracting critical CSS please use the extractCss function.
 Here is a short example how you would do this in Next.js. The data attributes needs to be called "data-process".
 
 ```js
-// _document.js
 import Document, { Head, Html, Main, NextScript } from 'next/document';
 import { extractCss } from 'juhuui';
 
@@ -221,8 +220,8 @@ const newTheme = {
 
 setup(h, {
   theme: newTheme,
-  defaultFun: true, // activate fun=true on all components
-  forwardRef // necessary if you need refs
+  defaultFun: true,
+  forwardRef
 });
 ```
 
@@ -242,7 +241,7 @@ Any feedback is met with love and curiosity. Have fun! 💚
 
 ## Benchmarks
 
-please see [benchmarks.md](/benchmarks.md)
+You can test and compare it yourself [here](https://ui-benchmark.vercel.app). All credits go to [Styled-Components](https://github.com/styled-components/styled-components) and [Necolas](https://github.com/necolas) for creating this.
 
 ## Thanks
 
