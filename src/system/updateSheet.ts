@@ -2,9 +2,9 @@ import injectCss from '../css/injectCss';
 
 const updateSheet = (
   className: string,
-  { property, value, media, selector }: any
+  { property, value, media, selector, mediaQuery }: any
 ): void => {
-  if (!media) {
+  if (!media && !mediaQuery) {
     if (!selector) {
       injectCss(`${className}{${property}:${value};}`);
       return;
@@ -20,13 +20,20 @@ const updateSheet = (
     );
     return;
   }
-  if (!selector) {
+  if (!selector && !mediaQuery) {
     const hover = selector.includes('hover');
     injectCss(
       `@media(min-width:${media})${
         hover ? 'and (hover: hover)' : ''
       }{${className}{${property}:${value};}}`,
       true
+    );
+  }
+  if (mediaQuery) {
+    injectCss(
+      `@media${mediaQuery}{${
+        !selector ? className : `${selector.replace('&', className)}`
+      }{${property}:${value};}}`
     );
   } else {
     injectCss(

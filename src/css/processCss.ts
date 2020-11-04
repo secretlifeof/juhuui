@@ -18,6 +18,8 @@ export interface Props {
   [key: string]: any;
 }
 
+const IS_PSEUDO = /[&:+^.#*, >~[=$]/;
+
 /**
  *  Checks all props if they are valid to be processed by Juhuui.
  *  Returns class names for valid ones and the rest are forwarded.
@@ -47,12 +49,13 @@ export const processCss = (
 
     const propertyIsString = typeof cssProperty === 'string';
 
+    const media = property === 'media';
     let fun = false;
     if (
       defaultFun &&
       renderPseudoProperties &&
       propertyIsString &&
-      cssProperty.match(/[&:+^.#*, >~[=$]/)
+      IS_PSEUDO.exec(cssProperty)
     )
       fun = true;
 
@@ -69,7 +72,7 @@ export const processCss = (
           classNamesByProperty.set(cssProperty[i], cachedClassNames);
         }
       }
-    } else if (!fun) {
+    } else if (!fun && !media) {
       processEntries(
         cssProperty,
         value as string,
@@ -78,11 +81,41 @@ export const processCss = (
           CACHE_PROCESS.set(cacheKey, className);
         }
       );
-    } else {
+    } else if (!media) {
       classNamesByProperty.set(
         cssProperty,
         processPseudoEntries(value, cssProperty)
       );
+    } else {
+      for (const mediaQuery in css.media) {
+        const cssEntries = css.media[mediaQuery];
+
+        for (const cssP in cssEntries) {
+          const cssV = cssEntries[cssP];
+
+          const cssPLong = getShortProperty(cssP) || cssP;
+
+          const valueIsPseudo = IS_PSEUDO.exec(cssV);
+
+          if (!valueIsPseudo) {
+            processEntries(
+              cssPLong,
+              cssV as string,
+              (p: string, className: string | string[]) => {
+                classNamesByProperty.set(p, className);
+                CACHE_PROCESS.set(cacheKey, className);
+              },
+              undefined,
+              mediaQuery
+            );
+          } else {
+            classNamesByProperty.set(
+              cssPLong,
+              processPseudoEntries(cssV, cssPLong, mediaQuery)
+            );
+          }
+        }
+      }
     }
   }
   /* eslint-enable guard-for-in */

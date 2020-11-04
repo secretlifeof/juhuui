@@ -21,10 +21,10 @@ const getClassName = (
   value: string | number,
   media: string | undefined | number = '',
   selector: string | undefined = '',
-  mediaArr?: Array<string | number | null> | false
+  mediaQuery?: string // mediaArr?: Array<string | number | null> | false
 ) => {
   const property = ifStrToKebabCase(propertyCamelCased);
-  const key = `${media}${selector}${property}${!mediaArr ? value : mediaArr}`;
+  const key = `${media}${selector}${property}${value}${mediaQuery}`; // ${!mediaArr ? value : mediaArr}`;
 
   const precedence = getPrecedence(property as string);
 
@@ -38,23 +38,25 @@ const getClassName = (
       if (typeof value === 'object') {
         // eslint-disable-next-line no-console
         console.error(
-          'The CSS value is an Object. This might be because you nested a key inside the "css" prop. It is only possible for pseudo properties.',
+          'The CSS value is an Object. This might be because you nested a key inside the "css" prop. It is only possible for pseudo and media keys.',
           property,
           value
         );
       }
 
       const mediaByNaming =
-        (media.length > 0 &&
-          `${mediaClassNames[theme.breakpoints.indexOf(media)]}\\:`) ??
-        `m${media}`;
+        (media.length > 0
+          ? `${
+              mediaClassNames[theme.breakpoints.indexOf(media)] || `m${media}`
+            }\\:`
+          : mediaQuery && `Q-${mediaQuery.replace(/[():;% ]/g, '')}\\:`) ?? '';
 
       devClassName = `${mediaByNaming}${
         selector && selector.length > 3
           ? `${selector.replace(/[&:]/g, '').trim().replace(' ', '-')}\\:`
           : ''
       }${property}-${themedValue})`.replace(
-        /[~!@$%^&*()+=,.';"?/><[\]{}`# ]/g,
+        /[~!$%^&*()+=,.';"?/><[\]{}`# ]/g,
         ''
       );
       const usedClassName = usedClassNames.get(devClassName);
@@ -68,14 +70,15 @@ const getClassName = (
     }
 
     className = !isDev
-      ? hash(`${selector}${property}${themedValue || ''}${media || ''}`) // ${!mediaArr ? themedValue : mediaArr}`)
+      ? hash(`${selector}${property}${themedValue || ''}${mediaQuery || media}`) // ${!mediaArr ? themedValue : mediaArr}`)
       : devClassName;
 
     updateSheet(`.${className}`.repeat(precedence), {
       property,
       value: themedValue,
       media,
-      selector
+      selector,
+      mediaQuery
     });
 
     const sanitizedClassName = !isDev

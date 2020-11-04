@@ -18,7 +18,11 @@ export interface Pseudo {
 }
 
 /* eslint-disable guard-for-in */
-function processPseudoEntries(entries: Pseudo, selector: string): any {
+function processPseudoEntries(
+  entries: Pseudo,
+  selector: string,
+  mediaQuery?: string
+): any {
   const classNamesByProperty = new Map();
 
   for (const property in entries) {
@@ -32,7 +36,8 @@ function processPseudoEntries(entries: Pseudo, selector: string): any {
       cssProperty,
       value,
       (p: string, c: string | string[]) => classNamesByProperty.set(p, c),
-      selector
+      selector,
+      mediaQuery
     );
   }
   /* eslint-enable guard-for-in */

@@ -1,3 +1,4 @@
+// @ts-nocheck
 /**
  *  Returns classNames [string|arr]
  *  Calls getClassName that creates css-string/hashed className
@@ -14,12 +15,13 @@ type CSSProperty = string[] | string;
 const createCss = (
   property: CSSProperty,
   value: InputValue,
-  selector?: string
+  selector?: string,
+  mediaQuery?: string
 ): string | string[] => {
   if (value === null || value === undefined) return '';
 
   if (!Array.isArray(value) && !Array.isArray(property)) {
-    return getClassName(property, value, undefined, selector);
+    return getClassName(property, value, undefined, selector, mediaQuery);
   }
 
   if (Array.isArray(value)) {
@@ -34,7 +36,7 @@ const createCss = (
             v,
             i > 0 ? theme.breakpoints[i - 1] : undefined,
             selector,
-            value
+            mediaQuery // value
           )
         );
       }
@@ -47,7 +49,7 @@ const createCss = (
               v,
               i > 0 ? theme.breakpoints[i - 1] : undefined,
               selector,
-              value
+              mediaQuery // value
             )
           );
         }
@@ -61,7 +63,9 @@ const createCss = (
     const classNames: ClassNames = [];
 
     for (let j = 0; j < property.length; j++) {
-      classNames.push(getClassName(property[j], value, undefined, selector));
+      classNames.push(
+        getClassName(property[j], value, undefined, selector, mediaQuery)
+      );
     }
 
     return classNames;

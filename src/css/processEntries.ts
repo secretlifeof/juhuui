@@ -12,10 +12,11 @@ const processEntries = (
   cssProperty: CSSProperty,
   value: InputValue,
   addClassName: (property: string, className: ClassNames) => void,
-  selector?: string | undefined
+  selector?: string | undefined,
+  mediaQuery?: string
 ) => {
   if (typeof value === 'string' && value.length === 0) return;
-  const className = createCss(cssProperty, value, selector);
+  const className = createCss(cssProperty, value, selector, mediaQuery);
 
   if (!Array.isArray(cssProperty)) {
     addClassName(cssProperty, className);

@@ -4,13 +4,9 @@ describe('getClassName', () => {
   test('simple property & value', () => {
     expect(getClassName('background', 'green')).toMatch(/j\S/);
   });
-  test('property, value & media', () => {
+  test('property, value & mediaQuery', () => {
     expect(
-      getClassName('background', 'green', 3660, undefined, [
-        'green',
-        'blue',
-        'brown',
-      ])
+      getClassName('background', 'green', 3660, undefined, '(min-width: 800px)')
     ).toMatch(/j\S/);
   });
   test('selector', () => {
