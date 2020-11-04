@@ -12,7 +12,7 @@
   "scripts": {
     "build": "microbundle",
     "lint": "eslint --ignore-path .gitignore \"**/*.{ts,tsx,js,jsx}\"",
-    "test": "jest --runInBand --detectOpenHandles ",
+    "test": "jest",
     "watch": "microbundle watch"
   },
   "dependencies": {
