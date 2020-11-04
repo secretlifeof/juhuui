@@ -138,7 +138,7 @@ class Base {
       const refOut = ref && forwardRef ? { ref } : {};
 
       const { as: asIn, ...styles } = (valIsFunction && val(props)) ?? {};
-      const { baseStyles = {}, ...baseProps } = this.propsIsFunction
+      const { baseStyles = {}, as: asBase, ...baseProps } = this.propsIsFunction
         ? this.props(props)
         : this.props;
       const filteredBaseStyles = getFilteredProps(baseStyles, preProcessedKeys);
@@ -158,7 +158,7 @@ class Base {
 
       return render({
         ...baseProps,
-        as: asSet || asIn || asInOuter,
+        as: asBase || asSet || asIn || asInOuter,
         baseStyles: {
           ...filteredBaseStyles,
           ...mergedStyles

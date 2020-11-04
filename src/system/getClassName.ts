@@ -26,7 +26,7 @@ const getClassName = (
   const property = ifStrToKebabCase(propertyCamelCased);
   const key = `${media}${selector}${property}${value}${mediaQuery}`; // ${!mediaArr ? value : mediaArr}`;
 
-  const precedence = getPrecedence(property as string);
+  const precedence = getPrecedence(property as string, selector);
 
   let className = CACHE_CLASSNAMES.get(key);
   if (!className) {

@@ -108,7 +108,7 @@ function withComponent(
       return { ...acc, ...(typeof cur === 'function' ? cur(props) : cur) };
     }, {});
 
-    const { baseStyles = {}, ...baseProps } = this.propsIsFunction
+    const { baseStyles = {}, as: asBase, ...baseProps } = this.propsIsFunction
       ? this.props(props)
       : this.props;
     const filteredBaseStyles = getFilteredProps(baseStyles, preProcessedKeys);
@@ -131,9 +131,7 @@ function withComponent(
 
     return render({
       ...baseProps,
-      ...((asSet || asIn || asInOuter || asForwarded) && {
-        as: asSet || asIn || asInOuter || asForwarded
-      }),
+      as: asBase || asSet || asIn || asInOuter || asForwarded,
       baseStyles: {
         ...filteredBaseStyles,
         ...mergedStyles
