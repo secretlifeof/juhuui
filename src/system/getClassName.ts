@@ -29,7 +29,7 @@ const prefixCss = (property: string, value: string) => {
 const getClassName = (
   propertyCamelCased: string,
   value: string | number,
-  media: string = '',
+  media: string | number = '',
   selector: string | undefined = '',
   mediaQuery?: string // mediaArr?: Array<string | number | null> | false
 ) => {
@@ -55,9 +55,10 @@ const getClassName = (
       }
 
       const mediaByNaming =
-        (media.length > 0
+        (media.toString().length > 0
           ? `${
-              mediaClassNames[theme.breakpoints.indexOf(media)] || `m${media}`
+              mediaClassNames[theme.breakpoints.indexOf(media.toString())] ||
+              `m${media}`
             }\\:`
           : mediaQuery && `Q-${mediaQuery.replace(/[():;% ]/g, '')}\\:`) ?? '';
 
@@ -69,6 +70,7 @@ const getClassName = (
         /[~!$%^&*()+=,.';"?/><[\]{}`# ]/g,
         ''
       );
+
       const usedClassName = usedClassNames.get(devClassName);
 
       if (usedClassName && selector.length > 0) {
