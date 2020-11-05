@@ -117,6 +117,7 @@ class Base {
     const attachAttrsBound = attachAttrs.bind(this);
     const valIsFunction = typeof val === 'function';
 
+    const { mergedProps, variant, asSet } = this;
     /**
      * Preprocess styles on styled component mount and not on each render
      * returns an ES6 Map with [cssProperty, className] that is passed to
@@ -130,7 +131,11 @@ class Base {
       ? Array.from(preProcessedCss.keys())
       : [];
 
-    const { mergedProps, variant, asSet } = this;
+    // const processVariants = {};
+    // for (const variantKey in variant) {
+    //   const variantSelector = variant[variantKey];
+    // }
+
     const isVariants = Object.keys(variant).length > 0;
     const filters = [...this.removeProps, ...Object.keys(variant), ...filter];
 

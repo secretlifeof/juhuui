@@ -61,7 +61,9 @@ export const processCss = (
 
     const cacheKey = propertyIsString
       ? `${property}${value}`
-      : `${property}${Object.entries(value)}`;
+      : `${property}${Object.entries(value)}${
+          media ? Object.entries(value).map((k, v) => Object.entries(v)) : ''
+        }`;
     const cachedClassNames = CACHE_PROCESS.get(cacheKey);
 
     if (cachedClassNames) {
