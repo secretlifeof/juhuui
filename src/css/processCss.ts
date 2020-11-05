@@ -3,6 +3,7 @@
 import { getShortProperty } from '../properties/getShortProperty';
 import { getStyleTag } from '../system/getStyleTag';
 import { defaultFun } from '../system/setup';
+import { As, CSSRules } from '../types';
 import { isDev, isServer } from '../utilities/is';
 import processEntries from './processEntries';
 import processPseudoEntries, { Pseudo } from './processPseudoEntries';
@@ -12,9 +13,10 @@ export interface NestedPseudo {
 }
 
 export interface Props {
-  as?: string;
+  as?: As;
   children?: any;
   fun?: boolean;
+  css: CSSRules;
   [key: string]: any;
 }
 

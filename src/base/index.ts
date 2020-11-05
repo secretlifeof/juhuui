@@ -16,6 +16,11 @@ import getFilteredProps from './getFilteredProps';
 
 const staticPropsToRemove = ['baseStyles', 'fw'];
 
+interface WrappedComponentProps {
+  css: CSSRules;
+  merge: Base | Base[];
+}
+
 class Base {
   props: CSSProps | any;
 
@@ -139,7 +144,10 @@ class Base {
     const isVariants = Object.keys(variant).length > 0;
     const filters = [...this.removeProps, ...Object.keys(variant), ...filter];
 
-    const WrappedComponent = (({ merge, ...props }: CSSRules, ref = {}) => {
+    const WrappedComponent = ((
+      { merge, ...props }: WrappedComponentProps,
+      ref = {}
+    ) => {
       const refOut = ref && forwardRef ? { ref } : {};
 
       const { as: asIn, ...styles } = (valIsFunction && val(props)) ?? {};

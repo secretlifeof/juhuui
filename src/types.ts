@@ -19,28 +19,27 @@ type GenericRecord<KeyT extends PropertyKey, ValueT> = {
 
 type CSSShortRules = GenericRecord<CSSShortProperties, string>;
 
-export type CSSProperties = CSS.StandardPropertiesFallback<
-  string | number | Array<string | number | null>
->;
-
 type Pseudos = {
   [P in CSS.AdvancedPseudos]: CSSProperties;
 };
 
-interface PseudoType {
-  pseudo?: Pseudos;
-  _after?: CSSProperties;
-  _hover?: CSSProperties;
-  _active?: CSSProperties;
-}
+export type CSSProperties = CSS.StandardPropertiesFallback<
+  string | number | Array<string | number | null>
+>;
 
-export type CSSRules = PseudoType | CSSProperties | CSSShortRules;
+type Media = {
+  media: {
+    [media: string]: CSSProperties | CSSShortRules;
+  };
+};
+
+export type CSSRules = CSSProperties | CSSShortRules | Pseudos | Media;
 
 export interface CSSPropsFn {
   (props: any): CSSRules;
 }
 
-export type CSSProps = CSSPropsFn | CSSRules | { [key: string]: any };
+export type CSSProps = CSSRules | ((props: any) => CSSRules);
 
 export interface Variants {
   [k: string]: {
