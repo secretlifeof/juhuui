@@ -35,10 +35,10 @@ type Media = {
 export type As = keyof JSX.IntrinsicElements | any;
 
 interface AsI {
-  as: AS;
+  as: As;
 }
 
-export type CSSRules = CSSProperties | CSSShortRules | Pseudos | Media;
+export type CSSRules = CSSProperties | CSSShortRules | Pseudos | Media | AsI;
 
 export interface CSSPropsFn {
   (props: any): CSSRules;
