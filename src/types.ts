@@ -47,7 +47,7 @@ export interface Variants {
   };
 }
 
-export type As = keyof JSX.IntrinsicElements;
+export type As = keyof JSX.IntrinsicElements | any;
 
 export interface ComponentType<T> extends InstanceType {
   (props: CSSRules | ?T): ComponentType | JSX.Element;

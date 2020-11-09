@@ -2,7 +2,7 @@
   "name": "juhuui",
   "private": false,
   "version": "0.0.5-beta.22",
-  "description": "Lightweight and flexible UI library",
+  "description": "Build design systems in a fun way",
   "license": "MIT",
   "main": "dist/juhuui.js",
   "unpkg": "dist/juhuui.umd.js",
@@ -64,7 +64,9 @@
     "ui",
     "ux",
     "styling",
+    "css",
     "css-in-js",
+    "atomic",
     "atomic-css",
     "atomic-css-in-js"
   ],

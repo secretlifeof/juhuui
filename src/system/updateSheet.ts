@@ -33,7 +33,8 @@ const updateSheet = (
     injectCss(
       `@media${mediaQuery}{${
         !selector ? className : `${selector.replace('&', className)}`
-      }{${css}}}\n`
+      }{${css}}}\n`,
+      true
     );
   } else {
     injectCss(

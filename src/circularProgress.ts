@@ -3,7 +3,7 @@ import attachMethodsToInstance from './base/attachMethodsToInstance';
 import render, { Render } from './system/render';
 import { ComponentType, CSSRules } from './types';
 
-export interface P {
+export interface Props {
   angle?: number;
   capIsRound?: boolean;
   color?: string;
@@ -15,10 +15,11 @@ export interface P {
   value?: number;
   label?: string;
   children?: any;
+  css?: CSSRules;
   [key: string]: any;
 }
 
-type Props = P & CSSRules;
+// type Props = P | CSSPropsFn
 
 interface GetComputedProps {
   angle: number;
@@ -233,7 +234,7 @@ const circularProgressInstance = new Base(
  */
 const CircularProgress = ((props: CSSRules): Render => {
   return circularProgressInstance.render(props);
-}) as ComponentType<P>;
+}) as ComponentType<Props>;
 
 attachMethodsToInstance(CircularProgress, circularProgressInstance);
 

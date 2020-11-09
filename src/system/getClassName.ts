@@ -82,7 +82,7 @@ const getClassName = (
     }
 
     className = !isDev
-      ? hash(`${selector}${property}${themedValue || ''}${mediaQuery || media}`) // ${!mediaArr ? themedValue : mediaArr}`)
+      ? hash(`${selector}${property}${themedValue || ''}${mediaQuery || media}`)
       : devClassName;
 
     const cssWithPrefix = prefixCss(property, themedValue);

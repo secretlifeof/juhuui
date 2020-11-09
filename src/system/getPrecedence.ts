@@ -25,32 +25,35 @@ const getPrecedence = (property: string, selector: string) => {
   /**
    * Find specificity for a pseudo string
    */
-  let pseudoSpecificityResult = PSEUDO_SPECIFICITY.exec(selector);
-  let runner = PSEUDO_SPECIFICITY.exec(selector);
+
+  const pseudoRegexStart = PSEUDO_SPECIFICITY.exec(selector);
+  let runner = pseudoRegexStart;
+  let pseudoRunnerHighestSpecificity = pseudoRegexStart
+    ? pseudoRegexStart.slice(1, 6).findIndex((el) => !!el) + 1
+    : 0;
   while (runner !== null) {
     const regexResult = PSEUDO_SPECIFICITY.exec(selector);
     if (regexResult) {
-      pseudoSpecificityResult = regexResult;
+      // Filters relevant groups from array and find the first value not undefined
+      const indexResult = regexResult.slice(1, 6).findIndex((el) => !!el) + 1;
+      if (indexResult > pseudoRunnerHighestSpecificity)
+        pseudoRunnerHighestSpecificity = indexResult;
     }
     runner = regexResult;
   }
-  /**
-   * Filters relevant groups from array and find the first value not undefined
-   */
-  const pseudoSpecificity = (pseudoSpecificityResult ?? [])
-    .slice(1, 6)
-    .findIndex((el) => !!el);
 
-  const usePrecedence = !!(needsSpecificity && combinedOfWordsLength);
+  const usePrecedence = !!(
+    (needsSpecificity && combinedOfWordsLength) ||
+    pseudoRunnerHighestSpecificity
+  );
 
   if (usePrecedence) {
     precedence +=
       ((needsSpecificity && combinedOfWordsLength) || []).length +
       (higherSpecificity ? 1 : 0) -
       (lowerSpecificity ? 1 : 0) +
-      Math.max(pseudoSpecificity, 0);
+      pseudoRunnerHighestSpecificity;
   }
-
   return precedence;
 };
 
