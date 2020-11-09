@@ -19,13 +19,13 @@ type GenericRecord<KeyT extends PropertyKey, ValueT> = {
 
 type CSSShortRules = GenericRecord<CSSShortProperties, string>;
 
-type Pseudos = {
-  [k: string]: CSSProperties;
-};
-
 export type CSSProperties = CSS.StandardPropertiesFallback<
   string | number | Array<string | number | null>
 >;
+
+type Pseudos = {
+  [k: string]: CSSProperties | CSSShortRules;
+};
 
 type Media = {
   media: {

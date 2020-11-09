@@ -20,12 +20,12 @@ I made this tool because I wanted the best of (very objective) Styled-Components
 **install from npm:**
 
 ```shell
-npm install juhuui@next
+npm install juhuui
 ```
 
 ## Usage
 
-It needs a createElement function so it knows how build components. Add this somewhere only once in your javascript tree.
+It needs a createElement function so it knows how build components. Add this somewhere only once in your javascript tree. This is the solution for now.
 
 ```js
 import { setup } from 'juhuui';
