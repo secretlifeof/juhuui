@@ -1,8 +1,8 @@
 {
   "name": "juhuui",
   "private": false,
-  "version": "0.0.5-beta.23",
-  "description": "Build design systems in a fun way",
+  "version": "0.0.5-beta.24",
+  "description": "Fun way to build design systems",
   "license": "MIT",
   "main": "dist/index.js",
   "unpkg": "dist/index.umd.js",
