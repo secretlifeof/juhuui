@@ -1,14 +1,6 @@
-# JUHUUI
-
 ### UI tool intended for design systems
 
-I made this tool because because I wanted the best of (very objective) Styled-Components, Chakra-UI, but with atomic CSS classes. Merge and nest components. Create variants. Hope that you will experience the same joy that I have using Juhuui.
-
----
-
-#### 🔔 Work in progress
-
-This is a work in progress and the API is still being finalized. Please install juhuui@next for features described below.Feedback is also kindness :-)
+I made this tool because I wanted the best of (very objective) Styled-Components, Chakra-UI, but with atomic CSS classes. You can merge and nest components. Create variants. Hopefully you will have the same joy using JuhuUi that I have.
 
 ---
 
@@ -20,7 +12,7 @@ This is a work in progress and the API is still being finalized. Please install 
 - Descriptive class names in developer mode (_"color-orange sm:color-blue md:color-green"_)
 - @media queries are written as arrays (_['green', 'orange', 'pink']_)
 - Same shortcuts as Styled-System
-- Extract critical CSS for server side rendering
+- Extract "critical CSS" for server side rendering
 - Implement darkmode using CSS variables
 
 ## Installation
@@ -234,14 +226,13 @@ Any feedback is met with love and curiosity. Have fun! 💚
 ## Future stuff
 
 - [x] ForwardRef works for styled components not inline
-- [ ] Add vendor prefix to options
-- [ ] Minimal version without a default theme
+- [ ] Move theme to a different package
 - [ ] Default React/Preact versions without a need for calling setup
-- [ ] Improve type safety
+- [ ] Improve type safety (! high on)
 
 ## Benchmarks
 
-You can test and compare it yourself [here](https://ui-benchmark.vercel.app). All credits go to [Styled-Components](https://github.com/styled-components/styled-components) and [Necolas](https://github.com/necolas) for creating this.
+You can test and compare it [live](https://ui-benchmark.vercel.app) or download the [repository](https://github.com/secretlifeof/ui-benchmarks). All credits go to [Styled-Components](https://github.com/styled-components/styled-components) and [Necolas](https://github.com/necolas) for creating this.
 
 ## Thanks
 
@@ -252,4 +243,4 @@ Thanks to all for being here and beforehand for anybody who wants to contribute 
 - [HTM](https://github.com/developit/htm) by [@developit](https://twitter.com/_developit)
 - [Goober](https://github.com/cristianbote/goober) by [@cristianbote](https://twitter.com/cristianbote_)
 - [Chakra-UI](https://github.com/chakra-ui/chakra-ui) by [@segunadebayo](https://twitter.com/thesegunadebayo)
-- [@JoviDeCroock](https://twitter.com/jovidec) for being an inspiration on how to behave online
+- [@JoviDeCroock](https://twitter.com/jovidec) mostly for his kindness
