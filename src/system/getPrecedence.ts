@@ -6,7 +6,7 @@
 const PROPERTIES_CORRECTION_GROUPS = /^(?:([tlbr].{2,4}m?$|c.{7}$)|([fl].{5}l|g.{8}$|pl))/;
 
 // ?left || ?right || ?top || ?bottom || || flex-[!flow] || transition-? || font-? || background-? || animation || grid-?
-const PROPERTIES_THAT_NEED_CORRECTION = /(-le|-ri|-to|ot|x-[b|d|g|sw]|nsit|-fo|-mar|ckg|ani|gr|al|bor|^ju|ion-|!^pl)/;
+const PROPERTIES_THAT_NEED_CORRECTION = /(-le|-ri|-to|ot|x-[b|d|g|sw]|nsit|-fo|-mar|ckg|ani|gr|al|bor|^ju|ion-|!^pl|w-x|w-y)/;
 
 /**
  * :hover || :active || :focus | :focus-visible | :read-only | :disabled
