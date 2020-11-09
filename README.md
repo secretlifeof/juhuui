@@ -1,6 +1,8 @@
+<img alt="juhuui" src="https://juhuui.com/juhuui-social-logo.png">
+
 ### UI tool intended for design systems
 
-I made this tool because I wanted the best of (very objective) Styled-Components, Chakra-UI, but with atomic CSS classes. You can merge and nest components. Create variants. Hopefully you will have the same joy using JuhuUi that I have.
+I made this tool wanting the best (very objective) of Styled-Components, Chakra-UI, but with atomic CSS classes. You can merge and nest components. Create variants. Hopefully you will have the same joy using JuhuUi as me.
 
 ---
 
