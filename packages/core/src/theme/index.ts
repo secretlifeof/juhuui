@@ -14,7 +14,7 @@ import zIndices from './zIndices';
 export interface Theme {
   breakpoints: string[];
   colors: {
-    [key: string]: ColorObject | string;
+    [key: string]: ColorObject | string | any;
   };
   fonts: {
     [key: string]: string;

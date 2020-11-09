@@ -10,5 +10,5 @@ export default {
   '5xl': '2.65rem',
   '6xl': '3rem',
   '7xl': '3.5rem',
-  '8xl': '4rem',
+  '8xl': '4rem'
 };

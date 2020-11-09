@@ -20,7 +20,7 @@ type GenericRecord<KeyT extends PropertyKey, ValueT> = {
 type CSSShortRules = GenericRecord<CSSShortProperties, string>;
 
 type Pseudos = {
-  [P in CSS.AdvancedPseudos]: CSSProperties;
+  [k: string]: CSSProperties;
 };
 
 export type CSSProperties = CSS.StandardPropertiesFallback<
@@ -32,6 +32,11 @@ type Media = {
     [media: string]: CSSProperties | CSSShortRules;
   };
 };
+export type As = keyof JSX.IntrinsicElements | any;
+
+interface AsI {
+  as: AS;
+}
 
 export type CSSRules = CSSProperties | CSSShortRules | Pseudos | Media;
 
@@ -46,8 +51,6 @@ export interface Variants {
     [k: string]: CSSProperties;
   };
 }
-
-export type As = keyof JSX.IntrinsicElements | any;
 
 export interface ComponentType<T> extends InstanceType {
   (props: CSSRules | ?T): ComponentType | JSX.Element;

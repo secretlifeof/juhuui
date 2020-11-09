@@ -59,6 +59,15 @@ importers:
       tiny-css-prefixer: ^1.1.4
       ts-jest: ^26.4.3
       typescript: ^3.9.5
+  packages/core:
+    dependencies:
+      csstype: 3.0.3
+      htm: 3.0.4
+      tiny-css-prefixer: 1.1.4
+    specifiers:
+      csstype: ^3.0.3
+      htm: ^3.0.3
+      tiny-css-prefixer: ^1.1.4
 lockfileVersion: 5.2
 packages:
   /@babel/code-frame/7.10.4:
@@ -3534,7 +3543,7 @@ packages:
   /eslint-import-resolver-node/0.3.4:
     dependencies:
       debug: 2.6.9
-      resolve: 1.17.0
+      resolve: 1.18.1
     dev: true
     resolution:
       integrity: sha512-ogtf+5AB/O+nM6DIeBUNr2fuT7ot9Qg/1harBfBtaP13ekEWFQEEMP94BCB7zaNW3gyY+8SHYF00rnqYwXKWOA==
@@ -3578,7 +3587,7 @@ packages:
       minimatch: 3.0.4
       object.values: 1.1.1
       read-pkg-up: 2.0.0
-      resolve: 1.17.0
+      resolve: 1.18.1
       tsconfig-paths: 3.9.0
     dev: true
     engines:

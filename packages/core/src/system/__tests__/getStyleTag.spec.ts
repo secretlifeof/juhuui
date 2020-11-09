@@ -1,4 +1,4 @@
-import getStyleTag from '../getStyleTag';
+import { getStyleTag } from '../getStyleTag';
 
 describe('getStyleTag', () => {
   test('get', () => {

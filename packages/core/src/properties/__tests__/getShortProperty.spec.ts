@@ -1,4 +1,4 @@
-import getShortProperty, { CSSShortProperties } from '../getShortProperty';
+import { CSSShortProperties, getShortProperty } from '../getShortProperty';
 
 describe('getShortProperty', () => {
   test('Short property string to css property', () => {

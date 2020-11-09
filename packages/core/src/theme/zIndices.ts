@@ -10,5 +10,5 @@ export default {
   popover: 1500,
   skipLink: 1600,
   toast: 1700,
-  tooltip: 1800,
-}
+  tooltip: 1800
+};
