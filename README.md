@@ -42,7 +42,7 @@ setup(createElement);
 
 Juhu you can start building components.
 
-```js
+```jsx
 import {
   AspectRatioBox,
   Button,
@@ -87,7 +87,7 @@ const SayWhat = () => (
 
 All components can be created externally. This is useful for separating styles and components. Styles can be overwritten by writing them inline. Please use the 'fw' prop to forward arguments because 'fw' will be removed from the DOM. The with function takes a second argument, an array of strings to be removed from the DOM, as an alternative to 'fw'.
 
-```javascript
+```jsx
 import { Text, Box } from 'juhuui';
 
 const UpperCase = Text.with({
@@ -123,7 +123,7 @@ const SpaceCase = Colorful.merge([GreenBox, Red]).with({ textTransform: 'upperca
 
 Variants are a probably a necessity for a good design system.
 
-```javascript
+```jsx
 import { Button } from 'juhuui'
 
 const B = Button.variants({ variant: {
@@ -142,7 +142,7 @@ const B = Button.variants({ variant: {
 
 Function for creating class names. Just for the power of freedom. Performance is better than the above. If you are looking for a tool that only creates class names we recommend a smaller tool called [otion](https://github.com/kripod/otion).
 
-```js
+```jsx
 import { css } from 'juhuui';
 
 const classNames = css({
@@ -159,7 +159,7 @@ For extracting critical CSS please use the extractCss function.
 
 Here is a short example how you would do this in Next.js. The data attributes needs to be called "data-process".
 
-```js
+```jsx
 import Document, { Head, Html, Main, NextScript } from 'next/document';
 import { extractCss } from 'juhuui';
 
