@@ -2,7 +2,9 @@
 
 ### UI tool intended for design systems
 
-I made this tool wanting the best (very objective) of Styled-Components, Chakra-UI, but with atomic CSS classes. You can merge and nest components. Create variants. Hopefully you will have the same joy using JuhuUi as me.
+I made this tool wanting the best (very objective) of Styled-Components, Chakra-UI but with atomic CSS (single purpose classes). You can merge and nest components. Create variants.
+
+Hopefully you will have the same joy using juhuUi as me.
 
 ---
 
@@ -219,12 +221,6 @@ setup(h, {
 });
 ```
 
-## Motivation
-
-Creating a design system tool with a clean API. One that behind the scenes generates atomic CSS classes. Merging components and setting up variants should feel simple (hopefully that is the case).
-
-Any feedback is met with love and curiosity. Have fun! 💚
-
 ## Future stuff
 
 - [x] ForwardRef works for styled components not inline
@@ -239,6 +235,8 @@ You can test and compare it [live](https://ui-benchmark.vercel.app) or download 
 ## Thanks
 
 Thanks to all for being here and beforehand for anybody who wants to contribute either by reporting a bug or by a PR.
+
+Any feedback is met with love and curiosity. Have fun! 💚
 
 ## Inspiration
 
