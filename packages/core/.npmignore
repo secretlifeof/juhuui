@@ -1,0 +1,11 @@
+node_modules/
+dist/
+*.rts2*
+/*.log
+*.lock
+src/
+tsconfig.json
+.gitignore
+.eslintrc.json
+
+package-lock.json*

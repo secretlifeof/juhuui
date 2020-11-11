@@ -1,4 +1,3 @@
-// @ts-nocheck
 import * as CSS from 'csstype';
 
 import type { InstanceType } from './base/attachAttrs';
@@ -11,13 +10,14 @@ import {
  *  To produce shortcuts with CSS property values
  *  i.e. c produces list of colors
  */
-type GenericRecord<KeyT extends PropertyKey, ValueT> = {
+type GenericRecord<KeyT extends PropertyKey> = {
   [Key in KeyT]: {
-    [Key2 in Key]: CSS.PropertiesHyphen[ShortProperties[Key]];
+    // @ts-ignore
+    [Key2 in Key]: CSS.Properties[ShortProperties[Key2]];
   };
 }[KeyT];
 
-export type CSSShortRules = GenericRecord<CSSShortProperties, string>;
+export type CSSShortRules = GenericRecord<CSSShortProperties>;
 
 export type CSSProperties = CSS.StandardPropertiesFallback<
   string | number | Array<string | number | null>
@@ -34,11 +34,16 @@ export type Media = {
 };
 export type As = keyof JSX.IntrinsicElements | any;
 
-interface AsI {
+interface AsInterface {
   as: As;
 }
 
-export type CSSRules = CSSProperties | CSSShortRules | Pseudos | Media | AsI;
+export type CSSRules =
+  | CSSProperties
+  | CSSShortRules
+  | Pseudos
+  | Media
+  | AsInterface;
 
 export interface CSSPropsFn {
   (props: any): CSSRules;
@@ -48,12 +53,13 @@ export type CSSProps = CSSRules | ((props: any) => CSSRules);
 
 export interface Variants {
   [k: string]: {
-    [k: string]: CSSProperties;
+    [k: string]: CSSProperties | CSSShortRules | Pseudos | AsInterface;
   };
 }
 
 export interface ComponentType<T> extends InstanceType {
-  (props: CSSRules | ?T): ComponentType | JSX.Element;
+  // @ts-ignore
+  (props: CSSRules | ?T): JSX.Element<T>;
   displayName: string;
 }
 

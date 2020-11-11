@@ -1,0 +1,22 @@
+dependencies:
+  csstype: 3.0.4
+  htm: 3.0.4
+  tiny-css-prefixer: 1.1.4
+lockfileVersion: 5.2
+packages:
+  /csstype/3.0.4:
+    dev: false
+    resolution:
+      integrity: sha512-xc8DUsCLmjvCfoD7LTGE0ou2MIWLx0K9RCZwSHMOdynqRsP4MtUcLeqh1HcQ2dInwDTqn+3CE0/FZh1et+p4jA==
+  /htm/3.0.4:
+    dev: false
+    resolution:
+      integrity: sha512-VRdvxX3tmrXuT/Ovt59NMp/ORMFi4bceFMDjos1PV4E0mV+5votuID8R60egR9A4U8nLt238R/snlJGz3UYiTQ==
+  /tiny-css-prefixer/1.1.4:
+    dev: false
+    resolution:
+      integrity: sha512-QLnDGLUmMkNlSuWogBaSu92uQnvWhcQwUc+MG8L4YgBkjSmBkAz29pTq+8Rh3YWR1TwPrjuZDKWzO7v4PXkipQ==
+specifiers:
+  csstype: ^3.0.3
+  htm: ^3.0.3
+  tiny-css-prefixer: ^1.1.4

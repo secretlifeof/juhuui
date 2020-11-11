@@ -59,6 +59,8 @@ importers:
       tiny-css-prefixer: ^1.1.4
       ts-jest: ^26.4.3
       typescript: ^3.9.5
+  ../../../../../usr/local/pnpm-global:
+    specifiers: {}
   packages/core:
     dependencies:
       csstype: 3.0.3

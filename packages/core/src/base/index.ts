@@ -99,7 +99,6 @@ class Base {
   reset() {
     this.mergedProps = {};
     this.variant = {};
-    this.removeProps = staticPropsToRemove;
     this.asSet = undefined;
   }
 
