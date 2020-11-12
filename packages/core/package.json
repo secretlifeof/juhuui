@@ -1,12 +1,12 @@
 {
   "name": "juhuui",
   "private": false,
-  "version": "0.0.7",
+  "version": "0.0.8-canary.2",
   "description": "Fun tool for design systems",
   "license": "MIT",
-  "main": "dist/index.js",
-  "unpkg": "dist/index.umd.js",
-  "module": "dist/index.modern.module.js",
+  "main": "dist/juhuui.js",
+  "unpkg": "dist/juhuui.umd.js",
+  "module": "dist/juhuui.modern.module.js",
   "types": "dist/index.d.ts",
   "source": "./src/index.ts",
   "scripts": {

@@ -1,8 +1,13 @@
 <img alt="juhuui" src="https://juhuui.com/juhuui-social-logo.png">
 
+[![npm version](https://img.shields.io/npm/v/juhuui.svg)](http://npm.im/juhuui)
+[![npm downloads](https://img.shields.io/npm/dm/juhuui.svg)](http://npm.im/juhuui)
+[![gzip size](http://img.badgesize.io/https://unpkg.com/juhuui/dist/juhuui.umd.js?compression=gzip&label=gzip)](http://npm.im/juhuui)
+[![brotli size](http://img.badgesize.io/https://unpkg.com/juhuui/dist/juhuui.umd.js?compression=brotli&label=brotli)](http://npm.im/juhuui)
+
 ### UI tool intended for design systems
 
-I made this tool wanting the best (very objective) of Styled-Components, Chakra-UI but with atomic CSS (single purpose classes). You can merge and nest components. Create variants.
+I made this tool wanting the best (very objective) of Styled-Components, Chakra-UI but with atomic CSS (single purpose classes). You can merge, nest and create variants. All this sweetness is packed into good performance.
 
 Hopefully you will have the same joy using juhuUi as me.
 
@@ -12,16 +17,19 @@ Hopefully you will have the same joy using juhuUi as me.
 
 - Nesting components
 - Theme (default/customizable)
-- Relatively Small (<10kb)
-- Descriptive class names in developer mode (_"color-orange sm:color-blue md:color-green"_)
-- @media queries are written as arrays (_['green', 'orange', 'pink']_)
-- Same shortcuts as Styled-System
+- Descriptive class names in developer mode 🍭("color-orange sm:color-blue md:color-green")
+- @media queries are written as arrays 🎨 (['green', 'orange', 'pink'])
+- Same shortcuts as Styled-System ⚡️ ('p' for padding, 'my' for [margin-top, margin-bottom], 'c' for color, 'bg' backgroundColor, etc. )
 - Extract "critical CSS" for server side rendering
 - Implement darkmode using CSS variables
 
 ## Installation
 
-**install from npm:**
+```shell
+yarn add juhuui
+```
+
+**or**
 
 ```shell
 npm install juhuui
@@ -153,6 +161,25 @@ const classNames = css({
 <div classNames={classNames}></div>;
 ```
 
+## Media queries
+
+Media queries can be written as an array of values (associated with the theme object) or by using the media key.
+
+```jsx
+import { Box } from 'juhuui';
+
+const Mercy = Box.with({
+  media: {
+    '(min-width: 90em)': {
+      color: 'green.400',
+    }
+  }
+  color: ['blue.300', 'green200', 'brown.500']
+});
+
+<Mercy>Merci</Mercy>;
+```
+
 ## Server side rendering
 
 For extracting critical CSS please use the extractCss function.
@@ -216,7 +243,7 @@ const newTheme = {
 
 setup(h, {
   theme: newTheme,
-  defaultFun: true,
+  defaultFun: true, // defaults to true
   forwardRef
 });
 ```
@@ -226,7 +253,7 @@ setup(h, {
 - [x] ForwardRef works for styled components not inline
 - [ ] Move theme to a different package
 - [ ] Default React/Preact versions without a need for calling setup
-- [ ] Improve type safety (! high on)
+- [ ] Improve type safety (! high priority. Help highly appreciated)
 
 ## Benchmarks
 
