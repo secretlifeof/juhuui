@@ -1,6 +1,7 @@
 <img alt="juhuui" src="https://juhuui.com/juhuui-social-logo.png">
 
 [![npm version](https://img.shields.io/npm/v/juhuui.svg)](http://npm.im/juhuui)
+[![github actions status](https://img.shields.io/github/workflow/status/secretlifeof/juhuui/nodeci)](https://github.com/secretlifeof/juhuui/actions?query=workflow%3Anode-CI)
 [![npm downloads](https://img.shields.io/npm/dm/juhuui.svg)](http://npm.im/juhuui)
 [![gzip size](http://img.badgesize.io/https://unpkg.com/juhuui/dist/juhuui.umd.js?compression=gzip&label=gzip)](http://npm.im/juhuui)
 [![brotli size](http://img.badgesize.io/https://unpkg.com/juhuui/dist/juhuui.umd.js?compression=brotli&label=brotli)](http://npm.im/juhuui)
@@ -17,9 +18,9 @@ Hopefully you will have the same joy using juhuUi as me.
 
 - Nesting components
 - Theme (default/customizable)
-- Descriptive class names in developer mode 🍭("color-orange sm:color-blue md:color-green")
-- @media queries are written as arrays 🎨 (['green', 'orange', 'pink'])
-- Same shortcuts as Styled-System ⚡️ ('p' for padding, 'my' for [margin-top, margin-bottom], 'c' for color, 'bg' backgroundColor, etc. )
+- Descriptive class names in developer mode 🍭"color-orange sm:color-blue md:color-green" 🍭
+- @media queries are written as arrays 🎨['green', 'orange', 'pink'] 🎨
+- Same shortcuts as Styled-System ⚡️'p' for padding, 'my' for [margin-top, margin-bottom], 'c' for color, 'bg' backgroundColor, etc. ⚡️
 - Extract "critical CSS" for server side rendering
 - Implement darkmode using CSS variables
 
