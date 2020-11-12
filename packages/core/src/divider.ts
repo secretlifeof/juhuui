@@ -12,7 +12,7 @@ export interface P {
 type Props = P & CSSRules;
 
 const dividerInstance = new Base(
-  ({ fun, orientation = 'vertical' }: Props) => ({
+  ({ fun, orientation = 'horizontal' }: Props) => ({
     'aria-orientation': orientation,
     baseStyles: {
       border: '0',
