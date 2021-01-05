@@ -7,27 +7,37 @@ interface P {
   [key: string]: any;
 }
 
-type Props = P & CSSRules;
+export type Props = P & CSSRules;
 
 const baseStyle = {
   display: 'flex',
   alignItems: 'center',
-  position: 'relative',
-  transition: 'all 0.2s',
+  // position: 'relative',
+  transition: 'border 0.2s',
   outline: 'none',
   appearance: 'none',
-  width: '100%'
+  width: '100%',
+  border: '2px solid black',
+  '&[readonly]': {
+    borderStyle: 'dotted',
+    cursor: 'notAllowed'
+  },
+  '&[disabled]': {
+    backgroundColor: '#eee',
+    cursor: 'not-allowed'
+  }
 };
 
 const sizeStyle = {
   fontSize: 'md',
   px: 4,
   height: 10,
-  rounded: 'md'
+  lineHeight: 1
+  // rounded: 'md'
 };
 
 const inputInstance = new Base({
-  bseStyles: { ...baseStyle, ...sizeStyle },
+  baseStyles: { ...baseStyle, ...sizeStyle },
   fun: true,
   as: 'input'
 });
@@ -38,9 +48,8 @@ const inputInstance = new Base({
  * @example
  * <Input />
  */
-const Input = ((props: Props): Render => {
-  return inputInstance.render(props);
-}) as ComponentType<P>;
+const Input = ((props: Props): Render =>
+  inputInstance.render(props)) as ComponentType<P>;
 
 attachMethodsToInstance(Input, inputInstance);
 

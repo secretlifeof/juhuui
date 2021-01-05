@@ -6,6 +6,13 @@ import {
   ShortProperties
 } from './properties/getShortProperty';
 
+export type InputValue =
+  | string
+  | number
+  | null
+  | undefined
+  | Array<string | number | null>;
+
 /*
  *  To produce shortcuts with CSS property values
  *  i.e. c produces list of colors
@@ -13,15 +20,13 @@ import {
 type GenericRecord<KeyT extends PropertyKey> = {
   [Key in KeyT]: {
     // @ts-ignore
-    [Key2 in Key]: CSS.Properties[ShortProperties[Key2]];
+    [Key2 in Key]: CSSProperties[ShortProperties[Key2]];
   };
 }[KeyT];
 
 export type CSSShortRules = GenericRecord<CSSShortProperties>;
 
-export type CSSProperties = CSS.StandardPropertiesFallback<
-  string | number | Array<string | number | null>
->;
+export type CSSProperties = CSS.StandardPropertiesFallback<InputValue>;
 
 export type Pseudos = {
   [k: string]: CSSProperties | CSSShortRules;
@@ -62,10 +67,3 @@ export interface ComponentType<T> extends InstanceType {
   (props: CSSRules | ?T): JSX.Element<T>;
   displayName: string;
 }
-
-export type InputValue =
-  | string
-  | number
-  | null
-  | undefined
-  | Array<string | number | null>;

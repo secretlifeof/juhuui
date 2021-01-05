@@ -39,22 +39,21 @@ export const processCss = (
   { css, fun: renderPseudoProperties = defaultFun }: Props,
   organizedClassNames?: any
 ) => {
-  const { preProcessedCss, returnClassNamesByProperty = false } =
+  const { preProcessedCss = [], returnClassNamesByProperty = false } =
     organizedClassNames || {};
-  const classNamesByProperty = new Map(!preProcessedCss ? [] : preProcessedCss);
+  const classNamesByProperty = new Map(preProcessedCss);
 
   /* eslint-disable guard-for-in */
   for (const property in css) {
     const value = css[property];
 
-    const cssProperty = getShortProperty(property) || property;
+    const cssProperty = getShortProperty(property);
 
     const propertyIsString = typeof cssProperty === 'string';
 
     const media = property === 'media';
     let fun = false;
     if (
-      defaultFun &&
       renderPseudoProperties &&
       propertyIsString &&
       IS_PSEUDO.exec(cssProperty)
@@ -72,8 +71,8 @@ export const processCss = (
       if (!Array.isArray(cssProperty)) {
         classNamesByProperty.set(cssProperty, cachedClassNames);
       } else {
-        for (let i = 0; i < cssProperty.length; i++) {
-          classNamesByProperty.set(cssProperty[i], cachedClassNames);
+        for (const cssP of cssProperty) {
+          classNamesByProperty.set(cssP, cachedClassNames);
         }
       }
     } else if (!fun && !media) {

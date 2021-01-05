@@ -8,7 +8,7 @@
 
 ### UI tool intended for design systems
 
-I made this tool wanting the best (very objective) of Styled-Components, Chakra-UI but with atomic CSS (single purpose classes). You can merge, nest and create variants. All this sweetness is packed into good performance.
+I made this tool wanting the best (very objective) of Styled-Components, Chakra-UI but with atomic CSS (single purpose classes). You can merge, nest and create variants.
 
 Hopefully you will have the same joy using juhuUi as me.
 

@@ -3,7 +3,7 @@ import defaultTheme, { Theme } from '../theme';
 interface Config {
   theme?: Theme;
   forwardRef?: Function;
-  defaultFun: boolean;
+  defaultFun?: boolean | undefined;
 }
 
 /* eslint-disable import/no-mutable-exports */
@@ -24,7 +24,7 @@ const setup = (
   } = options || {};
   themeInternal = { ...defaultTheme, ...inTheme };
   h = createElement;
-  defaultFun = inDefaultFun;
+  inDefaultFun && (defaultFun = inDefaultFun);
   forwardRef = forwardRefInput;
 };
 

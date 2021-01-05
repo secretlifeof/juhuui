@@ -135,11 +135,6 @@ class Base {
       ? Array.from(preProcessedCss.keys())
       : [];
 
-    // const processVariants = {};
-    // for (const variantKey in variant) {
-    //   const variantSelector = variant[variantKey];
-    // }
-
     const isVariants = Object.keys(variant).length > 0;
     const filters = [...this.removeProps, ...Object.keys(variant), ...filter];
 

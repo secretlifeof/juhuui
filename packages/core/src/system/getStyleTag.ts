@@ -1,15 +1,23 @@
 const TAG_ID = '_juhuui';
 
-export const getStyleTag = (tag?: string) => {
-  let styleEl = document.getElementById(
-    tag || TAG_ID
-  ) as HTMLStyleElement | null;
+declare global {
+  interface Window {
+    [TAG_ID]?: HTMLStyleElement;
+  }
+}
+
+export const getStyleTag = () => {
+  // let styleEl = document.getElementById(TAG_ID) as HTMLStyleElement | null;
+
+  // eslint-disable-next-line no-restricted-globals
+  let styleEl = self[TAG_ID];
+
   if (styleEl) {
     return styleEl;
   }
 
   styleEl = document.createElement('style');
-  styleEl.id = tag || TAG_ID;
+  styleEl.id = TAG_ID;
   styleEl.appendChild(document.createTextNode(''));
   return document.head.appendChild(styleEl);
 };

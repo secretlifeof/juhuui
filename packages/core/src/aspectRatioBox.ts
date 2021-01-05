@@ -9,7 +9,7 @@ export interface P {
   [key: string]: any;
 }
 
-type Props = P & CSSRules;
+export type Props = P & CSSRules;
 
 /**
  * Constrain a box to a ratio.
@@ -43,9 +43,8 @@ const aspectRatioBox = new Base(
   ['ratio']
 );
 
-const AspectRatioBox = ((props: Props) => {
-  return aspectRatioBox.render(props);
-}) as ComponentType<P>;
+const AspectRatioBox = ((props: Props) =>
+  aspectRatioBox.render(props)) as ComponentType<P>;
 
 attachMethodsToInstance(AspectRatioBox, aspectRatioBox);
 

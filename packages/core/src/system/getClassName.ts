@@ -5,7 +5,7 @@
 import { prefixProperty } from 'tiny-css-prefixer';
 
 import checkTheme from '../theme/checkTheme';
-import hash from '../utilities/hash';
+import { hash } from '../utilities/hash';
 import { ifStrToKebabCase } from '../utilities/ifStrToKebabCase';
 import { isDev } from '../utilities/is';
 import getPrecedence from './getPrecedence';
@@ -34,7 +34,7 @@ const getClassName = (
   mediaQuery?: string // mediaArr?: Array<string | number | null> | false
 ) => {
   const property = ifStrToKebabCase(propertyCamelCased);
-  const key = `${media}${selector}${property}${value}${mediaQuery}`; // ${!mediaArr ? value : mediaArr}`;
+  const key = `${media}${selector}${property}${value}${mediaQuery}`;
 
   const precedence = getPrecedence(property as string, selector);
 
@@ -66,10 +66,7 @@ const getClassName = (
         selector && selector.length > 3
           ? `${selector.replace(/[&:]/g, '').trim().replace(' ', '-')}\\:`
           : ''
-      }${property}-${themedValue})`.replace(
-        /[~!$%^&*()+=,.';"?/><[\]{}`# ]/g,
-        ''
-      );
+      }${property}-${value})`.replace(/[~!$%^&*()+=,.';"?/><[\]{}`# ]/g, '');
 
       const usedClassName = usedClassNames.get(devClassName);
 
@@ -82,7 +79,9 @@ const getClassName = (
     }
 
     className = !isDev
-      ? hash(`${selector}${property}${themedValue || ''}${mediaQuery || media}`)
+      ? hash(
+          `${selector}${propertyCamelCased}${value || ''}${mediaQuery || media}`
+        )
       : devClassName;
 
     const cssWithPrefix = prefixCss(property, themedValue);

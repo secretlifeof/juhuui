@@ -8,16 +8,14 @@ interface P {
   [key: string]: any;
 }
 
-type Props = CSSRules;
+export type Props = CSSRules | P;
 
 /**
  *  Component without a default style
  *  @param props - Object of any CSS properties/shortcuts/pseudo
  *  @returns JSX Element
  */
-const Box = ((props: Props) => {
-  return box.render(props);
-}) as ComponentType<P>;
+const Box = ((props: Props) => box.render(props)) as ComponentType<P>;
 
 attachMethodsToInstance(Box, box);
 

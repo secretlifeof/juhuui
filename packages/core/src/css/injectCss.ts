@@ -7,8 +7,8 @@ const virtualInjector = (rule: string): void => {
   CACHE_SSR.add(rule);
 };
 
-const injectorDOM = (rule: string, tag?: string) => {
-  const target = getStyleTag(tag) as HTMLStyleElement;
+const injectorDOM = (rule: string) => {
+  const target = getStyleTag() as HTMLStyleElement;
 
   const ruleIsMedia = rule.includes('@');
   const targetInnerHTML = target.innerHTML;
@@ -20,19 +20,15 @@ const injectorDOM = (rule: string, tag?: string) => {
   }
 };
 
-export const injectorCSSOM = (
-  rule: string,
-  tag?: string,
-  media?: boolean
-): void => {
-  const sheet = getStyleTag(tag).sheet as CSSStyleSheet;
+export const injectorCSSOM = (rule: string, media?: boolean): void => {
+  const sheet = getStyleTag().sheet as CSSStyleSheet;
 
   sheet.insertRule(rule, media ? sheet.cssRules.length : 0);
 };
 
 const injectCss = (rule: string, media?: boolean): void => {
   try {
-    !isDev ? injectorCSSOM(rule, undefined, media) : injectorDOM(rule);
+    !isDev ? injectorCSSOM(rule, media) : injectorDOM(rule);
   } catch {
     virtualInjector(rule);
   }

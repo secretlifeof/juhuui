@@ -9,6 +9,10 @@ const updateSheet = (
       injectCss(`${className}{${css}}\n`);
       return;
     }
+    if (selector) {
+      injectCss(`${selector.replace('&', className)}{${css}}\n`);
+      return;
+    }
 
     const hover = selector.includes('hover');
     injectCss(

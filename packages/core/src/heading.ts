@@ -14,6 +14,8 @@ const headingInstance = new Base({
   }
 });
 
+export type Props = CSSRules | P;
+
 /**
  * H2 Element.
  * @returns JSX Element
@@ -23,9 +25,8 @@ const headingInstance = new Base({
  *  Wonderperson
  * </Heading>
  */
-const Heading = ((props: CSSRules): Render => {
-  return headingInstance.render(props);
-}) as ComponentType<P>;
+const Heading = ((props: Props): Render =>
+  headingInstance.render(props)) as ComponentType<P>;
 
 attachMethodsToInstance(Heading, headingInstance);
 

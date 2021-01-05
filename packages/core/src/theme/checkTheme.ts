@@ -80,6 +80,7 @@ const colorProperty = new Set([
   'border-right',
   'border-top',
   'border-bottom',
+  'box-shadow',
   'fill',
   'stroke'
 ]);
@@ -91,38 +92,43 @@ const longColorProperty = new Set([
   'border-left',
   'border-right',
   'border-top',
-  'border-bottom'
+  'border-bottom',
+  'box-shadow'
 ]);
 
-const checkTheme = () => {
-  const CACHE = new Map();
+const CACHE = new Map();
 
-  return (property: string | string[], value: string | number) => {
-    const p = !Array.isArray(property) ? property : property[0];
-    const selectedThemeProperty: string = themeProperty[p];
-    if (!selectedThemeProperty) return value;
+const checkTheme = (property: string | string[], value: string | number) => {
+  const p = !Array.isArray(property) ? property : property[0];
+  const selectedThemeProperty: string = themeProperty[p];
+  if (!selectedThemeProperty) return value;
 
-    if (colorProperty.has(p)) {
-      let color: string | object = CACHE.get(value);
+  if (colorProperty.has(p)) {
+    let color: string | object = CACHE.get(value);
 
-      if (!color) {
-        color = longColorProperty.has(p)
-          ? (value as string)
-              .split(' ')
-              .map((c) => {
-                const receivedColor = get(theme.colors, c, c);
-                return typeof receivedColor === 'string' ? receivedColor : c;
-              })
-              .join(' ')
-          : get(theme.colors, value as string, value);
-        CACHE.set(value, color);
-      }
-
-      return color && typeof color !== 'object' ? color : value;
+    if (!color) {
+      color = longColorProperty.has(p)
+        ? (value as string)
+            // split by "," for properties like box-shadow
+            .split(',')
+            .map((col) =>
+              col
+                .split(' ')
+                .map((c) => {
+                  const receivedColor = get(theme.colors, c, c);
+                  return typeof receivedColor === 'string' ? receivedColor : c;
+                })
+                .join(' ')
+            )
+            .join(',')
+        : get(theme.colors, value as string, value);
+      CACHE.set(value, color);
     }
 
-    return theme[selectedThemeProperty][value] || theme.various[value] || value;
-  };
+    return color && typeof color !== 'object' ? color : value;
+  }
+
+  return theme[selectedThemeProperty][value] || theme.various[value] || value;
 };
 
-export default checkTheme();
+export default checkTheme;

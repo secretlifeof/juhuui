@@ -2,24 +2,12 @@
 
 // Thanks to: https://stackoverflow.com/questions/7616461/generate-a-hash-from-string-in-javascript
 
-// const hashCode = (s: string) => {
-//   for (var i = 0, h = 0; i < s.length; i++)
-//     h = (Math.imul(31, h) + s.charCodeAt(i)) | 0;
-//   return h;
-// };
+export const hash = (str: string): string => {
+  let h = 9;
 
-function hashCode(s: string) {
-  let h = 0;
-  for (let i = 0; i < s.length; i++) {
-    const chr = s.charCodeAt(i);
-    h = (h << 5) - h + chr;
-    h |= 0; // Convert to 32bit integer
+  for (let i = str.length; i; ) {
+    h = Math.imul(h ^ str.charCodeAt(--i), 0x5f356495);
   }
-  return h;
-}
 
-function hash(str: string): string {
-  return `j${hashCode(str)}`;
-}
-
-export default hash;
+  return `j-${(h ^ (h >>> 9)) >>> 0}`;
+};

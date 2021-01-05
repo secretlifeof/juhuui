@@ -18,7 +18,7 @@ const createCss = (
   selector?: string,
   mediaQuery?: string
 ): string | string[] => {
-  if (value === null || value === undefined) return '';
+  if (!value && value !== 0) return '';
 
   if (!Array.isArray(value) && !Array.isArray(property)) {
     return getClassName(property, value, undefined, selector, mediaQuery);

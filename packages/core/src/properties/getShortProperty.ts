@@ -67,12 +67,9 @@ export type ShortProperties = typeof shortProperties;
 export type CSSShortProperties = keyof ShortProperties;
 
 export const getShortProperty = (
-  key: CSSShortProperties
-):
-  | ValueOf<typeof shortProperties>
-  | Array<ValueOf<typeof shortProperties>>
-  | undefined => {
-  return shortProperties[key];
-};
+  property: string
+): ValueOf<typeof shortProperties> | Array<ValueOf<typeof shortProperties>> =>
+  // @ts-ignore
+  shortProperties[property] || property;
 
 export default getShortProperty;

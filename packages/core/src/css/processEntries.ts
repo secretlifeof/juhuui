@@ -15,14 +15,14 @@ const processEntries = (
   selector?: string | undefined,
   mediaQuery?: string
 ) => {
-  if (typeof value === 'string' && value.length === 0) return;
+  if (!value && value !== 0) return;
   const className = createCss(cssProperty, value, selector, mediaQuery);
 
   if (!Array.isArray(cssProperty)) {
     addClassName(cssProperty, className);
   } else {
-    for (let i = 0; i < cssProperty.length; i++) {
-      addClassName(cssProperty[i], className);
+    for (const cssP of cssProperty) {
+      addClassName(cssP, className);
     }
   }
 };
