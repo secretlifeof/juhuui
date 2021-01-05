@@ -21,11 +21,13 @@
       "error",
       { "allowTernary": true, "allowShortCircuit": true }
     ],
+    "no-restricted-syntax": ["error", "LabeledStatement", "WithStatement"],
 
     // Auto-sort imports
     "sort-imports": "off",
     "import/order": "off",
-    "simple-import-sort/sort": "error",
+    "simple-import-sort/imports": "error",
+    "simple-import-sort/exports": "error",
 
     // Using a type system makes it safe enough to disable the check below
     "react/jsx-props-no-spreading": "off",
