@@ -36,7 +36,8 @@ const createCss = (
             v,
             i > 0 ? theme.breakpoints[i - 1] : undefined,
             selector,
-            mediaQuery // value
+            mediaQuery, // value
+            i
           )
         );
       }
@@ -49,7 +50,8 @@ const createCss = (
               v,
               i > 0 ? theme.breakpoints[i - 1] : undefined,
               selector,
-              mediaQuery // value
+              mediaQuery, // value
+              i
             )
           );
         }

@@ -87,9 +87,9 @@ function withComponent(
 
   const valIsFunction = typeof val === 'function';
   const { as: asInOuter, ...stylesIn } = (!valIsFunction && val) ?? {};
-  const preProcessedCss =
-    !valIsFunction &&
-    processCss({ css: stylesIn }, { returnClassNamesByProperty: true });
+  const preProcessedCss = !valIsFunction
+    ? processCss({ css: stylesIn }, { returnClassNamesByProperty: true })
+    : undefined;
   const preProcessedKeys = preProcessedCss
     ? Array.from(preProcessedCss.keys())
     : [];
@@ -104,9 +104,13 @@ function withComponent(
     const { as: asIn, ...styles } = (valIsFunction && val(props)) ?? {};
     const { as: asForwarded, ...attrs } =
       typeof forwardProps === 'function' ? forwardProps(props) : forwardProps;
-    const functionAttrs = forwardFunctions.reduce((acc, cur: any) => {
-      return { ...acc, ...(typeof cur === 'function' ? cur(props) : cur) };
-    }, {});
+    const functionAttrs = forwardFunctions.reduce(
+      (acc, cur: any) => ({
+        ...acc,
+        ...(typeof cur === 'function' ? cur(props) : cur)
+      }),
+      {}
+    );
 
     const { baseStyles = {}, as: asBase, ...baseProps } = this.propsIsFunction
       ? this.props(props)

@@ -31,12 +31,14 @@ const getClassName = (
   value: string | number,
   media: string | number = '',
   selector: string | undefined = '',
-  mediaQuery?: string // mediaArr?: Array<string | number | null> | false
+  mediaQuery?: string,
+  mediaIndex: number = 0
+  // mediaArr?: Array<string | number | null> | false
 ) => {
   const property = ifStrToKebabCase(propertyCamelCased);
   const key = `${media}${selector}${property}${value}${mediaQuery}`;
 
-  const precedence = getPrecedence(property as string, selector);
+  const precedence = getPrecedence(property as string, selector) + mediaIndex;
 
   let className = CACHE_CLASSNAMES.get(key);
   if (!className) {

@@ -11,5 +11,5 @@ export default (
   path
     .replace(/\[|\]\.?/g, '.')
     .split('.')
-    // .filter(s => s)
+    .filter(Boolean)
     .reduce((acc, val) => acc && acc[val], object) || defaultVal;

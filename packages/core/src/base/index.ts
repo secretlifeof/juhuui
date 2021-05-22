@@ -128,9 +128,9 @@ class Base {
      * processCss so that those will not be processed a second time
      */
     const { as: asInOuter, ...stylesIn } = (!valIsFunction && val) ?? {};
-    const preProcessedCss =
-      !valIsFunction &&
-      processCss({ css: stylesIn }, { returnClassNamesByProperty: true });
+    const preProcessedCss = !valIsFunction
+      ? processCss({ css: stylesIn }, { returnClassNamesByProperty: true })
+      : undefined;
     const preProcessedKeys = preProcessedCss
       ? Array.from(preProcessedCss.keys())
       : [];

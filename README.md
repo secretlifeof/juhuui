@@ -6,6 +6,10 @@
 [![gzip size](http://img.badgesize.io/https://unpkg.com/juhuui/dist/juhuui.umd.js?compression=gzip&label=gzip)](http://npm.im/juhuui)
 [![brotli size](http://img.badgesize.io/https://unpkg.com/juhuui/dist/juhuui.umd.js?compression=brotli&label=brotli)](http://npm.im/juhuui)
 
+# ⚠️ DEPRECATED ⚠️
+
+It was a fun experience trying to create this library, but it does not fill a space. There are more innovative libraries out there than this. Like [compiled-css](https://github.com/atlassian-labs/compiled) or [vanilla-extract](https://github.com/seek-oss/vanilla-extract).
+
 ### UI tool intended for design systems
 
 I made this tool wanting the best (very objective) of Styled-Components, Chakra-UI but with atomic CSS (single purpose classes). You can merge, nest and create variants.
