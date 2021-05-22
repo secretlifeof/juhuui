@@ -86,7 +86,7 @@ function withComponent(
   ];
 
   const valIsFunction = typeof val === 'function';
-  const { as: asInOuter, ...stylesIn } = (!valIsFunction && val) ?? {};
+  const { as: asInOuter, ...stylesIn } = (!valIsFunction && val) || {};
   const preProcessedCss = !valIsFunction
     ? processCss({ css: stylesIn }, { returnClassNamesByProperty: true })
     : undefined;
@@ -101,7 +101,7 @@ function withComponent(
     // const refOut = ref && forwardRef ? { ref } : {};
     const refOut = ref && forwardRef ? { ref } : {};
     // @ts-ignore
-    const { as: asIn, ...styles } = (valIsFunction && val(props)) ?? {};
+    const { as: asIn, ...styles } = (valIsFunction && val(props)) || {};
     const { as: asForwarded, ...attrs } =
       typeof forwardProps === 'function' ? forwardProps(props) : forwardProps;
     const functionAttrs = forwardFunctions.reduce(
@@ -122,7 +122,7 @@ function withComponent(
       ...variant
     });
 
-    const mergedInlineStyles = this.merge(mergeProps || {}, true) ?? {};
+    const mergedInlineStyles = this.merge(mergeProps || {}, true) || {};
     const mergedStyles = mergeObjects(
       mergedInlineStyles,
       mergedProps,

@@ -127,7 +127,7 @@ class Base {
      * returns an ES6 Map with [cssProperty, className] that is passed to
      * processCss so that those will not be processed a second time
      */
-    const { as: asInOuter, ...stylesIn } = (!valIsFunction && val) ?? {};
+    const { as: asInOuter, ...stylesIn } = (!valIsFunction && val) || {};
     const preProcessedCss = !valIsFunction
       ? processCss({ css: stylesIn }, { returnClassNamesByProperty: true })
       : undefined;
@@ -144,7 +144,7 @@ class Base {
     ) => {
       const refOut = ref && forwardRef ? { ref } : {};
 
-      const { as: asIn, ...styles } = (valIsFunction && val(props)) ?? {};
+      const { as: asIn, ...styles } = (valIsFunction && val(props)) || {};
       const { baseStyles = {}, as: asBase, ...baseProps } = this.propsIsFunction
         ? this.props(props)
         : this.props;

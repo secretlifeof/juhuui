@@ -24,7 +24,7 @@ function render(
         fun
       },
       { preProcessedCss }
-    ) ?? [];
+    ) || [];
 
   return createElement(props, child, classNames as string[]);
 }
